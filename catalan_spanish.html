@@ -10,8 +10,9 @@
 <link rel="stylesheet" href="./css/theme/beige.css" id="theme"/>
 <link rel="stylesheet" href="./extra.css"/>
 
-<!-- <link rel="stylesheet" href="./css/print/pdf.css" type="text/css" media="print"> -->
-<!-- <meta name="description" content="Getting started with Clojure"> -->
+<link rel="stylesheet" href="./css/print/pdf.css" type="text/css" media="print">
+<meta name="description" content="Catalan spanish">
+</head>
 
 
 
@@ -26,7 +27,6 @@
 <!--     } -->
 <!-- </script> -->
 <!-- <script type="text/javascript" src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script> -->
-</head>
 <body>
 <div class="reveal">
 <div class="slides">
@@ -354,6 +354,7 @@ transitionSpeed: 'default',
 
 // Optional libraries used to extend on reveal.js
 dependencies: [
+ { src: './lib/js/classList.js', condition: function() { return !document.body.classList; } }, 
  { src: './plugin/highlight/highlight.js', async: true, callback: function() { hljs.initHighlightingOnLoad(); } },
  { src: './plugin/markdown/marked.js', condition: function() { return !!document.querySelector( '[data-markdown]' ); } },
  { src: './plugin/markdown/markdown.js', condition: function() { return !!document.querySelector( '[data-markdown]' ); } },

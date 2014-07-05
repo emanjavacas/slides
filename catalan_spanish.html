@@ -35,6 +35,7 @@
 <h2>Enrique Manjavacas</h2>
 <h2><a href="mailto:enrique.manjavacas@gmail.com">enrique.manjavacas@gmail.com</a></h2>
 <h2></h2></section>
+
 <section>
 <h2>Table of Contents</h2><ul>
 <li>
@@ -326,10 +327,11 @@ Dazu Robert E. Vann (2002)
 </div>
 </div>
 
-<script src="file:///Users/quique/.emacs.d/reveal/lib/js/head.min.js"></script>
-<script src="file:///Users/quique/.emacs.d/reveal/js/reveal.min.js"></script>
+<script src="./lib/js/head.min.js"></script>
+<script src="./js/reveal.min.js"></script>
 
 <script>
+        		
 // Full list of configuration options available here:
 // https://github.com/hakimel/reveal.js#configuration
 Reveal.initialize({
@@ -354,7 +356,7 @@ transitionSpeed: 'default',
 
 // Optional libraries used to extend on reveal.js
 dependencies: [
- { src: './lib/js/classList.js', condition: function() { return !document.body.classList; } }, 
+ { src: './lib/js/classList.js', condition: function() { return !document.body.classList; } },
  { src: './plugin/highlight/highlight.js', async: true, callback: function() { hljs.initHighlightingOnLoad(); } },
  { src: './plugin/markdown/marked.js', condition: function() { return !!document.querySelector( '[data-markdown]' ); } },
  { src: './plugin/markdown/markdown.js', condition: function() { return !!document.querySelector( '[data-markdown]' ); } },

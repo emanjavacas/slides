@@ -10,6 +10,8 @@
 <link rel="stylesheet" href="./css/print/pdf.css" type="text/css" media="print">
 <meta name="description" content="Getting started with Clojure">
 </head>
+
+
 <body>
 <div class="reveal">
 <div class="slides">

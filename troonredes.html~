@@ -1,0 +1,722 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8"/>
+<title>&lsquo;Topic modeling&rsquo; van de Nederlandse Troonredes</title>
+<meta name="author" content="(Enrique Manjavacas)"/>
+
+<link rel="stylesheet" href="file:///Users/quique/.emacs.d/reveal.js-3.1.0/css/reveal.css"/>
+<link rel="stylesheet" href="file:///Users/quique/.emacs.d/reveal.js-3.1.0/css/theme/serif.css" id="theme"/>
+<link rel="stylesheet" href="./extra.css"/>
+<!-- If the query includes 'print-pdf', include the PDF print sheet -->
+<script>
+    if( window.location.search.match( /print-pdf/gi ) ) {
+        var link = document.createElement( 'link' );
+        link.rel = 'stylesheet';
+        link.type = 'text/css';
+        link.href = 'file:///Users/quique/.emacs.d/reveal.js-3.1.0/css/print/pdf.css';
+        document.getElementsByTagName( 'head' )[0].appendChild( link );
+    }
+</script>
+<link href='http://fonts.googleapis.com/css?family=Source+Code+Pro' rel='stylesheet' type='text/css'>
+</head>
+<body>
+<div class="reveal">
+<div class="slides">
+<section id="sec-title-slide">
+<h1>&lsquo;Topic modeling&rsquo; van de Nederlandse Troonredes</h1>
+<h2>Enrique Manjavacas</h2>
+<h2><a href="mailto:http://emanjavacas.github.io/slides/">http://emanjavacas.github.io/slides/</a></h2>
+<h2></h2>
+</section>
+<section id="table-of-contents">
+<div id="table-of-contents">
+<h2>Table of Contents</h2>
+<div id="text-table-of-contents">
+<ul>
+<li><a href="#/slide-sec-1">1. Inleiding</a></li>
+<li><a href="#/slide-sec-2">2. Topic models</a></li>
+<li><a href="#/slide-sec-3">3. Troonredes</a></li>
+<li><a href="#/slide-sec-4">4. Einde</a></li>
+</ul>
+</div>
+</div>
+</section>
+
+<section>
+<section id="slide-sec-1">
+<h2 id="sec-1"><span class="section-number-2">1</span> Inleiding</h2>
+<div class="outline-text-2" id="text-1">
+</div></section>
+</section>
+<section>
+<section id="slide-sec-1-1">
+<h3 id="sec-1-1"><span class="section-number-3">1.1</span> Altijd meer tekst!</h3>
+<aside class="notes">
+<ul class="org-ul">
+<li>De cijfer van publiek verschiekbare teksten is tegenwoordig stark verhoogd door de gebruik van internet en door het verschijnen van zogenoemd Gebruiker Gegenereerde Inhoud (User Generated Content)
+</li>
+</ul>
+
+</aside>
+
+<span class="fragment roll-in"><p>
+<i>Gebruiker-gegenereerde inhoud</i>
+</p></span>
+<span class="fragment roll-in"><p>
+Recensies (Amazon, filmrecensies, etc&#x2026;)  
+</p></span>
+<span class="fragment roll-in"><p>
+Blogs
+</p></span>
+<span class="fragment roll-in"><p>
+Microblog (Twitter)
+</p></span>
+<span class="fragment roll-in"><p>
+Chat
+</p></span>
+<span class="fragment roll-in"><p>
+&#x2026;
+</p></span>
+<span class="fragment roll-in"><p>
+-&gt; Er zit heel veel belangrijke informatie in dit soort teksten. Maar we kunnen het niet meer manueel verwerken.
+</p></span>
+
+</section>
+</section>
+<section>
+<section id="slide-sec-1-2">
+<h3 id="sec-1-2"><span class="section-number-3">1.2</span> Automatisch Tekstbegrip</h3>
+<blockquote nil>
+<p>
+Technologieën die grote hoeveelheden tekst kunnen analyseren en in verschillende groepen classificeren.
+</p>
+</blockquote>
+
+</section>
+</section>
+<section>
+<section id="slide-sec-1-2-1">
+<h4 id="sec-1-2-1"><span class="section-number-4">1.2.1</span> Voorbeelden</h4>
+</section>
+<section>
+<ul>
+<li>Sentiment-analyse van teksten</li>
+
+</ul>
+</section>
+<section>
+
+
+<div class="figure">
+<p><img src="./img/bible_sentiment.png" alt="bible_sentiment.png" />
+</p>
+</div>
+
+
+<p>
+<a href="http://a.openbible.info/blog/2011-10-sentiment-big.png">Sentiment in Bijbel</a>
+</p>
+
+</section>
+<section>
+<ul>
+<li>Semantische nabijheid tussen documenten</li>
+
+</ul>
+</section>
+<section>
+
+
+<div class="figure">
+<p><img src="./img/standaard.jpg" alt="standaard.jpg" />
+</p>
+</div>
+</section>
+<section>
+<ul>
+<li>Modelering van de ontwerpen in een tekst (Topic Modeling)</li>
+
+</ul>
+
+</section>
+</section>
+<section>
+<section id="slide-sec-2">
+<h2 id="sec-2"><span class="section-number-2">2</span> Topic models</h2>
+<aside class="notes">
+nil
+</aside>
+
+</section>
+</section>
+<section>
+<section id="slide-sec-2-1">
+<h3 id="sec-2-1"><span class="section-number-3">2.1</span> Wat is Topic Modeling?</h3>
+<aside class="notes">
+<p>
+om Topic Modeling te begrijpen moeten we een paar vragen stellen en ook kijken hoe een computer hierover zou denken. 
+</p>
+
+</aside>
+
+<ul>
+<li class="fragment rol-in">Een algoritme dat de meest relevante thema&rsquo;s in een collectie van documenten kan extraheren</li>
+
+</ul>
+<ul>
+<li class="fragment rol-in">Welke <i>topics</i> zitten er in de hele collectie van documenten.</li>
+
+</ul>
+<ul>
+<li class="fragment rol-in">Welke <i>topics</i> zitten er in elk document.</li>
+
+</ul>
+<ul>
+<li class="fragment rol-in">Een voorstelling van de structuur van elk topic. (Meer hierover later)</li>
+
+</ul>
+
+</section>
+<section>
+<ul>
+<li class="fragment rol-in">Het is een recente ontwikkeling (2002) in het gebied van &lsquo;<i>Computertaalkunde</i>&rsquo;.</li>
+
+</ul>
+<ul>
+<li class="fragment rol-in">Het wordt altijd vaker en door meer wettenschappers gebruikt.</li>
+
+</ul>
+
+</section>
+</section>
+<section>
+<section id="slide-sec-2-2">
+<h3 id="sec-2-2"><span class="section-number-3">2.2</span> Wat is een topic (onderwerp)?</h3>
+<aside class="notes">
+<ul class="org-ul">
+<li>Vraag an de collega&rsquo;s
+</li>
+</ul>
+
+</aside>
+
+<ul class="fragment roll-in">
+<li>Schijnbaar eenvoudige vraag maar eigenlijk niet.</li>
+
+</ul>
+<ul class="fragment roll-in">
+<li>Hoe kunnen we topics voorstellen, zo dat de computer ermee kan werken.</li>
+
+</ul>
+
+</section>
+<section>
+
+<aside class="notes">
+<p>
+De beste vorm om de idee van topic te begrip is, 
+Stel je voor dat je door een artikel doorlees met de hulpe van markeerstiften.
+Als je door de artikel gaat markeert je worderen die volgens jouw sleutelworderen zouden kunnen zijn van een bepaalde thema.
+Je maak gebruik van verschillende kleuren afhankelijk van het onderwerp.
+Ann het einde groepeer je woorderen naar kleuren en elke groep is een topic.
+</p>
+
+</aside>
+<ul class="fragment roll-in">
+<li>Verzameling van woorden die men in een tekst over een bepaald thema <i>verwacht</i> vaker te ontmoeten.</li>
+
+</ul>
+
+<ul class="fragment roll-in">
+<li>Formeel is een topic een waarschijnlijkheidsverdeling over woorderen.</li>
+
+</ul>
+
+</section>
+<section>
+<table border="2" cellspacing="0" cellpadding="6" rules="groups" frame="hsides">
+
+
+<colgroup>
+<col  class="left" />
+
+<col  class="left" />
+</colgroup>
+<thead>
+<tr>
+<th scope="col" class="left"><b>Topic 1</b></th>
+<th scope="col" class="left"><b>Topic 2</b></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="left"><i>(0.039)</i> walvis</td>
+<td class="left"><i>(0.071)</i> huwelijk</td>
+</tr>
+
+<tr>
+<td class="left"><i>(0.029)</i> zee</td>
+<td class="left"><i>(0.050)</i> geluk</td>
+</tr>
+
+<tr>
+<td class="left"><i>(0.017)</i> schip</td>
+<td class="left"><i>(0.023)</i> dochter</td>
+</tr>
+
+<tr>
+<td class="left"><i>(0.016)</i> walvissen</td>
+<td class="left"><i>(0.019)</i> vereniging</td>
+</tr>
+
+<tr>
+<td class="left"><i>(0.016)</i> lucht</td>
+<td class="left"><i>(0.014)</i> hart</td>
+</tr>
+
+<tr>
+<td class="left"><i>(0.014)</i> nacht</td>
+<td class="left"><i>(0.011)</i> vrouw</td>
+</tr>
+
+<tr>
+<td class="left"><i>(0.013)</i> zeeman</td>
+<td class="left"><i>(0.008)</i> wensen</td>
+</tr>
+
+<tr>
+<td class="left"><i>(0.009)</i> haai</td>
+<td class="left"><i>(0.007)</i> aanzoek</td>
+</tr>
+
+<tr>
+<td class="left"><i>(0.008)</i> harpoen</td>
+<td class="left"><i>(0.007)</i> liefde</td>
+</tr>
+</tbody>
+</table>
+
+
+</section>
+<section>
+
+<div class="figure">
+<p><img src="./images/IntroToLDA.png" alt="IntroToLDA.png" />
+</p>
+</div>
+
+</section>
+</section>
+<section>
+<section id="slide-sec-2-3">
+<h3 id="sec-2-3"><span class="section-number-3">2.3</span> Wat is een document?</h3>
+<ul class="fragment roll-in">
+<li>Schijnbaar een triviale vraag maar eigenlijk niet.</li>
+
+</ul>
+<ul class="fragment roll-in">
+<li>Verzameling of mengeling van &lsquo;<i>topics</i>&rsquo;. Elk &lsquo;<i>topic</i>&rsquo; is in elk document in bepaalde mate aanwezig.</li>
+
+</ul>
+
+</section>
+<section>
+<table border="2" cellspacing="0" cellpadding="6" rules="groups" frame="hsides">
+
+
+<colgroup>
+<col  class="left" />
+
+<col  class="right" />
+
+<col  class="right" />
+
+<col  class="right" />
+</colgroup>
+<thead>
+<tr>
+<th scope="col" class="left">&#xa0;</th>
+<th scope="col" class="right"><b>Document 1</b></th>
+<th scope="col" class="right"><b>Document 2</b></th>
+<th scope="col" class="right"><b>Document 3</b></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="left"><i>Topic 1</i></td>
+<td class="right">0.54</td>
+<td class="right">0.03</td>
+<td class="right">0.15</td>
+</tr>
+
+<tr>
+<td class="left"><i>Topic 2</i></td>
+<td class="right">0.06</td>
+<td class="right">0.65</td>
+<td class="right">0.04</td>
+</tr>
+
+<tr>
+<td class="left"><i>Topic 3</i></td>
+<td class="right">0.13</td>
+<td class="right">0.15</td>
+<td class="right">0.09</td>
+</tr>
+
+<tr>
+<td class="left"><i>Topic 4</i></td>
+<td class="right">0.07</td>
+<td class="right">0.07</td>
+<td class="right">0.45</td>
+</tr>
+
+<tr>
+<td class="left"><i>Topic 5</i></td>
+<td class="right">0.20</td>
+<td class="right">0.10</td>
+<td class="right">0.27</td>
+</tr>
+</tbody>
+</table>
+
+</section>
+</section>
+<section>
+<section id="slide-sec-3">
+<h2 id="sec-3"><span class="section-number-2">3</span> Troonredes</h2>
+<p>
+De <a href="http://nl.wikipedia.org/wiki/Troonrede">Troonredes</a> (wikipedia)
+</p>
+
+</section>
+</section>
+<section>
+<section id="slide-sec-3-1">
+<h3 id="sec-3-1"><span class="section-number-3">3.1</span> Inhoud</h3>
+<span class="fragment roll-in"><p>
+-&gt; Beschrijving en samenvatting van de belangrijkste gebeurtenissen van het afgelopene jaar.
+</p></span>
+
+<span class="fragment roll-in"><p>
+-&gt; Plannen en maatregelen voor het nieuwe jaar.
+</p></span>
+
+</section>
+</section>
+<section>
+<section id="slide-sec-3-2">
+<h3 id="sec-3-2"><span class="section-number-3">3.2</span> Bron</h3>
+<p>
+<a href="http://www.troonredes.nl">Troonredes.nl</a>
+</p>
+
+</section>
+</section>
+<section>
+<section id="slide-sec-3-3">
+<h3 id="sec-3-3"><span class="section-number-3">3.3</span> De topic model</h3>
+<div class="outline-text-3" id="text-3-3">
+</div></section>
+</section>
+<section>
+<section id="slide-sec-3-3-1">
+<h4 id="sec-3-3-1"><span class="section-number-4">3.3.1</span> Voorbereiding van de teksten</h4>
+<ul>
+<li>Normalisatie</li>
+
+</ul>
+<blockquote  class="fragment roll-in">
+<p>
+<b>Mogten</b> onverhoopt de belangen van het Vaderland <b>eene</b> nog <b>grootere</b> krachtsontwikkeling <b>vereischen</b>, dan is daartoe het <b>noodige</b>, van nu af aan, met vol vertrouwen op de gezindheid <b>der</b> Natie, door Mij voorbereid.
+</p>
+</blockquote>
+
+<ul>
+<li>Functieworden</li>
+
+</ul>
+<blockquote  class="fragment roll-in">
+<p>
+In geen <b>land</b> ter <b>wereld</b> is de <b>beschikbare</b> <b>ruimte</b> per <b>inwoner</b> zo gering als in <b>Nederland</b>. Bovendien <b>groeit</b> onze <b>bevolking</b> snel. Hierdoor en door de <b>stijging</b> van de <b>welvaart</b> die <b>nieuwe</b> <b>behoeften</b> <b>schept</b>, <b>zien</b> wij ons voor steeds <b>grotere</b> <b>problemen</b> <b>geplaatst</b>.
+</p>
+</blockquote>
+
+</section>
+</section>
+<section>
+<section id="slide-sec-3-3-2">
+<h4 id="sec-3-3-2"><span class="section-number-4">3.3.2</span> Aantal topics</h4>
+<ul class="fragment roll-in">
+<li>De computer weet niet hoeveel topics erin zitten.</li>
+
+</ul>
+<ul class="fragment roll-in">
+<li>Het wordt nog altijd onderzocht wat de beste manier is om hat aantal topics te bepalen.</li>
+
+</ul>
+
+</section>
+</section>
+<section>
+<section id="slide-sec-3-3-3">
+<h4 id="sec-3-3-3"><span class="section-number-4">3.3.3</span> Visualisering</h4>
+<aside class="notes">
+<p>
+Let op dat elk document is nu gerepresenteerd als een verdeling van topics
+</p>
+
+</aside>
+
+<ul>
+<li>Nadat we een topic model hebben gebouwd, kunnen we het gewicht van elk topic door de jaren heen visualiseren.</li>
+
+</ul>
+
+</section>
+<section>
+
+<div class="figure">
+<p><img src="./images/troonredes_test_5.png" alt="troonredes_test_5.png" />
+</p>
+</div>
+
+</section>
+<section>
+<table border="2" cellspacing="0" cellpadding="6" rules="groups" frame="hsides">
+
+
+<colgroup>
+<col  class="right" />
+
+<col  class="left" />
+
+<col  class="left" />
+</colgroup>
+<thead>
+<tr>
+<th scope="col" class="right">Topic</th>
+<th scope="col" class="left">Periode</th>
+<th scope="col" class="left">Belangrijke woorden</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="right">2</td>
+<td class="left">De Willem&rsquo;s</td>
+<td class="left">edel, mogenden, vaderland, bezittingen, grondwet, wetgeving, scheepvaart, zee</td>
+</tr>
+
+<tr>
+<td class="right">1</td>
+<td class="left">Wilhelmina</td>
+<td class="left">suriname, curaçao, nijverheid, einde, oorlog</td>
+</tr>
+
+<tr>
+<td class="right">4</td>
+<td class="left">Juliana</td>
+<td class="left">ontwikkeling, economische, europese, internationale, bedrijfsleven</td>
+</tr>
+
+<tr>
+<td class="right">3</td>
+<td class="left">Beatrix</td>
+<td class="left">burgers, sociale, europese, veiligheid, werkgelegenheid, werkloosheid, groei, bedrijven, unie, ruimte</td>
+</tr>
+</tbody>
+</table>
+
+
+</section>
+</section>
+<section>
+<section id="slide-sec-3-3-4">
+<h4 id="sec-3-3-4"><span class="section-number-4">3.3.4</span> Interpretatie. Wat zit er in elke topic?</h4>
+<p>
+<b>Vaste uitdrukkingen</b>
+</p>
+<ul class="fragment roll-in">
+<li><i>Het strekt mij tot genoegen</i></li>
+<li><i>Edel mogenden heren</i></li>
+
+</ul>
+
+<p>
+<b>Verschillende benoemingen voor (min of minder) hetzelfde</b>
+</p>
+<ul class="fragment roll-in">
+<li><i>bevolking</i> -&gt; <i>burgers</i></li>
+<li><i>nijverheid</i></li>
+
+</ul>
+
+<p>
+<b>Thema&rsquo;s met verschillend politiekbelang</b>
+</p>
+<ul class="fragment roll-in">
+<li><i>suriname</i>, <i>curaçao</i></li>
+<li><i>wereld oorlog</i></li>
+<li><i>groei</i>, <i>bedrifsleven</i></li>
+<li><i>veiligheid</i></li>
+<li><i>werkgelegenheid</i>, <i>werkloosheid</i>, <i>werknemers</i></li>
+<li><i>europese unie</i></li>
+
+</ul>
+
+</section>
+</section>
+<section>
+<section id="slide-sec-3-3-5">
+<h4 id="sec-3-3-5"><span class="section-number-4">3.3.5</span> Conclusies</h4>
+<aside class="notes">
+<p>
+onze topics zijn eigenlijk een mengeling van veel topics (niet genoeg woorderen)
+</p>
+
+</aside>
+<ul class="fragment roll-in">
+<li>Computers kunnen ons helpen met het verwerken van grote hoeveelheden tekst.</li>
+
+</ul>
+<ul class="fragment roll-in">
+<li>Het is moeilijk om de topics in de Troonredes te modeleren.</li>
+
+</ul>
+<ul class="fragment roll-in">
+<li>Niettemin komen we tot een snel begrip van de grootste verschillen tussen de perioden.</li>
+
+</ul>
+
+</section>
+</section>
+<section>
+<section id="slide-sec-4">
+<h2 id="sec-4"><span class="section-number-2">4</span> Einde</h2>
+
+<div class="figure">
+<p><img src="./images/bedankt.png" alt="bedankt.png" />
+</p>
+</div>
+
+</section>
+</section>
+<section>
+<section id="slide-sec-4-1">
+<h3 id="sec-4-1"><span class="section-number-3">4.1</span> Topics</h3>
+<p>
+<b>Topic 0</b>
+</p>
+
+<p>
+0.015*koningin + 0.010*kabinet + 0.009*kamer + 0.008*naam + 0.007*verkiezingen + 0.006*buitengewone + 0.005*openen +
+0.004*zaken + 0.004*beleid + 0.004*opgedragen + 0.004*troonrede + 0.004*overleg + 0.004*voeren + 0.004*wens + 0.004*problemen +
+0.003*grondwet + 0.003*heil + 0.003*geworden + 0.003*toekomst + 0.003*wetsontwerp + 0.003*koninkrijk + 0.003*spoedig + 0.003*bereid +
+0.003*regeringsverklaring + 0.003*meerderheid + 0.003*herziening + 0.003*oost + 0.003*opgave + 0.003*geroepen + 0.003*parlementaire +
+0.003*gelukkig + 0.003*daarvoor + 0.003*economisch + 0.003*werkgelegenheid + 0.003*vaderland +
+0.003*noodige + 0.002*dochter + 0.002*hoogst + 0.002*gehouden + 0.002*kiesrecht
+</p>
+</section>
+<section>
+<p>
+<b>Topic 1</b>
+</p>
+
+<p>
+0.009*wetsontwerp + 0.008*herziening + 0.006*economische + 0.005*nijverheid + 0.005*wijziging + 0.005*bevolking + 0.005*ingediend +
+0.005*voorbereiding + 0.005*wettelijke + 0.004*aard + 0.004*gebied + 0.004*voldoening + 0.004*versterking + 0.004*bevordering +
+0.004*voorbereid + 0.004*einde + 0.004*omstandigheden + 0.004*suriname + 0.004*maat + 0.004*vriendschappelijken + 0.003*financiële +
+0.003*gevolgen + 0.003*curaçao + 0.003*ontwerpen + 0.003*spoedig + 0.003*ontwerp + 0.003*oorlog + 0.003*toewijding +
+0.003*overzeesche + 0.003*uitvoering + 0.003*internationale + 0.003*weg + 0.003*druk + 0.003*leven + 0.003*voorstel +
+0.003*dankbaarheid + 0.003*opnieuw + 0.003*moeilijkheden + 0.003*kracht + 0.003*aanhangige
+</p>
+</section>
+<section>
+<p>
+<b>Topic 2</b>
+</p>
+
+<p>
+0.016*edel + 0.011*mogenden + 0.008*vergadering + 0.006*vaderland + 0.005*bezittingen + 0.005*grondwet + 0.004*nijverheid +
+0.004*koning + 0.004*hoop + 0.004*medewerking + 0.004*geheel + 0.003*landbouw + 0.003*buitengewone + 0.003*wetboek +
+0.003*voortduring + 0.003*invloed + 0.003*scheepvaart + 0.003*zee + 0.003*rust + 0.003*tegenwoordige + 0.003*ontwerp +
+0.003*wetgeving + 0.003*landmacht + 0.003*onderscheidene + 0.003*takken + 0.003*ijver + 0.003*bestuur + 0.003*welvaart +
+0.003*genoegen + 0.003*dien + 0.003*einde + 0.003*was + 0.003*oogst + 0.003*nationale + 0.003*loop + 0.003*wetten +
+0.003*orde + 0.003*sedert + 0.003*ontwerpen + 0.003*werkzaamheden
+</p>
+</section>
+<section>
+<p>
+<b>Topic 3</b>
+</p>
+
+<p>
+0.008*samenleving + 0.008*overheid + 0.007*burgers + 0.007*economische + 0.006*wil + 0.006*sociale + 0.005*verantwoordelijkheid +
+0.005*europese + 0.005*kwaliteit + 0.005*beleid + 0.005*economie + 0.005*veiligheid + 0.004*werkgelegenheid + 0.004*groei +
+0.004*toekomst + 0.004*internationale + 0.004*kabinet + 0.004*samenwerking + 0.004*bedrijven + 0.004*problemen + 0.003*ontwikkeling +
+0.003*wereld + 0.003*ruimte + 0.003*volgend + 0.003*extra + 0.003*europa + 0.003*inspanningen + 0.003*gericht + 0.003*unie +
+0.003*herstel + 0.003*maatschappelijke + 0.003*werkloosheid + 0.003*werknemers + 0.003*samen + 0.003*weer + 0.003*inkomen +
+0.003*financiële + 0.003*bijdrage + 0.003*versterking + 0.003*jongeren
+</p>
+</section>
+<section>
+<p>
+<b>Topic 4</b>
+</p>
+
+<p>
+0.011*ontwikkeling + 0.009*economische + 0.008*beleid + 0.008*samenwerking + 0.007*gebied + 0.006*europese + 0.005*overleg +
+0.005*wetsontwerp + 0.005*internationale + 0.004*gericht + 0.004*koninkrijk + 0.004*bedrijfsleven + 0.004*spoedig + 0.004*noodzakelijk +
+0.003*wereld + 0.003*zittingsjaar + 0.003*streven + 0.003*sociale + 0.003*raad + 0.003*stand + 0.003*maat + 0.003*inzake + 0.003*verhoging +
+0.003*betekenis + 0.003*moeilijkheden + 0.003*toekomst + 0.003*economisch + 0.003*bevolking + 0.003*gemeenschap + 0.003*werkgelegenheid +
+0.003*ontwerp + 0.003*toenemende + 0.003*kracht + 0.003*woningen + 0.002*groei + 0.002*geboden +
+0.002*wil + 0.002*verenigde + 0.002*herstel + 0.002*antillen
+</p>
+</section>
+</section>
+</div>
+</div>
+
+<script src="file:///Users/quique/.emacs.d/reveal.js-3.1.0/lib/js/head.min.js"></script>
+<script src="file:///Users/quique/.emacs.d/reveal.js-3.1.0/js/reveal.js"></script>
+
+<script>
+// Full list of configuration options available here:
+// https://github.com/hakimel/reveal.js#configuration
+Reveal.initialize({
+
+controls: true,
+progress: true,
+history: true,
+center: true,
+slideNumber: true,
+rollingLinks: true,
+keyboard: true,
+overview: true,
+width: 1400,
+height: 900,
+margin: 0.10,
+minScale: 0.50,
+maxScale: 2.50,
+
+theme: Reveal.getQueryHash().theme, // available themes are in /css/theme
+transition: Reveal.getQueryHash().transition || 'fade', // default/cube/page/concave/zoom/linear/fade/none
+transitionSpeed: 'nil',
+multiplex: {
+    secret: '', // null if client
+    id: '', // id, obtained from socket.io server
+    url: '' // Location of socket.io server
+},
+
+// Optional libraries used to extend on reveal.js
+dependencies: [
+ { src: 'file:///Users/quique/.emacs.d/reveal.js-3.1.0/plugin/highlight/highlight.js', async: true, callback: function() { hljs.initHighlightingOnLoad(); } },
+ { src: 'file:///Users/quique/.emacs.d/reveal.js-3.1.0/plugin/markdown/marked.js', condition: function() { return !!document.querySelector( '[data-markdown]' ); } },
+ { src: 'file:///Users/quique/.emacs.d/reveal.js-3.1.0/plugin/markdown/markdown.js', condition: function() { return !!document.querySelector( '[data-markdown]' ); } },
+ { src: 'file:///Users/quique/.emacs.d/reveal.js-3.1.0/plugin/notes/notes.js', async: true, condition: function() { return !!document.body.classList; } }
+]
+});
+</script>
+</body>
+</html>

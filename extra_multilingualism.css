@@ -1,7 +1,6 @@
 .reveal h1 {
-    3.01em;
+    font-size: 2.77em;
 }
-
 
 .reveal th {
     font-weight   : bold;
@@ -36,6 +35,12 @@
     font-family: Source Code Pro;
 }
 
-/* .reveal img{ */
-/*     border:0; */
-/* } */
+.reveal img{
+    border:0;
+}
+
+.reveal section img {
+    background:none;
+    border:none;
+    box-shadow:none;
+}

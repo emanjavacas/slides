@@ -168,6 +168,13 @@
 <td class="left">46,94</td>
 </tr>
 </tbody>
+<tbody>
+<tr>
+<td class="left"><b>Total</b></td>
+<td class="right">2284683</td>
+<td class="left">&#xa0;</td>
+</tr>
+</tbody>
 </table>
 
 </section>
@@ -186,17 +193,8 @@
 <section>
 <section id="slide-sec-2-3">
 <h3 id="sec-2-3"><span class="section-number-3">2.3</span> Data processing</h3>
-<div class="org-src-container">
-
-<pre  class="src src-json">{<span style="color: #F0DFAF; font-weight: bold;">"city"</span> : <span style="color: #CC9393;">"antwerp"</span>,
- <span style="color: #F0DFAF; font-weight: bold;">"text"</span> : <span style="color: #CC9393;">"#NowPlaying Deep Six\nMarilyn Manson &#8226; Deep Six op #Spotify http://t.co/lVyCQWOhkq"</span>,
- <span style="color: #F0DFAF; font-weight: bold;">"created_at"</span> : <span style="color: #CC9393;">"Sat Dec 20 23:38:56 +0000 2014"</span>,
-    ...
-}
-</pre>
-</div>
-
-</section>
+<div class="outline-text-3" id="text-2-3">
+</div></section>
 </section>
 <section>
 <section id="slide-sec-2-3-1">
@@ -206,7 +204,7 @@
 
 </ul>
 <ul class="fragment roll-in">
-<li>Twitter own identification system is not really trustworthy (speed over reliability)</li>
+<li>Twitter&rsquo;s own identification system is not really trustworthy (speed over reliability)</li>
 
 </ul>
 <ul class="fragment roll-in">
@@ -265,24 +263,15 @@
 <p>
 Only known available system is <a href="http://truthy.indiana.edu/botornot/">Bot or Not?</a> (no API)
 </p>
-<ol class="fragment roll-in">
+<ul class="fragment roll-in">
 <li>Bots are in general more productive than humans <a href="http://delivery.acm.org/10.1145/1930000/1920265/p21-chu.pdf?ip=146.175.5.198&id=1920265&acc=ACTIVE%20SERVICE&key=D7FC43CABE88BEAA.E1DEF47A6C0527C4.4D4702B0C3E38B35.4D4702B0C3E38B35&CFID=517147308&CFTOKEN=29245406&__acm__=1433514639_03e1ac45f70c85b1fa352c6ff0acd697">(Chu et al. 2010)</a></li>
 <li>Bots tweet more evenly distributed across time (ibid.)</li>
 
-</ol>
-
-<ol class="fragment roll-in">
-<li>Sort by number of statuses</li>
-<li>Sort by number of tweets in the database</li>
-
-</ol>
-
-<ul class="fragment roll-in">
-<li>Take first 100 accounts with at least 50 tweets in the database</li>
-
 </ul>
+
 <ul class="fragment roll-in">
-<li>16 bots accounting for 209648 tweets in the database</li>
+<li>Look for the 100 accounts with largest number of tweets in the database</li>
+<li>16 bots accounting for 209,648 (1/6) tweets in the Berlin subset.</li>
 
 </ul>
 
@@ -309,53 +298,97 @@ Only known available system is <a href="http://truthy.indiana.edu/botornot/">Bot
 <b>Double inference</b>
 </p></span>
 <ul class="fragment roll-in">
-<li>From census data to language usage</li>
+<li>From nationality to native language</li>
 
 </ul>
 <ul class="fragment roll-in">
-<li>From language usage to twitter language</li>
+<li>From native language to actual twitter language</li>
 
 </ul>
 
 <span class="fragment roll-in"><p>
-<b>Overrepresentation of overprolific users/languages</b>
+<b>Overrepresentation of prolific users/languages</b>
 </p></span>
+<ul class="fragment roll-in">
+<li>English</li>
+
+</ul>
 
 <span class="fragment roll-in"><p>
 <b>Underrepresentation of certain languages</b>
 </p></span>
 <ul class="fragment roll-in">
-<li>National Twitter-usage patterns</li>
+<li>National Twitter-usage patterns (e.g Romanian)</li>
 
 </ul>
 <ul class="fragment roll-in">
-<li>Illiteracy</li>
+<li>Illiteracy (minor communities, e.g. Somali)</li>
 
 </ul>
 </section>
 <section>
+
 
 <div class="figure">
 <p><a href="http://urbanmovements.co.uk/2012/10/23/detecting-languages-in-londons-twittersphere/"><img src="./img/illiteracy.png" alt="illiteracy.png" /></a>
 </p>
 </div>
 
-
-</section>
-</section>
-<section>
-<section id="slide-sec-3-2">
-<h3 id="sec-3-2"><span class="section-number-3">3.2</span> Multigroup segregation measures</h3>
-<blockquote nil>
 <p>
-Segregation can be thought as a function of the disproportionality in group proportions across organizational units
+(from <a href="http://urbanmovements.co.uk/2012/10/23/detecting-languages-in-londons-twittersphere/">urbanmovements.co.uk</a>)
 </p>
-</blockquote>
+
+</section>
+</section>
+<section>
+<section id="slide-sec-3-1-1">
+<h4 id="sec-3-1-1"><span class="section-number-4">3.1.1</span> Dataset</h4>
+<p>
+<a href="http://statistik-berlin-brandenburg.de/">http://statistik-berlin-brandenburg.de/</a>
+</p>
 
 </section>
 <section>
+<div class="org-src-container">
+
+<pre  class="src src-json"><span style="color: #CC9393;">"Nationality"</span>,<span style="color: #CC9393;">"District"</span>,<span style="color: #CC9393;">"Migratory_background"</span>,<span style="color: #CC9393;">"Foreigners"</span>
+<span style="color: #CC9393;">"fr"</span>,<span style="color: #CC9393;">"01 Mitte"</span>,<span style="color: #BFEBBF;">782</span>,<span style="color: #BFEBBF;">3262</span>
+<span style="color: #CC9393;">"fr"</span>,<span style="color: #CC9393;">"0101 Zentrum"</span>,<span style="color: #BFEBBF;">385</span>,<span style="color: #BFEBBF;">1478</span>
+<span style="color: #CC9393;">"fr"</span>,<span style="color: #CC9393;">"010111 Tiergarten S&#252;d"</span>,<span style="color: #BFEBBF;">63</span>,<span style="color: #BFEBBF;">218</span>
+<span style="color: #CC9393;">"fr"</span>,<span style="color: #CC9393;">"01011101 St&#252;lerstra&#223;e"</span>,<span style="color: #BFEBBF;">9</span>,<span style="color: #BFEBBF;">30</span>
+<span style="color: #CC9393;">"fr"</span>,<span style="color: #CC9393;">"01011102 Gro&#223;er Tiergarten"</span>,<span style="color: #BFEBBF;">0</span>,<span style="color: #BFEBBF;">3</span>
+<span style="color: #CC9393;">"fr"</span>,<span style="color: #CC9393;">"01011103 L&#252;tzowstra&#223;e"</span>,<span style="color: #BFEBBF;">35</span>,<span style="color: #BFEBBF;">94</span>
+<span style="color: #CC9393;">"fr"</span>,<span style="color: #CC9393;">"01011104 K&#246;rnerstra&#223;e"</span>,<span style="color: #BFEBBF;">16</span>,<span style="color: #BFEBBF;">79</span>
+<span style="color: #CC9393;">"fr"</span>,<span style="color: #CC9393;">"01011105 N&#246;rdlicher Landwehrkanal"</span>,<span style="color: #BFEBBF;">3</span>,<span style="color: #BFEBBF;">12</span>
+<span style="color: #CC9393;">"fr"</span>,<span style="color: #CC9393;">"010112 Regierungsviertel"</span>,<span style="color: #BFEBBF;">22</span>,<span style="color: #BFEBBF;">103</span>
+</pre>
+</div>
+
+</section>
+</section>
+<section>
+<section id="slide-sec-3-2" data-background="./img/berlin_skyline.jpg" data-background-transition="slide">
+<h3 id="sec-3-2"><span class="section-number-3">3.2</span> Multigroup segregation measures</h3>
+
+</section>
+<section>
+<ul>
+<li>Correlate <i>neighbourhood segregation scores</i> across datasets</li>
+
+</ul>
+
+</section>
+</section>
+<section>
+<section id="slide-sec-3-2-1">
+<h4 id="sec-3-2-1"><span class="section-number-4">3.2.1</span> Segregation measures</h4>
 <ul class="fragment roll-in">
 <li>Use in segregational studies to compare cities according to income, race&#x2026;</li>
+
+</ul>
+
+<ul class="fragment roll-in">
+<li>Average difference between disproportionality in organizational unit and total disproportionality weighted by total disproportionality</li>
 
 </ul>
 
@@ -380,33 +413,18 @@ Segregation can be thought as a function of the disproportionality in group prop
 </section>
 </section>
 <section>
-<section id="slide-sec-3-2-1">
-<h4 id="sec-3-2-1"><span class="section-number-4">3.2.1</span> Dataset</h4>
-<p>
-<a href="http://statistik-berlin-brandenburg.de/">http://statistik-berlin-brandenburg.de/</a>
-</p>
-
-
-<div class="figure">
-<p><img src="./img/statistik.png" alt="statistik.png" class="fragment roll-in" />
-</p>
-</div>
-
-</section>
-</section>
-<section>
 <section id="slide-sec-3-2-2">
 <h4 id="sec-3-2-2"><span class="section-number-4">3.2.2</span> Results</h4>
 </section>
 <section>
 
 <div class="figure">
-<p><img src="./img/scatter_correlation.png" alt="scatter_correlation.png" />
+<p><img src="./img/segregation_corr.png" alt="segregation_corr.png" />
 </p>
 </div>
 
 <p>
-\(R^2\) 0.870187217188301
+\(R^2\) 0.87
 </p>
 
 </section>
@@ -501,7 +519,13 @@ Can we establish mobility patterns based on the language of tweets?
 </p></span>
 
 </section>
+</section>
 <section>
+<section id="slide-sec-4-3">
+<h3 id="sec-4-3"><span class="section-number-3">4.3</span> Results</h3>
+<p>
+<b>One-way ANOVA</b>
+</p>
 
 <pre class="example">
 :              Df Sum Sq Mean Sq F value   Pr(&gt;F)    
@@ -518,6 +542,49 @@ Can we establish mobility patterns based on the language of tweets?
 <p><img src="./img/mean_error_bars.png" alt="mean_error_bars.png" />
 </p>
 </div>
+
+</section>
+<section>
+<p>
+<b>Single T-test</b>
+</p>
+
+<table border="2" cellspacing="0" cellpadding="6" rules="groups" frame="hsides">
+
+
+<colgroup>
+<col  class="left" />
+
+<col  class="right" />
+</colgroup>
+<thead>
+<tr>
+<th scope="col" class="left"><b>language pair</b></th>
+<th scope="col" class="right"><code>p-value</code></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="left">tr de</td>
+<td class="right">0.0002</td>
+</tr>
+
+<tr>
+<td class="left">ar de</td>
+<td class="right">0.0003</td>
+</tr>
+
+<tr>
+<td class="left">tr ar</td>
+<td class="right">0.9903</td>
+</tr>
+
+<tr>
+<td class="left">pt es</td>
+<td class="right">0.9518</td>
+</tr>
+</tbody>
+</table>
 
 </section>
 </section>
@@ -543,6 +610,7 @@ Can we establish mobility patterns based on the language of tweets?
 <h3 id="sec-6-1"><span class="section-number-3">6.1</span> Analyse locality patterns</h3>
 <ul>
 <li>How tight together are speakers of the same language?</li>
+<li>Consider multiple clusters (language centroids)</li>
 
 </ul>
 
@@ -553,23 +621,16 @@ Can we establish mobility patterns based on the language of tweets?
 <h3 id="sec-6-2"><span class="section-number-3">6.2</span> Tourism detection</h3>
 <ul>
 <li>Assign users to the country from which the majority of their tweets came. (Hawelka et al. 2014)</li>
-<li>What to do about national level. Focused sampling of user timelines.</li>
+<li>Focused sampling of user timelines.</li>
 
 </ul>
 
 </section>
 <section>
-<p>
-<b>What to do about it</b>
-</p>
 
-<ul>
-<li>Focused data collection via <code>user_timeline</code></li>
-
-</ul>
 
 <div class="figure">
-<p><img src="./img/num_ids_date.png" alt="num_ids_date.png" class="fragment roll-in" />
+<p><img src="./img/num_ids_date.png" alt="num_ids_date.png" />
 </p>
 </div>
 
@@ -642,8 +703,8 @@ slideNumber: true,
 rollingLinks: true,
 keyboard: true,
 overview: true,
-width: 1400,
-height: 900,
+width: 1200,
+height: 800,
 margin: 0.10,
 minScale: 0.50,
 maxScale: 2.50,

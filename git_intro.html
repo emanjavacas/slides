@@ -36,7 +36,7 @@
 <ul>
 <li><a href="#/slide-orgheadline3">1. Getting started</a>
 <ul>
-<li><a href="#/slide-orgheadline2">1.1. Get git</a></li>
+<li><a href="#/slide-orgheadline2">1.1. Get <code>git</code></a></li>
 </ul>
 </li>
 <li><a href="#/slide-orgheadline12">2. About Git</a>
@@ -76,14 +76,14 @@
 
 </section>
 <section id="slide-orgheadline2">
-<h3 id="orgheadline2"><span class="section-number-3">1.1</span> Get git</h3>
+<h3 id="orgheadline2"><span class="section-number-3">1.1</span> Get <code>git</code></h3>
 <p>
 Follow the instructions for your OS <a href="https://git-scm.com/book/en/v2/Getting-Started-Installing-Git">here</a>.
 </p>
 
 </section>
 <section id="slide-orgheadline1">
-<h4 id="orgheadline1"><span class="section-number-4">1.1.1</span> [Optionally/Alternatively] install a Git client</h4>
+<h4 id="orgheadline1"><span class="section-number-4">1.1.1</span> Optionally install a <code>Git client</code></h4>
 <p>
 See <a href="https://www.github.com/emanjavacas/git-course">Materials for the course</a> for links to different possibilities.
 </p>
@@ -226,8 +226,8 @@ with the guarantee that changes by different users will not automatically overwr
 <section id="slide-orgheadline7">
 <h4 id="orgheadline7"><span class="section-number-4">2.1.4</span> Take-away message</h4>
 <ul>
-<li class="fragment roll-in">Trade-off between rigor (data-side) and easiness (UX-side).</li>
-<li class="fragment roll-in">Most users are limited to one very end.</li>
+<li class="fragment roll-in">Trade-off between rigor (data side) and easiness (UX side).</li>
+<li class="fragment roll-in">Why be limited to one very end?</li>
 
 </ul>
 
@@ -264,7 +264,7 @@ with the guarantee that changes by different users will not automatically overwr
 Let&rsquo;s introduce a bit of vocabulary (Last bit of me talking alone!)
 </p>
 
-<p style="font-size: 0.75em; margin-top: 220px; text-align: right;">See <a src="https://www.github.com/emanjavacas/git-course">the repository README</a> for a glossary of terms</p>
+<p style="font-size: 0.75em; margin-top: 220px; text-align: right;">See <a href="https://www.github.com/emanjavacas/git-course">the repository README</a> for a glossary of terms</p>
 
 </section>
 <section id="slide-orgheadline14">
@@ -310,10 +310,10 @@ All tracked files in your project plus the full history of changes (commits and 
 Ways to change the working tree:
 </p>
 <ul>
-<li class="fragment roll-in">Switch back to a previous state of the project (revert)</li>
-<li class="fragment roll-in">Add a change to the current state (commit)</li>
+<li class="fragment roll-in">Switch back to a previous state of the project (<code>revert</code>)</li>
+<li class="fragment roll-in">Add a change to the current state (<code>commit</code>)</li>
 <li class="fragment roll-in">Moving to another (possibly new) branch (A.K.A. <code>checkout</code>)</li>
-<li class="fragment roll-in">Move to a &ldquo;future&rdquo; state of the project (e.g. pulling from remote changes)</li>
+<li class="fragment roll-in">Move to a &ldquo;future&rdquo; state of the project (e.g. fetching remote changes)</li>
 
 </ul>
 
@@ -813,7 +813,7 @@ Switch to a particular branch (magic!)
 
 <pre  class="src src-bash">$ git checkout master
 
-Switched to branch <span style="color: #CC9393;">'resume'</span>
+Switched to branch <span style="color: #CC9393;">'master'</span>
 </pre>
 </div>
 
@@ -912,12 +912,12 @@ Compare branches
 </section>
 <section>
 <p>
-Merge target branch (resume) into receiving branch (master)
+Merge source branch (resume) into target branch (master)
 </p>
 
 <ul>
 <li class="fragment roll-in"><p>
-Switch to receiving branch (master)
+Switch to target branch (master)
 </p>
 <div class="org-src-container">
 
@@ -926,7 +926,7 @@ Switch to receiving branch (master)
 </div></li>
 
 <li class="fragment roll-in"><p>
-Do the merge (resume gets merged into master)
+Do the merge (&rsquo;resume&rsquo; gets merged into &rsquo;master&rsquo;)
 </p>
 <div class="org-src-container">
 
@@ -1040,41 +1040,23 @@ Now you are going to merge a pull request that your colleague is going to submit
 </section>
 <section>
 <p>
-Fork your colleague&rsquo;s project
-</p>
-
-<img src="./img/fork_gh.png" class="stretch">
-
-</section>
-<section>
-<p>
-Clone it locally
-</p>
-
-<img src="./img/clone_fork_gh.png" class="stretch">
-
-</section>
-<section>
-<p>
-Introduce (conspicuous) typos in your local index.html file (push them too)
+Introduce (evident) typos in your local index.html file (push them too)
 </p>
 <img src="./img/typos_gh.png" class="stretch">
 
 </section>
 <section>
 <p>
-Pull from your colleague&rsquo;s upstream fork
+Fork (i.e. &ldquo;copy&rdquo;) your colleague&rsquo;s project on their GitHub repository page
 </p>
 
-<img src="./img/merge_upstream.png" class="stretch">
+<img src="./img/forking_gh.png" class="stretch">
 
 </section>
 <section>
 <p>
-And merge it to see the typos
+Clone the fork locally (to be able to modify the project)
 </p>
-
-<img src="./img/merge_upstream_changes.png" class="stretch">
 
 </section>
 <section>
@@ -1087,7 +1069,7 @@ Modify the typos and commit
 </section>
 <section>
 <p>
-Issue a pull request
+Issue a pull request to your colleague&rsquo;s repository
 </p>
 
 <img src="./img/pull_request_gh.png" class="stretch">
@@ -1139,9 +1121,9 @@ That was easy, but sometimes merging doesn&rsquo;t work automatically.
 We are going to do the following
 </p>
 <ul>
-<li class="fragment roll-in">Introduce changes in our own local repository</li>
-<li class="fragment roll-in">Introduce conflicting changes in a branch</li>
-<li class="fragment roll-in">Attempt to merge (failing)</li>
+<li class="fragment roll-in">Introduce changes in our own repository</li>
+<li class="fragment roll-in">Let our colleague introduce conflicting changes into their fork</li>
+<li class="fragment roll-in">Attempt to merge their fork with conflicting changes (fail)</li>
 <li class="fragment roll-in">Solve the conflict &amp; merge</li>
 
 </ul>
@@ -1177,8 +1159,20 @@ Check your colleague&rsquo;s incoming pull request
 </section>
 <section>
 <p>
-To proceed you need a command line (use GitHub Desktop built-in):
+Resolving merge conflicts (two solutions)
 </p>
+<ul>
+<li class="fragment roll-in">Ask the pull-request issuer to solve the conflicts</li>
+<li class="fragment roll-in">Solve the conflicts yourself and merge</li>
+
+</ul>
+
+</section>
+<section>
+<p>
+Solve the conflicts yourself and merge
+</p>
+<small>To proceed you need a command line (use GitHub Desktop built-in)</small>
 
 <ul>
 <li class="fragment roll-in">Clone your colleague&rsquo;s fork branch into your project

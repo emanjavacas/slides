@@ -1,6 +1,6 @@
 #+TITLE: Enabling Annotation of Historical Corpora in an Asynchronous Collaborative Environment
 #+AUTHOR: Enrique Manjavacas & Peter Petré
-#+DATE: 01/06/2016
+#+DATE: DATECH17 01/06/2016 GÖTTINGEN
 #+LINK: https://emanjavacas.github.com/slides/datech17
 #+REVEAL_ROOT: ../
 #+OPTIONS: reveal_center:t reveal_progress:t reveal_history:t reveal_control:t

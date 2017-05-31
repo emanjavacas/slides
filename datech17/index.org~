@@ -1,8 +1,8 @@
 #+TITLE: Enabling Annotation of Historical Corpora in an Asynchronous Collaborative Environment
 #+AUTHOR: Enrique Manjavacas & Peter Petré
-#+DATE: 01/06/2016
+#+DATE: DATECH17; 01/06/2017; Göttingen
 #+LINK: https://emanjavacas.github.com/slides/datech17
-#+REVEAL_ROOT: ./
+#+REVEAL_ROOT: ../
 #+OPTIONS: reveal_center:t reveal_progress:t reveal_history:t reveal_control:t
 #+OPTIONS: reveal_rolling_links:nil reveal_keyboard:t reveal_overview:t num:1
 #+OPTIONS: reveal_width:1200 reveal_height:800
@@ -23,6 +23,7 @@
 ** Context
 #+attr_reveal: :frag (roll-in)
 - [[https://www.uantwerpen.be/en/projects/mind-bending-grammars/][Mind-bending grammars]] (ERC project on individual grammar changes in 17th century Britain)
+- Annotation of the EMMA Corpus [[http://www.helsinki.fi/varieng/CoRD/corpora/EMMA/][Early-Modern Multiloquent Authors]]
 
 ** Goals
 #+attr_reveal: :frag (roll-in)

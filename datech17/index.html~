@@ -7,9 +7,9 @@
 <style type="text/css">
 .underline { text-decoration: underline; }
 </style>
-<link rel="stylesheet" href="./css/reveal.css"/>
+<link rel="stylesheet" href="file:///home/enrique/.emacs.d/lisp/reveal.js-3.1.0/css/reveal.css"/>
 
-<link rel="stylesheet" href="./css/theme/white.css" id="theme"/>
+<link rel="stylesheet" href="file:///home/enrique/.emacs.d/lisp/reveal.js-3.1.0/css/theme/white.css" id="theme"/>
 
 <link rel="stylesheet" href="./extra_collaborative.css"/>
 
@@ -19,7 +19,7 @@
         var link = document.createElement( 'link' );
         link.rel = 'stylesheet';
         link.type = 'text/css';
-        link.href = './css/print/pdf.css';
+        link.href = 'file:///home/enrique/.emacs.d/lisp/reveal.js-3.1.0/css/print/pdf.css';
         document.getElementsByTagName( 'head' )[0].appendChild( link );
     }
 </script>
@@ -27,7 +27,7 @@
 <body>
 <div class="reveal">
 <div class="slides">
-<section id="sec-title-slide"><h1>Enabling Annotation of Historical Corpora in an Asynchronous Collaborative Environment</h1><h2>Enrique Manjavacas &amp; Peter Petré</h2><h4>01/06/2016</h4><p>https://emanjavacas.github.com/slides/datech17</p>
+<section id="sec-title-slide"><h1>Enabling Annotation of Historical Corpora in an Asynchronous Collaborative Environment</h1><h2>Enrique Manjavacas &amp; Peter Petré</h2><h4>DATECH17; 01/06/2017; Göttingen</h4><p>https://emanjavacas.github.com/slides/datech17</p>
 </section>
 
 <section>
@@ -40,7 +40,19 @@
 <section id="slide-orgheadline1">
 <h3 id="orgheadline1">Context</h3>
 <ul>
-<li class="fragment roll-in"><a href="https://www.uantwerpen.be/en/projects/mind-bending-grammars/">Mind-bending grammars</a> (ERC project on individual grammar changes in 17th century Britain)</li>
+<li class="fragment roll-in"><a href="https://www.uantwerpen.be/en/projects/mind-bending-grammars/">Mind-bending grammars</a> (ERC-project on grammar changes in adults)
+<ul>
+<li class="fragment roll-in">How much innovation across the lifespan?</li>
+<li class="fragment roll-in">Who innovates and why?</li>
+<li class="fragment roll-in">For social or cognitive reasons?</li>
+
+</ul></li>
+<li class="fragment roll-in">Annotation of the EMMA Corpus <a href="http://www.helsinki.fi/varieng/CoRD/corpora/EMMA/">Early-Modern Multiloquent Authors</a>
+<ul>
+<li class="fragment roll-in">100m words of 17th/18th Century English</li>
+<li class="fragment roll-in">Metadata (author, date, genre, generation)</li>
+
+</ul></li>
 
 </ul>
 
@@ -114,17 +126,19 @@ Once hits have been extracted/annotated, back-pointers to the corpus are missing
 </section>
 <section id="slide-orgheadline7">
 <h4 id="orgheadline7">Drawback</h4>
-<ul>
-<li class="fragment roll-in">Spread of non-reusable data</li>
-
-</ul>
-
+<p>
+Spread of non-reusable data
+</p>
 
 </section>
 </section>
 <section>
 <section id="slide-orgheadline9">
-<h3 id="orgheadline9">Synchronization problem (in multi-user situations)</h3>
+<h3 id="orgheadline9">Synchronization problems</h3>
+<p>
+<b>in multi-user, real-time environments</b>
+</p>
+
 <aside class="notes">
 <p>
 Annotations are being created by different researchers and have to derive in
@@ -133,13 +147,9 @@ a coherent set (same tags, labels used with the same meaning, etc&#x2026;).
 
 </aside>
 
-<p>
-Two types of synchronization problems
-</p>
-
 <ul>
-<li class="fragment roll-in"><b>Intrinsic</b> related to the linguistic annotation process itself</li>
-<li class="fragment roll-in"><b>Extrinsic</b> related to software synchronization challenges</li>
+<li class="fragment roll-in"><span class="underline">Intrinsic</span>: related to the linguistic annotation process itself</li>
+<li class="fragment roll-in"><span class="underline">Extrinsic</span>: related to software synchronization challenges</li>
 
 </ul>
 
@@ -196,14 +206,19 @@ documents without overwriting each other&rsquo;s changes&rdquo;
 <aside class="notes">
 <p>
 Perhaps this isn&rsquo;t up to date, but it certainly was 18 months ago.
+Examples: - CQP very old protocol no open-source implementations
 </p>
+<ul>
+<li>no separation</li>
+
+</ul>
 
 </aside>
 
 <ul>
-<li class="fragment roll-in">End-to-end solutions that are hard to adapt (missing APIs)</li>
-<li class="fragment roll-in">Monolothic solutions that are hard to integrate</li>
-<li class="fragment roll-in"><b>Consequence</b> &rArr; Lots of rewritting, redundant tools</li>
+<li class="fragment roll-in">End-to-end monolithic tools &rArr; hard to adapt &amp; integrate</li>
+<li class="fragment roll-in">Public APIs for programmers are typically missing</li>
+<li class="fragment roll-in"><b>Result</b> &rArr; Lots of rewriting, redundant tools</li>
 
 </ul>
 
@@ -211,7 +226,7 @@ Perhaps this isn&rsquo;t up to date, but it certainly was 18 months ago.
 </section>
 <section>
 <section id="slide-orgheadline14">
-<h3 id="orgheadline14">Preliminary Solutions</h3>
+<h3 id="orgheadline14">Solutions</h3>
 <aside class="notes">
 <ul>
 <li>Bad news: we haven&rsquo;t solved the issue, but hopefully we haven&rsquo;t made it worse</li>
@@ -222,6 +237,7 @@ Perhaps this isn&rsquo;t up to date, but it certainly was 18 months ago.
 
 <ul>
 <li class="fragment roll-in">Modular design in corpus-tool design</li>
+<li class="fragment roll-in">Explicit separation of Front-end and Back-end logic (e.g. BlackLab)</li>
 
 </ul>
 
@@ -244,7 +260,7 @@ Perhaps this isn&rsquo;t up to date, but it certainly was 18 months ago.
 </section>
 </section>
 <section>
-<section id="slide-orgheadline16" data-background="./img/app-screenshot.png">
+<section id="slide-orgheadline16" data-background="./img/app-screenshot.jpg">
 <h3 id="orgheadline16"></h3>
 
 </section>
@@ -254,6 +270,7 @@ Perhaps this isn&rsquo;t up to date, but it certainly was 18 months ago.
 <h3 id="orgheadline17">Goals</h3>
 <aside class="notes">
 <p>
+Address the mentioned issues, but more concretely
 Tool that aims at improving CL-research and simplifying corpus tool developement
 </p>
 
@@ -287,21 +304,95 @@ Drawing inspiration from GitHub, and adding multi-user real-time features
 </section>
 <section id="slide-orgheadline18">
 <h4 id="orgheadline18">Web-based Client</h4>
-<ul>
-<li class="fragment roll-in">Real-time feedback client-to-client following a <b>Pub/Sub</b> architecture</li>
-<li class="fragment roll-in">Subscribers are assigned roles with different permissions (resources access-control)</li>
-<li class="fragment roll-in">Conflicts are explicitely resolved and documented using threads</li>
+<aside class="notes">
+<p>
+In software architecture, publish–subscribe is a messaging pattern where senders of messages, called publishers, do not program the messages to be sent directly to specific receivers, called subscribers, but instead characterize published messages into classes without knowledge of which subscribers, if any, there may be. Similarly, subscribers express interest in one or more classes and only receive messages that are of interest, without knowledge of which publishers, if any, there are.
+</p>
 
-</ul>
+</aside>
+
+</section>
+<section >
+<p>
+Real-time feedback client-to-client following a <b>Pub/Sub</b> architecture
+<img src="./img/project.png" alt="project.png" />
+</p>
+
+</section>
+<section >
+<p>
+Subscribers are assigned roles with different permissions (resources access-control)
+<img src="./img/project_roles.png" alt="project_roles.png" />
+</p>
+
+</section>
+<section >
+<p>
+Conflicts are explicitely resolved and documented using threads
+</p>
+<div style="overflow:hidden">
+<img src="./img/conflict_resolution.png" height="100%"/>
+</div>
 
 </section>
 <section id="slide-orgheadline19">
 <h4 id="orgheadline19">Annotation Database</h4>
-<ul>
-<li class="fragment roll-in">Support for Token &amp; Span annotations (see also RelANNIS, Ziggurat).</li>
-<li class="fragment roll-in">Version controlled. Each annotation has a revision history.</li>
+</section>
+<section >
+<p>
+Support for Token &amp; Span annotations
+</p>
 
-</ul>
+<div style="float:left;width:100%">
+<div style="float:left;font-size:1.2em">Token
+<pre class="src src-js" style="width:100%">{
+    <span style="color: #CC9393;">"ann"</span> : {
+            <span style="color: #CC9393;">"key"</span> : <span style="color: #CC9393;">"pret"</span>,
+            <span style="color: #CC9393;">"value"</span> : <span style="color: #CC9393;">"s"</span>
+    },
+    <span style="color: #CC9393;">"corpus"</span> : <span style="color: #CC9393;">"mbg-index"</span>,
+    <span style="color: #CC9393;">"query"</span> : <span style="color: #CC9393;">"'gat'"</span>,
+    <span style="color: #CC9393;">"span"</span> : {
+            <span style="color: #CC9393;">"type"</span> : <span style="color: #CC9393;">"token"</span>,
+            <span style="color: #CC9393;">"scope"</span> : 133601,
+            <span style="color: #CC9393;">"doc"</span> : <span style="color: #CC9393;">"A01342"</span>
+    },
+    <span style="color: #CC9393;">"timestamp"</span> : <span style="color: #CC9393;">"1476095003208"</span>,
+    <span style="color: #CC9393;">"username"</span> : <span style="color: #CC9393;">"OscarStrik"</span>,
+    <span style="color: #CC9393;">"version"</span> : 0
+}
+</pre>
+</div>
+<div style="float:right;margin-left:5px;font-size:1.2em">Span
+<pre class="src src-js" style="width:100%">{
+    <span style="color: #CC9393;">"ann"</span> : {
+            <span style="color: #CC9393;">"key"</span> : <span style="color: #CC9393;">"cxnele"</span>,
+            <span style="color: #CC9393;">"value"</span> : <span style="color: #CC9393;">"getobj"</span>
+    },
+    <span style="color: #CC9393;">"corpus"</span> : <span style="color: #CC9393;">"mbg-index"</span>,
+    <span style="color: #CC9393;">"query"</span> : <span style="color: #CC9393;">"'gat'"</span>,
+    <span style="color: #CC9393;">"span"</span> : {
+            <span style="color: #CC9393;">"type"</span> : <span style="color: #CC9393;">"IOB"</span>,
+            <span style="color: #CC9393;">"scope"</span> : {
+                    <span style="color: #CC9393;">"B"</span> : 3222,
+                    <span style="color: #CC9393;">"O"</span> : 3224
+            },
+            <span style="color: #CC9393;">"doc"</span> : <span style="color: #CC9393;">"99863288"</span>
+    },
+    <span style="color: #CC9393;">"timestamp"</span> : <span style="color: #CC9393;">"1476095439636"</span>,
+    <span style="color: #CC9393;">"username"</span> : <span style="color: #CC9393;">"OscarStrik"</span>,
+    <span style="color: #CC9393;">"version"</span> : 0
+}
+</pre>
+</div>
+</div>
+
+</section>
+<section >
+<p>
+Version controlled. Each annotation has a revision history
+<img src="./img/span_pane.png" alt="span_pane.png" />
+</p>
 
 </section>
 <section id="slide-orgheadline20">
@@ -325,6 +416,7 @@ Drawing inspiration from GitHub, and adding multi-user real-time features
 <li>Decoupling of Front-end and Query-engine</li>
 
 </ul>
+
 <ul>
 <li class="fragment roll-in">Currently support for <a href="https://www.github.com/INL/BlackLab">BlackLab Server</a></li>
 <li class="fragment roll-in">Ongoing work on support for <a href="http://cwb.sourceforge.net/">CQP</a></li>
@@ -343,7 +435,7 @@ Drawing inspiration from GitHub, and adding multi-user real-time features
 <section id="slide-orgheadline23">
 <h3 id="orgheadline23">Incremental Indexing of Corpus Annotations</h3>
 <ul>
-<li class="fragment roll-in">How to make the corpus query engine aware of the new annotations</li>
+<li class="fragment roll-in">How to make the corpus query engine aware of the new annotations?</li>
 
 </ul>
 
@@ -361,13 +453,24 @@ Drawing inspiration from GitHub, and adding multi-user real-time features
 </section>
 <section>
 <section id="slide-orgheadline26">
-<h2 id="orgheadline26"><span class="section-number-2">6</span> Thank you!</h2>
+<h2 id="orgheadline26"><span class="section-number-2">6</span> Thank you for your attention</h2>
+<div style="text-align:center;display:inline-block">
+    <div style="float:left">
+        <img src="./img/erc.jpg" height="200"/>
+    </div>
+    <div style="float:left">
+        <img src="./img/MBG_logo.png" height="200"/>
+    </div>
+    <div style="float:left">
+        <img src="./img/ua.jpg" height="200"/>
+    </div>
+</div>
 </section>
 </section>
 </div>
 </div>
-<script src="./lib/js/head.min.js"></script>
-<script src="./js/reveal.js"></script>
+<script src="file:///home/enrique/.emacs.d/lisp/reveal.js-3.1.0/lib/js/head.min.js"></script>
+<script src="file:///home/enrique/.emacs.d/lisp/reveal.js-3.1.0/js/reveal.js"></script>
 
 <script>
 // Full list of configuration options available here:
@@ -399,11 +502,11 @@ multiplex: {
 
 // Optional libraries used to extend on reveal.js
 dependencies: [
- { src: './lib/js/classList.js', condition: function() { return !document.body.classList; } },
- { src: './plugin/markdown/marked.js', condition: function() { return !!document.querySelector( '[data-markdown]' ); } },
- { src: './plugin/markdown/markdown.js', condition: function() { return !!document.querySelector( '[data-markdown]' ); } },
- { src: './plugin/zoom-js/zoom.js', async: true, condition: function() { return !!document.body.classList; } },
- { src: './plugin/notes/notes.js', async: true, condition: function() { return !!document.body.classList; } }]
+ { src: 'file:///home/enrique/.emacs.d/lisp/reveal.js-3.1.0/lib/js/classList.js', condition: function() { return !document.body.classList; } },
+ { src: 'file:///home/enrique/.emacs.d/lisp/reveal.js-3.1.0/plugin/markdown/marked.js', condition: function() { return !!document.querySelector( '[data-markdown]' ); } },
+ { src: 'file:///home/enrique/.emacs.d/lisp/reveal.js-3.1.0/plugin/markdown/markdown.js', condition: function() { return !!document.querySelector( '[data-markdown]' ); } },
+ { src: 'file:///home/enrique/.emacs.d/lisp/reveal.js-3.1.0/plugin/zoom-js/zoom.js', async: true, condition: function() { return !!document.body.classList; } },
+ { src: 'file:///home/enrique/.emacs.d/lisp/reveal.js-3.1.0/plugin/notes/notes.js', async: true, condition: function() { return !!document.body.classList; } }]
 });
 </script>
 </body>

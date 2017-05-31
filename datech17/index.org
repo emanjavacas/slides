@@ -1,6 +1,6 @@
 #+TITLE: Enabling Annotation of Historical Corpora in an Asynchronous Collaborative Environment
 #+AUTHOR: Enrique Manjavacas & Peter Petré
-#+DATE: DATECH17 01/06/2016 GÖTTINGEN
+#+DATE: DATECH17; 01/06/2017; Göttingen
 #+LINK: https://emanjavacas.github.com/slides/datech17
 #+REVEAL_ROOT: ../
 #+OPTIONS: reveal_center:t reveal_progress:t reveal_history:t reveal_control:t
@@ -22,7 +22,15 @@
 
 ** Context
 #+attr_reveal: :frag (roll-in)
-- [[https://www.uantwerpen.be/en/projects/mind-bending-grammars/][Mind-bending grammars]] (ERC project on individual grammar changes in 17th century Britain)
+- [[https://www.uantwerpen.be/en/projects/mind-bending-grammars/][Mind-bending grammars]] (ERC-project on grammar changes in adults)
+  #+attr_reveal: :frag (roll-in)
+  - How much innovation across the lifespan?
+  - Who innovates and why?
+  - For social or cognitive reasons?
+- Annotation of the EMMA Corpus [[http://www.helsinki.fi/varieng/CoRD/corpora/EMMA/][Early-Modern Multiloquent Authors]]
+  #+attr_reveal: :frag (roll-in)
+  - 100m words of 17th/18th Century English
+  - Metadata (author, date, genre, generation)
 
 ** Goals
 #+attr_reveal: :frag (roll-in)
@@ -57,22 +65,20 @@
   [[./img/spreadtoquery.png]]
 
 *** Drawback
-  #+attr_reveal: :frag (roll-in)
- - Spread of non-reusable data
+    Spread of non-reusable data
 
+** Synchronization problems 
 
-** Synchronization problem (in multi-user situations)
+*in multi-user, real-time environments*
 
  #+BEGIN_NOTES
  Annotations are being created by different researchers and have to derive in
  a coherent set (same tags, labels used with the same meaning, etc...).
  #+END_NOTES
 
- Two types of synchronization problems
-
  #+attr_reveal: :frag (roll-in)
- - *Intrinsic* related to the linguistic annotation process itself
- - *Extrinsic* related to software synchronization challenges
+ - _Intrinsic_: related to the linguistic annotation process itself
+ - _Extrinsic_: related to software synchronization challenges
 
 ** Intrinsic
 
@@ -102,14 +108,16 @@ documents without overwriting each other's changes"
 
 #+BEGIN_NOTES
 Perhaps this isn't up to date, but it certainly was 18 months ago.
+Examples: - CQP very old protocol no open-source implementations
+          - no separation 
 #+END_NOTES
 
 #+attr_reveal: :frag (roll-in)
-- End-to-end solutions that are hard to adapt (missing APIs)
-- Monolothic solutions that are hard to integrate
-- *Consequence* \Rightarrow Lots of rewritting, redundant tools
+- End-to-end monolithic tools \Rightarrow hard to adapt & integrate 
+- Public APIs for programmers are typically missing
+- *Result* \Rightarrow Lots of rewriting, redundant tools
 
-** Preliminary Solutions
+** Solutions
 
 #+BEGIN_NOTES
 - Bad news: we haven't solved the issue, but hopefully we haven't made it worse
@@ -117,6 +125,7 @@ Perhaps this isn't up to date, but it certainly was 18 months ago.
 
 #+attr_reveal: :frag (roll-in)
 - Modular design in corpus-tool design
+- Explicit separation of Front-end and Back-end logic (e.g. BlackLab)
 
 * CosyCat
 
@@ -135,12 +144,13 @@ Perhaps this isn't up to date, but it certainly was 18 months ago.
 
 ** 
     :PROPERTIES:
-    :reveal_background: ./img/app-screenshot.png
+    :reveal_background: ./img/app-screenshot.jpg
     :END:
 
 ** Goals
 
    #+BEGIN_NOTES
+   Address the mentioned issues, but more concretely
    Tool that aims at improving CL-research and simplifying corpus tool developement
    #+END_NOTES
    
@@ -159,15 +169,81 @@ Drawing inspiration from GitHub, and adding multi-user real-time features
 
 *** Web-based Client
 
-#+attr_reveal: :frag (roll-in)
-- Real-time feedback client-to-client following a *Pub/Sub* architecture
-- Subscribers are assigned roles with different permissions (resources access-control)
-- Conflicts are explicitely resolved and documented using threads
+#+BEGIN_NOTES
+In software architecture, publish–subscribe is a messaging pattern where senders of messages, called publishers, do not program the messages to be sent directly to specific receivers, called subscribers, but instead characterize published messages into classes without knowledge of which subscribers, if any, there may be. Similarly, subscribers express interest in one or more classes and only receive messages that are of interest, without knowledge of which publishers, if any, there are.
+#+END_NOTES
+
+#+REVEAL: split
+Real-time feedback client-to-client following a *Pub/Sub* architecture
+[[./img/project.png]]
+
+#+REVEAL: split
+Subscribers are assigned roles with different permissions (resources access-control)
+[[./img/project_roles.png]]
+
+#+REVEAL: split
+Conflicts are explicitely resolved and documented using threads
+#+BEGIN_HTML
+<div style="overflow:hidden">
+<img src="./img/conflict_resolution.png" height="100%"/>
+</div>
+#+END_HTML
 
 *** Annotation Database
-#+attr_reveal: :frag (roll-in)
-- Support for Token & Span annotations (see also RelANNIS, Ziggurat).
-- Version controlled. Each annotation has a revision history.
+
+#+REVEAL: split
+Support for Token & Span annotations
+
+#+BEGIN_HTML
+<div style="float:left;width:100%">
+<div style="float:left;font-size:1.2em">Token
+<pre class="src src-js" style="width:100%">{
+    <span style="color: #CC9393;">"ann"</span> : {
+            <span style="color: #CC9393;">"key"</span> : <span style="color: #CC9393;">"pret"</span>,
+            <span style="color: #CC9393;">"value"</span> : <span style="color: #CC9393;">"s"</span>
+    },
+    <span style="color: #CC9393;">"corpus"</span> : <span style="color: #CC9393;">"mbg-index"</span>,
+    <span style="color: #CC9393;">"query"</span> : <span style="color: #CC9393;">"'gat'"</span>,
+    <span style="color: #CC9393;">"span"</span> : {
+            <span style="color: #CC9393;">"type"</span> : <span style="color: #CC9393;">"token"</span>,
+            <span style="color: #CC9393;">"scope"</span> : 133601,
+            <span style="color: #CC9393;">"doc"</span> : <span style="color: #CC9393;">"A01342"</span>
+    },
+    <span style="color: #CC9393;">"timestamp"</span> : <span style="color: #CC9393;">"1476095003208"</span>,
+    <span style="color: #CC9393;">"username"</span> : <span style="color: #CC9393;">"OscarStrik"</span>,
+    <span style="color: #CC9393;">"version"</span> : 0
+}
+</pre>
+</div>
+<div style="float:right;margin-left:5px;font-size:1.2em">Span
+<pre class="src src-js" style="width:100%">{
+    <span style="color: #CC9393;">"ann"</span> : {
+            <span style="color: #CC9393;">"key"</span> : <span style="color: #CC9393;">"cxnele"</span>,
+            <span style="color: #CC9393;">"value"</span> : <span style="color: #CC9393;">"getobj"</span>
+    },
+    <span style="color: #CC9393;">"corpus"</span> : <span style="color: #CC9393;">"mbg-index"</span>,
+    <span style="color: #CC9393;">"query"</span> : <span style="color: #CC9393;">"'gat'"</span>,
+    <span style="color: #CC9393;">"span"</span> : {
+            <span style="color: #CC9393;">"type"</span> : <span style="color: #CC9393;">"IOB"</span>,
+            <span style="color: #CC9393;">"scope"</span> : {
+                    <span style="color: #CC9393;">"B"</span> : 3222,
+                    <span style="color: #CC9393;">"O"</span> : 3224
+            },
+            <span style="color: #CC9393;">"doc"</span> : <span style="color: #CC9393;">"99863288"</span>
+    },
+    <span style="color: #CC9393;">"timestamp"</span> : <span style="color: #CC9393;">"1476095439636"</span>,
+    <span style="color: #CC9393;">"username"</span> : <span style="color: #CC9393;">"OscarStrik"</span>,
+    <span style="color: #CC9393;">"version"</span> : 0
+}
+</pre>
+</div>
+</div>
+
+#+END_HTML
+
+#+REVEAL: split
+Version controlled. Each annotation has a revision history
+[[./img/span_pane.png]]
 
 *** Corpus-query engine
 
@@ -179,6 +255,7 @@ Drawing inspiration from GitHub, and adding multi-user real-time features
 
 #+REVEAL: split
 - Decoupling of Front-end and Query-engine
+
 #+attr_reveal: :frag (roll-in)
 - Currently support for [[https://www.github.com/INL/BlackLab][BlackLab Server]]
 - Ongoing work on support for [[http://cwb.sourceforge.net/][CQP]]
@@ -194,11 +271,25 @@ Drawing inspiration from GitHub, and adding multi-user real-time features
 ** Incremental Indexing of Corpus Annotations
 
 #+attr_reveal: :frag (roll-in)
-- How to make the corpus query engine aware of the new annotations
+- How to make the corpus query engine aware of the new annotations?
 
 ** Scale
 
 #+attr_reveal: :frag (roll-in)
 - Support large user groups (Currently working with some few dozens)
 
-* Thank you!
+* Thank you for your attention
+
+#+BEGIN_HTML
+<div style="text-align:center;display:inline-block">
+    <div style="float:left">
+        <img src="./img/erc.jpg" height="200"/>
+    </div>
+    <div style="float:left">
+        <img src="./img/MBG_logo.png" height="200"/>
+    </div>
+    <div style="float:left">
+        <img src="./img/ua.jpg" height="200"/>
+    </div>
+</div>
+#+END_HTML

@@ -21,6 +21,10 @@
 * Introduction
 
 ** Context
+#+BEGIN_NOTES
+
+#+END_NOTES
+
 #+attr_reveal: :frag (roll-in)
 - [[https://www.uantwerpen.be/en/projects/mind-bending-grammars/][Mind-bending grammars]] (ERC-project on grammar changes in adults)
   #+attr_reveal: :frag (roll-in)
@@ -32,7 +36,12 @@
   - 100m words of 17th/18th Century English
   - Metadata (author, date, genre, generation)
 
-** Goals
+** My Goals
+#+BEGIN_NOTES
+- Improve a poor corpus-linguist's research environment
+- In a considerable amount of time, (single person project)
+#+END_NOTES
+
 #+attr_reveal: :frag (roll-in)
 - Improving Corpus-Linguistics Research
 - Simplifying Developement of Corpus Query/Annotation tools
@@ -48,50 +57,50 @@
   - Quantitative Analysis
 
 ** Problems
- #+attr_reveal: :frag (roll-in)
  - Linkage problem
  - Synchronization problem
 
 ** Linkage problem
 
  #+BEGIN_NOTES
- Once hits have been extracted/annotated, back-pointers to the corpus are missing.
+ - Once hits have been extracted/annotated, back-pointers to the corpus are missing.
+ - Inspect the context around the hit
+ - Attach previous annotations to the hit
  #+END_NOTES
 
 *** Typical Corpus Linguistics Workflow
- #+attr_reveal: :frag roll-in
-  [[./img/querytospread.png]]
- #+attr_reveal: :frag roll-in
-  [[./img/spreadtoquery.png]]
+    #+attr_reveal: :frag roll-in
+    [[./img/querytospread.png]]
+    #+attr_reveal: :frag roll-in
+    [[./img/spreadtoquery.png]]
 
 *** Drawback
     Spread of non-reusable data
 
 ** Synchronization problems 
 
-*in multi-user, real-time environments*
+   *in multi-user, real-time environments*
 
- #+BEGIN_NOTES
- Annotations are being created by different researchers and have to derive in
- a coherent set (same tags, labels used with the same meaning, etc...).
- #+END_NOTES
+   #+BEGIN_NOTES
+   Annotations are being created by different researchers and have to derive in
+   a coherent set (same tags, labels used with the same meaning, etc...).
+   #+END_NOTES
 
- #+attr_reveal: :frag (roll-in)
- - _Intrinsic_: related to the linguistic annotation process itself
- - _Extrinsic_: related to software synchronization challenges
+   #+attr_reveal: :frag (roll-in)
+   - _Intrinsic_: related to the linguistic annotation process itself
+   - _Extrinsic_: related to software synchronization challenges
 
 ** Intrinsic
 
-Unifying annotation schemes and their usage
+   Unifying annotation schemes and their usage
 
-#+BEGIN_NOTES
-We can list a number of issues related to the fact that annotation schemes
-(linguistic categories, tag-sets, etc..) are typically not closed-set, but subject to revision.
-#+END_NOTES
+   #+BEGIN_NOTES
+   Annotation schemes (ling. categories, tagsets) are typically open in CL
+   #+END_NOTES
 
-#+attr_reveal: :frag (roll-in)
-- Modification of tagsets (create, remove & change tags)
-- Interpretational disagreements (spotting & correcting)
+   #+attr_reveal: :frag (roll-in)
+   - Modification of tagsets (create, remove & change tags)
+   - Interpretational disagreements (spotting & correcting)
 
 ** Extrinsic
 Fundamental problem of collaborative software/distributed systems
@@ -107,9 +116,10 @@ documents without overwriting each other's changes"
 ** Current issues
 
 #+BEGIN_NOTES
-Perhaps this isn't up to date, but it certainly was 18 months ago.
-Examples: - CQP very old protocol no open-source implementations
-          - no separation 
+- Thinking about CQPWeb (which I know better) and ANNIS (which I tried to use)
+(Perhaps this isn't up to date, but it certainly was 18 months ago)
+- CQPWeb (very user-friendly, very programmer unfriendly)
+- CQP (very old protocol no open-source implementations)
 #+END_NOTES
 
 #+attr_reveal: :frag (roll-in)
@@ -124,10 +134,11 @@ Examples: - CQP very old protocol no open-source implementations
 #+END_NOTES
 
 #+attr_reveal: :frag (roll-in)
-- Modular design in corpus-tool design
-- Explicit separation of Front-end and Back-end logic (e.g. BlackLab)
+- Modular design + Interface programming in corpus-tool developement
+- Explicit separation of front-end and back-end logic (e.g. BlackLab)
 
 * CosyCat
+*Collaborative Synchronized Corpus Annotation Tool*
 
 #+BEGIN_HTML
 <a href="https://www.github.com/emanjavacas/cosycat">https://www.github.com/emanjavacas/cosycat</a>
@@ -143,20 +154,20 @@ Examples: - CQP very old protocol no open-source implementations
 - Open source (Eclipse Public License)
 
 ** 
-    :PROPERTIES:
-    :reveal_background: ./img/app-screenshot.jpg
-    :END:
-
-** Goals
+   :PROPERTIES:
+   :reveal_background: ./img/app-screenshot.jpg
+   :END:
+    
+** What does it do?
 
    #+BEGIN_NOTES
-   Address the mentioned issues, but more concretely
-   Tool that aims at improving CL-research and simplifying corpus tool developement
+   - Address the mentioned issues, but more concretely...
+   - Three options: (build own non-decoupled, build decoupled, build the app in a way that is easy to adapt other people's decoupled tools)
    #+END_NOTES
    
    #+attr_reveal: :frag (roll-in)
    - Encompass *Corpus Query Engine* + *Annotation Interface*
-   - Enable *synchronized real-time annotation* of text
+   - Enable *synchronized real-time multi-user annotation* of text
    - Follow *modular design* for easy reusability/adaptation of pre-exisiting tools
 
 ** Architecture
@@ -170,7 +181,7 @@ Drawing inspiration from GitHub, and adding multi-user real-time features
 *** Web-based Client
 
 #+BEGIN_NOTES
-In software architecture, publish–subscribe is a messaging pattern where senders of messages, called publishers, do not program the messages to be sent directly to specific receivers, called subscribers, but instead characterize published messages into classes without knowledge of which subscribers, if any, there may be. Similarly, subscribers express interest in one or more classes and only receive messages that are of interest, without knowledge of which publishers, if any, there are.
+Messaging pattern where senders (publishers), do not directly message specific receivers (subscribers), but instead characterize messages into classes without knowledge of which subscribers, if any, there may be. Similarly, subscribers express interest in one or more classes and only receive messages that are of interest, without knowledge of which publishers, if any, there are.
 #+END_NOTES
 
 #+REVEAL: split
@@ -178,7 +189,7 @@ Real-time feedback client-to-client following a *Pub/Sub* architecture
 [[./img/project.png]]
 
 #+REVEAL: split
-Subscribers are assigned roles with different permissions (resources access-control)
+Subscribers are assigned roles & permissions (resource access control)
 [[./img/project_roles.png]]
 
 #+REVEAL: split
@@ -209,7 +220,7 @@ Support for Token & Span annotations
             <span style="color: #CC9393;">"scope"</span> : 133601,
             <span style="color: #CC9393;">"doc"</span> : <span style="color: #CC9393;">"A01342"</span>
     },
-    <span style="color: #CC9393;">"timestamp"</span> : <span style="color: #CC9393;">"1476095003208"</span>,
+    <span style="color: #CC9393;">"timestamp"</span> : 1476095003208,
     <span style="color: #CC9393;">"username"</span> : <span style="color: #CC9393;">"OscarStrik"</span>,
     <span style="color: #CC9393;">"version"</span> : 0
 }
@@ -231,7 +242,7 @@ Support for Token & Span annotations
             },
             <span style="color: #CC9393;">"doc"</span> : <span style="color: #CC9393;">"99863288"</span>
     },
-    <span style="color: #CC9393;">"timestamp"</span> : <span style="color: #CC9393;">"1476095439636"</span>,
+    <span style="color: #CC9393;">"timestamp"</span> : 1476095439636,
     <span style="color: #CC9393;">"username"</span> : <span style="color: #CC9393;">"OscarStrik"</span>,
     <span style="color: #CC9393;">"version"</span> : 0
 }
@@ -242,7 +253,7 @@ Support for Token & Span annotations
 #+END_HTML
 
 #+REVEAL: split
-Version controlled. Each annotation has a revision history
+Version-controlled: Each annotation has a revision history
 [[./img/span_pane.png]]
 
 *** Corpus-query engine
@@ -254,9 +265,8 @@ Version controlled. Each annotation has a revision history
 [[./img/app-remote.jpg]]
 
 #+REVEAL: split
+#+attr_reveal: :frag (none none roll-in)
 - Decoupling of Front-end and Query-engine
-
-#+attr_reveal: :frag (roll-in)
 - Currently support for [[https://www.github.com/INL/BlackLab][BlackLab Server]]
 - Ongoing work on support for [[http://cwb.sourceforge.net/][CQP]]
 

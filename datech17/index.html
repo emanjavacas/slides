@@ -39,6 +39,13 @@
 <section>
 <section id="slide-orgheadline1">
 <h3 id="orgheadline1">Context</h3>
+<aside class="notes">
+<p>
+
+</p>
+
+</aside>
+
 <ul>
 <li class="fragment roll-in"><a href="https://www.uantwerpen.be/en/projects/mind-bending-grammars/">Mind-bending grammars</a> (ERC-project on grammar changes in adults)
 <ul>
@@ -60,7 +67,16 @@
 </section>
 <section>
 <section id="slide-orgheadline2">
-<h3 id="orgheadline2">Goals</h3>
+<h3 id="orgheadline2">My Goals</h3>
+<aside class="notes">
+<ul>
+<li>Improve a poor corpus-linguist&rsquo;s research environment</li>
+<li>In a considerable amount of time, (single person project)</li>
+
+</ul>
+
+</aside>
+
 <ul>
 <li class="fragment roll-in">Improving Corpus-Linguistics Research</li>
 <li class="fragment roll-in">Simplifying Developement of Corpus Query/Annotation tools</li>
@@ -92,8 +108,8 @@
 <section id="slide-orgheadline5">
 <h3 id="orgheadline5">Problems</h3>
 <ul>
-<li class="fragment roll-in">Linkage problem</li>
-<li class="fragment roll-in">Synchronization problem</li>
+<li>Linkage problem</li>
+<li>Synchronization problem</li>
 
 </ul>
 
@@ -103,9 +119,12 @@
 <section id="slide-orgheadline8">
 <h3 id="orgheadline8">Linkage problem</h3>
 <aside class="notes">
-<p>
-Once hits have been extracted/annotated, back-pointers to the corpus are missing.
-</p>
+<ul>
+<li>Once hits have been extracted/annotated, back-pointers to the corpus are missing.</li>
+<li>Inspect the context around the hit</li>
+<li>Attach previous annotations to the hit</li>
+
+</ul>
 
 </aside>
 
@@ -164,8 +183,7 @@ Unifying annotation schemes and their usage
 
 <aside class="notes">
 <p>
-We can list a number of issues related to the fact that annotation schemes
-(linguistic categories, tag-sets, etc..) are typically not closed-set, but subject to revision.
+Annotation schemes (ling. categories, tagsets) are typically open in CL
 </p>
 
 </aside>
@@ -204,12 +222,16 @@ documents without overwriting each other&rsquo;s changes&rdquo;
 <section id="slide-orgheadline13">
 <h3 id="orgheadline13">Current issues</h3>
 <aside class="notes">
+<ul>
+<li>Thinking about CQPWeb (which I know better) and ANNIS (which I tried to use)</li>
+
+</ul>
 <p>
-Perhaps this isn&rsquo;t up to date, but it certainly was 18 months ago.
-Examples: - CQP very old protocol no open-source implementations
+(Perhaps this isn&rsquo;t up to date, but it certainly was 18 months ago)
 </p>
 <ul>
-<li>no separation</li>
+<li>CQPWeb (very user-friendly, very programmer unfriendly)</li>
+<li>CQP (very old protocol no open-source implementations)</li>
 
 </ul>
 
@@ -236,8 +258,8 @@ Examples: - CQP very old protocol no open-source implementations
 </aside>
 
 <ul>
-<li class="fragment roll-in">Modular design in corpus-tool design</li>
-<li class="fragment roll-in">Explicit separation of Front-end and Back-end logic (e.g. BlackLab)</li>
+<li class="fragment roll-in">Modular design + Interface programming in corpus-tool developement</li>
+<li class="fragment roll-in">Explicit separation of front-end and back-end logic (e.g. BlackLab)</li>
 
 </ul>
 
@@ -246,6 +268,10 @@ Examples: - CQP very old protocol no open-source implementations
 <section>
 <section id="slide-orgheadline22">
 <h2 id="orgheadline22"><span class="section-number-2">4</span> CosyCat</h2>
+<p>
+<b>Collaborative Synchronized Corpus Annotation Tool</b>
+</p>
+
 <a href="https://www.github.com/emanjavacas/cosycat">https://www.github.com/emanjavacas/cosycat</a>
 
 <br/>
@@ -267,18 +293,19 @@ Examples: - CQP very old protocol no open-source implementations
 </section>
 <section>
 <section id="slide-orgheadline17">
-<h3 id="orgheadline17">Goals</h3>
+<h3 id="orgheadline17">What does it do?</h3>
 <aside class="notes">
-<p>
-Address the mentioned issues, but more concretely
-Tool that aims at improving CL-research and simplifying corpus tool developement
-</p>
+<ul>
+<li>Address the mentioned issues, but more concretely&#x2026;</li>
+<li>Three options: (build own non-decoupled, build decoupled, build the app in a way that is easy to adapt other people&rsquo;s decoupled tools)</li>
+
+</ul>
 
 </aside>
 
 <ul>
 <li class="fragment roll-in">Encompass <b>Corpus Query Engine</b> + <b>Annotation Interface</b></li>
-<li class="fragment roll-in">Enable <b>synchronized real-time annotation</b> of text</li>
+<li class="fragment roll-in">Enable <b>synchronized real-time multi-user annotation</b> of text</li>
 <li class="fragment roll-in">Follow <b>modular design</b> for easy reusability/adaptation of pre-exisiting tools</li>
 
 </ul>
@@ -306,7 +333,7 @@ Drawing inspiration from GitHub, and adding multi-user real-time features
 <h4 id="orgheadline18">Web-based Client</h4>
 <aside class="notes">
 <p>
-In software architecture, publish–subscribe is a messaging pattern where senders of messages, called publishers, do not program the messages to be sent directly to specific receivers, called subscribers, but instead characterize published messages into classes without knowledge of which subscribers, if any, there may be. Similarly, subscribers express interest in one or more classes and only receive messages that are of interest, without knowledge of which publishers, if any, there are.
+Messaging pattern where senders (publishers), do not directly message specific receivers (subscribers), but instead characterize messages into classes without knowledge of which subscribers, if any, there may be. Similarly, subscribers express interest in one or more classes and only receive messages that are of interest, without knowledge of which publishers, if any, there are.
 </p>
 
 </aside>
@@ -321,7 +348,7 @@ Real-time feedback client-to-client following a <b>Pub/Sub</b> architecture
 </section>
 <section >
 <p>
-Subscribers are assigned roles with different permissions (resources access-control)
+Subscribers are assigned roles &amp; permissions (resource access control)
 <img src="./img/project_roles.png" alt="project_roles.png" />
 </p>
 
@@ -357,7 +384,7 @@ Support for Token &amp; Span annotations
             <span style="color: #CC9393;">"scope"</span> : 133601,
             <span style="color: #CC9393;">"doc"</span> : <span style="color: #CC9393;">"A01342"</span>
     },
-    <span style="color: #CC9393;">"timestamp"</span> : <span style="color: #CC9393;">"1476095003208"</span>,
+    <span style="color: #CC9393;">"timestamp"</span> : 1476095003208,
     <span style="color: #CC9393;">"username"</span> : <span style="color: #CC9393;">"OscarStrik"</span>,
     <span style="color: #CC9393;">"version"</span> : 0
 }
@@ -379,7 +406,7 @@ Support for Token &amp; Span annotations
             },
             <span style="color: #CC9393;">"doc"</span> : <span style="color: #CC9393;">"99863288"</span>
     },
-    <span style="color: #CC9393;">"timestamp"</span> : <span style="color: #CC9393;">"1476095439636"</span>,
+    <span style="color: #CC9393;">"timestamp"</span> : 1476095439636,
     <span style="color: #CC9393;">"username"</span> : <span style="color: #CC9393;">"OscarStrik"</span>,
     <span style="color: #CC9393;">"version"</span> : 0
 }
@@ -390,7 +417,7 @@ Support for Token &amp; Span annotations
 </section>
 <section >
 <p>
-Version controlled. Each annotation has a revision history
+Version-controlled: Each annotation has a revision history
 <img src="./img/span_pane.png" alt="span_pane.png" />
 </p>
 
@@ -414,11 +441,7 @@ Version controlled. Each annotation has a revision history
 <section >
 <ul>
 <li>Decoupling of Front-end and Query-engine</li>
-
-</ul>
-
-<ul>
-<li class="fragment roll-in">Currently support for <a href="https://www.github.com/INL/BlackLab">BlackLab Server</a></li>
+<li>Currently support for <a href="https://www.github.com/INL/BlackLab">BlackLab Server</a></li>
 <li class="fragment roll-in">Ongoing work on support for <a href="http://cwb.sourceforge.net/">CQP</a></li>
 
 </ul>

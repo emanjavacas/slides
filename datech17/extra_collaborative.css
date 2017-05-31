@@ -4,3 +4,9 @@
     border: 0px;
     box-shadow: none;
 }
+.slide-header {
+    position: absolute;
+    top:  -30px;
+    left: -20px;
+    /* color: red; */
+}

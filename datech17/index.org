@@ -62,13 +62,14 @@
 
 ** Linkage problem
 
- #+BEGIN_NOTES
- - Once hits have been extracted/annotated, back-pointers to the corpus are missing.
- - Inspect the context around the hit
- - Attach previous annotations to the hit
- #+END_NOTES
 
 *** Typical Corpus Linguistics Workflow
+     #+BEGIN_NOTES
+     - Once hits have been extracted/annotated, back-pointers to the corpus are missing.
+     - Inspect the context around the hit
+     - Attach previous annotations to the hit
+     #+END_NOTES
+
     #+attr_reveal: :frag roll-in
     [[./img/querytospread.png]]
     #+attr_reveal: :frag roll-in
@@ -180,11 +181,12 @@ Drawing inspiration from GitHub, and adding multi-user real-time features
 
 *** Web-based Client
 
+#+REVEAL: split
+
 #+BEGIN_NOTES
 Messaging pattern where senders (publishers), do not directly message specific receivers (subscribers), but instead characterize messages into classes without knowledge of which subscribers, if any, there may be. Similarly, subscribers express interest in one or more classes and only receive messages that are of interest, without knowledge of which publishers, if any, there are.
 #+END_NOTES
 
-#+REVEAL: split
 Real-time feedback client-to-client following a *Pub/Sub* architecture
 [[./img/project.png]]
 

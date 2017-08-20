@@ -1,0 +1,538 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8"/>
+<title>Enabling Annotation of Historical Corpora in an Asynchronous Collaborative Environment</title>
+<meta name="author" content="(Enrique Manjavacas & Peter Petré)"/>
+<style type="text/css">
+.underline { text-decoration: underline; }
+</style>
+<link rel="stylesheet" href="../externals/reveal.js/css/reveal.css"/>
+
+<link rel="stylesheet" href="../externals/reveal.js/css/theme/white.css" id="theme"/>
+
+<link rel="stylesheet" href="./extra_collaborative.css"/>
+
+<!-- If the query includes 'print-pdf', include the PDF print sheet -->
+<script>
+    if( window.location.search.match( /print-pdf/gi ) ) {
+        var link = document.createElement( 'link' );
+        link.rel = 'stylesheet';
+        link.type = 'text/css';
+        link.href = '../externals/reveal.js/css/print/pdf.css';
+        document.getElementsByTagName( 'head' )[0].appendChild( link );
+    }
+</script>
+</head>
+<body>
+<div class="reveal">
+<div class="slides">
+<section id="sec-title-slide"><h1>Enabling Annotation of Historical Corpora in an Asynchronous Collaborative Environment</h1><h2>Enrique Manjavacas &amp; Peter Petré</h2><h4>DATECH17; 01/06/2017; Göttingen</h4><p>https://emanjavacas.github.com/slides/datech17</p>
+</section>
+
+<section>
+<section id="slide-orgheadline3">
+<h2 id="orgheadline3"><span class="section-number-2">1</span> Introduction</h2>
+<div class="outline-text-2" id="text-1">
+</div></section>
+</section>
+<section>
+<section id="slide-orgheadline1">
+<h3 id="orgheadline1">Context</h3>
+<aside class="notes">
+<p>
+
+</p>
+
+</aside>
+
+<ul>
+<li class="fragment roll-in"><a href="https://www.uantwerpen.be/en/projects/mind-bending-grammars/">Mind-bending grammars</a> (ERC-project on grammar changes in adults)
+<ul>
+<li class="fragment roll-in">How much innovation across the lifespan?</li>
+<li class="fragment roll-in">Who innovates and why?</li>
+<li class="fragment roll-in">For social or cognitive reasons?</li>
+
+</ul></li>
+<li class="fragment roll-in">Annotation of the EMMA Corpus <a href="http://www.helsinki.fi/varieng/CoRD/corpora/EMMA/">Early-Modern Multiloquent Authors</a>
+<ul>
+<li class="fragment roll-in">100m words of 17th/18th Century English</li>
+<li class="fragment roll-in">Metadata (author, date, genre, generation)</li>
+
+</ul></li>
+
+</ul>
+
+</section>
+</section>
+<section>
+<section id="slide-orgheadline2">
+<h3 id="orgheadline2">My Goals</h3>
+<aside class="notes">
+<ul>
+<li>Improve a poor corpus-linguist&rsquo;s research environment</li>
+<li>In a considerable amount of time, (single person project)</li>
+
+</ul>
+
+</aside>
+
+<ul>
+<li class="fragment roll-in">Improving Corpus-Linguistics Research</li>
+<li class="fragment roll-in">Simplifying Developement of Corpus Query/Annotation tools</li>
+
+</ul>
+
+</section>
+</section>
+<section>
+<section id="slide-orgheadline12">
+<h2 id="orgheadline12"><span class="section-number-2">2</span> Improving Corpus-Linguistics Research</h2>
+<div class="outline-text-2" id="text-2">
+</div></section>
+</section>
+<section>
+<section id="slide-orgheadline4">
+<h3 id="orgheadline4">Annotation-based Corpus Linguistics</h3>
+<ul>
+<li class="fragment roll-in">Corpus Query &rArr; hits</li>
+<li class="fragment roll-in">Filter False Positives</li>
+<li class="fragment roll-in">Add Linguistic Annotation</li>
+<li class="fragment roll-in">Quantitative Analysis</li>
+
+</ul>
+
+</section>
+</section>
+<section>
+<section id="slide-orgheadline5">
+<h3 id="orgheadline5">Problems</h3>
+<ul>
+<li>Linkage problem</li>
+<li>Synchronization problem</li>
+
+</ul>
+
+</section>
+</section>
+<section>
+<section id="slide-orgheadline8">
+<h3 id="orgheadline8">Linkage problem</h3>
+<div class="outline-text-3" id="text-orgheadline8">
+</div></section>
+<section id="slide-orgheadline6">
+<h4 id="orgheadline6">Typical Corpus Linguistics Workflow</h4>
+<aside class="notes">
+<ul>
+<li>Once hits have been extracted/annotated, back-pointers to the corpus are missing.</li>
+<li>Inspect the context around the hit</li>
+<li>Attach previous annotations to the hit</li>
+
+</ul>
+
+</aside>
+
+
+<div class="figure">
+<p><img src="./img/querytospread.png" alt="querytospread.png" class="fragment roll-in" />
+</p>
+</div>
+
+<div class="figure">
+<p><img src="./img/spreadtoquery.png" alt="spreadtoquery.png" class="fragment roll-in" />
+</p>
+</div>
+
+</section>
+<section id="slide-orgheadline7">
+<h4 id="orgheadline7">Drawback</h4>
+<p>
+Spread of non-reusable data
+</p>
+
+</section>
+</section>
+<section>
+<section id="slide-orgheadline9">
+<h3 id="orgheadline9">Synchronization problems</h3>
+<p>
+<b>in multi-user, real-time environments</b>
+</p>
+
+<aside class="notes">
+<p>
+Annotations are being created by different researchers and have to derive in
+a coherent set (same tags, labels used with the same meaning, etc&#x2026;).
+</p>
+
+</aside>
+
+<ul>
+<li class="fragment roll-in"><span class="underline">Intrinsic</span>: related to the linguistic annotation process itself</li>
+<li class="fragment roll-in"><span class="underline">Extrinsic</span>: related to software synchronization challenges</li>
+
+</ul>
+
+</section>
+</section>
+<section>
+<section id="slide-orgheadline10">
+<h3 id="orgheadline10">Intrinsic</h3>
+<p>
+Unifying annotation schemes and their usage
+</p>
+
+<aside class="notes">
+<p>
+Annotation schemes (ling. categories, tagsets) are typically open in CL
+</p>
+
+</aside>
+
+<ul>
+<li class="fragment roll-in">Modification of tagsets (create, remove &amp; change tags)</li>
+<li class="fragment roll-in">Interpretational disagreements (spotting &amp; correcting)</li>
+
+</ul>
+
+</section>
+</section>
+<section>
+<section id="slide-orgheadline11">
+<h3 id="orgheadline11">Extrinsic</h3>
+<p>
+Fundamental problem of collaborative software/distributed systems
+</p>
+
+<blockquote  class="fragment roll-in">
+<p>
+&ldquo;How to ensure that dispersed users are able to modify a shared body of 
+documents without overwriting each other&rsquo;s changes&rdquo;
+</p>
+</blockquote>
+
+</section>
+</section>
+<section>
+<section id="slide-orgheadline15">
+<h2 id="orgheadline15"><span class="section-number-2">3</span> Simplifying Developement of Corpus Query/Annotation tools</h2>
+<div class="outline-text-2" id="text-3">
+</div></section>
+</section>
+<section>
+<section id="slide-orgheadline13">
+<h3 id="orgheadline13">Current issues</h3>
+<aside class="notes">
+<ul>
+<li>Thinking about CQPWeb (which I know better) and ANNIS (which I tried to use)</li>
+
+</ul>
+<p>
+(Perhaps this isn&rsquo;t up to date, but it certainly was 18 months ago)
+</p>
+<ul>
+<li>CQPWeb (very user-friendly, very programmer unfriendly)</li>
+<li>CQP (very old protocol no open-source implementations)</li>
+
+</ul>
+
+</aside>
+
+<ul>
+<li class="fragment roll-in">End-to-end monolithic tools &rArr; hard to adapt &amp; integrate</li>
+<li class="fragment roll-in">Public APIs for programmers are typically missing</li>
+<li class="fragment roll-in"><b>Result</b> &rArr; Lots of rewriting, redundant tools</li>
+
+</ul>
+
+</section>
+</section>
+<section>
+<section id="slide-orgheadline14">
+<h3 id="orgheadline14">Solutions</h3>
+<aside class="notes">
+<ul>
+<li>Bad news: we haven&rsquo;t solved the issue, but hopefully we haven&rsquo;t made it worse</li>
+
+</ul>
+
+</aside>
+
+<ul>
+<li class="fragment roll-in">Modular design + Interface programming in corpus-tool developement</li>
+<li class="fragment roll-in">Explicit separation of front-end and back-end logic (e.g. BlackLab)</li>
+
+</ul>
+
+</section>
+</section>
+<section>
+<section id="slide-orgheadline22">
+<h2 id="orgheadline22"><span class="section-number-2">4</span> CosyCat</h2>
+<p>
+<b>Collaborative Synchronized Corpus Annotation Tool</b>
+</p>
+
+<a href="https://www.github.com/emanjavacas/cosycat">https://www.github.com/emanjavacas/cosycat</a>
+
+<br/>
+<br/>
+
+<ul>
+<li class="fragment roll-in">Written in Clojure/ClojureScript</li>
+<li class="fragment roll-in">Open source (Eclipse Public License)</li>
+
+</ul>
+
+</section>
+</section>
+<section>
+<section id="slide-orgheadline16" data-background="./img/app-screenshot.jpg">
+<h3 id="orgheadline16"></h3>
+
+</section>
+</section>
+<section>
+<section id="slide-orgheadline17">
+<h3 id="orgheadline17">What does it do?</h3>
+<aside class="notes">
+<ul>
+<li>Address the mentioned issues, but more concretely&#x2026;</li>
+<li>Three options: (build own non-decoupled, build decoupled, build the app in a way that is easy to adapt other people&rsquo;s decoupled tools)</li>
+
+</ul>
+
+</aside>
+
+<ul>
+<li class="fragment roll-in">Encompass <b>Corpus Query Engine</b> + <b>Annotation Interface</b></li>
+<li class="fragment roll-in">Enable <b>synchronized real-time multi-user annotation</b> of text</li>
+<li class="fragment roll-in">Follow <b>modular design</b> for easy reusability/adaptation of pre-exisiting tools</li>
+
+</ul>
+
+</section>
+</section>
+<section>
+<section id="slide-orgheadline21">
+<h3 id="orgheadline21">Architecture</h3>
+<aside class="notes">
+<p>
+Drawing inspiration from GitHub, and adding multi-user real-time features
+</p>
+
+</aside>
+
+
+<div class="figure">
+<p><img src="./img/app-remote.jpg" alt="app-remote.jpg" />
+</p>
+</div>
+
+</section>
+<section id="slide-orgheadline18">
+<h4 id="orgheadline18">Web-based Client</h4>
+</section>
+<section >
+
+<aside class="notes">
+<p>
+Messaging pattern where senders (publishers), do not directly message specific receivers (subscribers), but instead characterize messages into classes without knowledge of which subscribers, if any, there may be. Similarly, subscribers express interest in one or more classes and only receive messages that are of interest, without knowledge of which publishers, if any, there are.
+</p>
+
+</aside>
+
+<p>
+Real-time feedback client-to-client following a <b>Pub/Sub</b> architecture
+<img src="./img/project.png" alt="project.png" />
+</p>
+
+</section>
+<section >
+<p>
+Subscribers are assigned roles &amp; permissions (resource access control)
+<img src="./img/project_roles.png" alt="project_roles.png" />
+</p>
+
+</section>
+<section >
+<p>
+Conflicts are explicitely resolved and documented using threads
+</p>
+<div style="overflow:hidden">
+<img src="./img/conflict_resolution.png" height="100%"/>
+</div>
+
+</section>
+<section id="slide-orgheadline19">
+<h4 id="orgheadline19">Annotation Database</h4>
+</section>
+<section >
+<p>
+Support for Token &amp; Span annotations
+</p>
+
+<div style="float:left;width:100%">
+<div style="float:left;font-size:1.2em">Token
+<pre class="src src-js" style="width:100%">{
+    <span style="color: #CC9393;">"ann"</span> : {
+            <span style="color: #CC9393;">"key"</span> : <span style="color: #CC9393;">"pret"</span>,
+            <span style="color: #CC9393;">"value"</span> : <span style="color: #CC9393;">"s"</span>
+    },
+    <span style="color: #CC9393;">"corpus"</span> : <span style="color: #CC9393;">"mbg-index"</span>,
+    <span style="color: #CC9393;">"query"</span> : <span style="color: #CC9393;">"'gat'"</span>,
+    <span style="color: #CC9393;">"span"</span> : {
+            <span style="color: #CC9393;">"type"</span> : <span style="color: #CC9393;">"token"</span>,
+            <span style="color: #CC9393;">"scope"</span> : 133601,
+            <span style="color: #CC9393;">"doc"</span> : <span style="color: #CC9393;">"A01342"</span>
+    },
+    <span style="color: #CC9393;">"timestamp"</span> : 1476095003208,
+    <span style="color: #CC9393;">"username"</span> : <span style="color: #CC9393;">"OscarStrik"</span>,
+    <span style="color: #CC9393;">"version"</span> : 0
+}
+</pre>
+</div>
+<div style="float:right;margin-left:5px;font-size:1.2em">Span
+<pre class="src src-js" style="width:100%">{
+    <span style="color: #CC9393;">"ann"</span> : {
+            <span style="color: #CC9393;">"key"</span> : <span style="color: #CC9393;">"cxnele"</span>,
+            <span style="color: #CC9393;">"value"</span> : <span style="color: #CC9393;">"getobj"</span>
+    },
+    <span style="color: #CC9393;">"corpus"</span> : <span style="color: #CC9393;">"mbg-index"</span>,
+    <span style="color: #CC9393;">"query"</span> : <span style="color: #CC9393;">"'gat'"</span>,
+    <span style="color: #CC9393;">"span"</span> : {
+            <span style="color: #CC9393;">"type"</span> : <span style="color: #CC9393;">"IOB"</span>,
+            <span style="color: #CC9393;">"scope"</span> : {
+                    <span style="color: #CC9393;">"B"</span> : 3222,
+                    <span style="color: #CC9393;">"O"</span> : 3224
+            },
+            <span style="color: #CC9393;">"doc"</span> : <span style="color: #CC9393;">"99863288"</span>
+    },
+    <span style="color: #CC9393;">"timestamp"</span> : 1476095439636,
+    <span style="color: #CC9393;">"username"</span> : <span style="color: #CC9393;">"OscarStrik"</span>,
+    <span style="color: #CC9393;">"version"</span> : 0
+}
+</pre>
+</div>
+</div>
+
+</section>
+<section >
+<p>
+Version-controlled: Each annotation has a revision history
+<img src="./img/span_pane.png" alt="span_pane.png" />
+</p>
+
+</section>
+<section id="slide-orgheadline20">
+<h4 id="orgheadline20">Corpus-query engine</h4>
+<ul>
+<li class="fragment roll-in">Decoupling of Front-end and Query-engine</li>
+
+</ul>
+
+</section>
+<section >
+
+<div class="figure">
+<p><img src="./img/app-remote.jpg" alt="app-remote.jpg" />
+</p>
+</div>
+
+</section>
+<section >
+<ul>
+<li>Decoupling of Front-end and Query-engine</li>
+<li>Currently support for <a href="https://www.github.com/INL/BlackLab">BlackLab Server</a></li>
+<li class="fragment roll-in">Ongoing work on support for <a href="http://cwb.sourceforge.net/">CQP</a></li>
+
+</ul>
+
+</section>
+</section>
+<section>
+<section id="slide-orgheadline25">
+<h2 id="orgheadline25"><span class="section-number-2">5</span> Remaining Challenges</h2>
+<div class="outline-text-2" id="text-5">
+</div></section>
+</section>
+<section>
+<section id="slide-orgheadline23">
+<h3 id="orgheadline23">Incremental Indexing of Corpus Annotations</h3>
+<ul>
+<li class="fragment roll-in">How to make the corpus query engine aware of the new annotations?</li>
+
+</ul>
+
+</section>
+</section>
+<section>
+<section id="slide-orgheadline24">
+<h3 id="orgheadline24">Scale</h3>
+<ul>
+<li class="fragment roll-in">Support large user groups (Currently working with some few dozens)</li>
+
+</ul>
+
+</section>
+</section>
+<section>
+<section id="slide-orgheadline26">
+<h2 id="orgheadline26"><span class="section-number-2">6</span> Thank you for your attention</h2>
+<div style="text-align:center;display:inline-block">
+    <div style="float:left">
+        <img src="./img/erc.jpg" height="200"/>
+    </div>
+    <div style="float:left">
+        <img src="./img/MBG_logo.png" height="200"/>
+    </div>
+    <div style="float:left">
+        <img src="./img/ua.jpg" height="200"/>
+    </div>
+</div>
+</section>
+</section>
+</div>
+</div>
+<script src="../externals/reveal.js/lib/js/head.min.js"></script>
+<script src="../externals/reveal.js/js/reveal.js"></script>
+
+<script>
+// Full list of configuration options available here:
+// https://github.com/hakimel/reveal.js#configuration
+Reveal.initialize({
+
+controls: true,
+progress: true,
+history: true,
+center: true,
+slideNumber: 'c',
+rollingLinks: false,
+keyboard: true,
+overview: true,
+width: 1200,
+height: 800,
+margin: 0.05,
+minScale: 0.50,
+maxScale: 2.50,
+
+theme: Reveal.getQueryHash().theme, // available themes are in /css/theme
+transition: Reveal.getQueryHash().transition || 'nil', // default/cube/page/concave/zoom/linear/fade/none
+transitionSpeed: 'fast',
+multiplex: {
+    secret: '', // null if client
+    id: '', // id, obtained from socket.io server
+    url: '' // Location of socket.io server
+},
+
+// Optional libraries used to extend on reveal.js
+dependencies: [
+ { src: '../externals/reveal.js/lib/js/classList.js', condition: function() { return !document.body.classList; } },
+ { src: '../externals/reveal.js/plugin/markdown/marked.js', condition: function() { return !!document.querySelector( '[data-markdown]' ); } },
+ { src: '../externals/reveal.js/plugin/markdown/markdown.js', condition: function() { return !!document.querySelector( '[data-markdown]' ); } },
+ { src: '../externals/reveal.js/plugin/zoom-js/zoom.js', async: true, condition: function() { return !!document.body.classList; } },
+ { src: '../externals/reveal.js/plugin/notes/notes.js', async: true, condition: function() { return !!document.body.classList; } }]
+});
+</script>
+</body>
+</html>

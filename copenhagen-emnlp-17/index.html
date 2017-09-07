@@ -32,8 +32,8 @@
 </section>
 
 <section>
-<section id="slide-org5fc1105">
-<h2 id="org5fc1105"><span class="section-number-2">1</span> Introduction</h2>
+<section id="slide-org2f88992">
+<h2 id="org2f88992"><span class="section-number-2">1</span> Introduction</h2>
 <aside class="notes">
 <ul>
 <li>In this talk we present work on evaluating neurally generated text with respect to its capacity to preserve authorial style.</li>
@@ -43,8 +43,8 @@
 </aside>
 
 </section>
-<section id="slide-org0db25aa">
-<h3 id="org0db25aa">RNNs are a powerful tool for text generation</h3>
+<section id="slide-org095741a">
+<h3 id="org095741a">RNNs are a powerful tool for text generation</h3>
 <aside class="notes">
 <ul>
 <li>Anecdotical: Famous pieces is the popular blog post by A. Karpathy and its many follow-ups.</li>
@@ -61,8 +61,8 @@
 </ul>
 
 </section>
-<section id="slide-orge2024e4">
-<h3 id="orge2024e4">Evaluation of neural synthetic text through Authorship Attribution</h3>
+<section id="slide-org4353658">
+<h3 id="org4353658">Evaluation of neural synthetic text through Authorship Attribution</h3>
 <aside class="notes">
 <p>
 For contrast, we wanted to study the potential of RNNs in comparison to traditional NGram models
@@ -76,8 +76,8 @@ For contrast, we wanted to study the potential of RNNs in comparison to traditio
 </ul>
 
 </section>
-<section id="slide-orgd39c288">
-<h3 id="orgd39c288">Experiment idea</h3>
+<section id="slide-orgeba3efe">
+<h3 id="orgeba3efe">Experiment idea</h3>
 <aside class="notes">
 <p>
 Very simple idea. Allows for many variations (evaluate different models, use different attributors)
@@ -92,8 +92,8 @@ Very simple idea. Allows for many variations (evaluate different models, use dif
 </ul>
 
 </section>
-<section id="slide-org5c44443">
-<h4 id="org5c44443">Assumptions</h4>
+<section id="slide-org6c880c7">
+<h4 id="org6c880c7">Assumptions</h4>
 <aside class="notes">
 <p>
 Controversial, but used as a symplifying assumption to get going.
@@ -115,8 +115,8 @@ properties discovered by the algorithm are stylistic in a narrower sense.
 </section>
 </section>
 <section>
-<section id="slide-orgb251636">
-<h2 id="orgb251636"><span class="section-number-2">2</span> Summary of the presentation</h2>
+<section id="slide-org6fafeaa">
+<h2 id="org6fafeaa"><span class="section-number-2">2</span> Summary of the presentation</h2>
 <ul>
 <li class="fragment roll-in">Describe the models used for generation</li>
 <li class="fragment roll-in">Describe the experimental setup</li>
@@ -127,8 +127,8 @@ properties discovered by the algorithm are stylistic in a narrower sense.
 </section>
 </section>
 <section>
-<section id="slide-org4e734b6">
-<h2 id="org4e734b6"><span class="section-number-2">3</span> Text Generation</h2>
+<section id="slide-org5da7fd0">
+<h2 id="org5da7fd0"><span class="section-number-2">3</span> Text Generation</h2>
 <aside class="notes">
 <p>
 We approach the task of text generation with simple language models.
@@ -143,8 +143,8 @@ We use character-level for simplicity and to tackle sparsity. However:
 </aside>
 
 </section>
-<section id="slide-org411750d">
-<h3 id="org411750d">Character-level Text Generation with Language Models</h3>
+<section id="slide-orgaf0825c">
+<h3 id="orgaf0825c">Character-level Text Generation with Language Models</h3>
 <aside class="notes">
 <p>
 As a recap
@@ -160,8 +160,8 @@ As a recap
 </p>
 
 </section>
-<section id="slide-orgdfc3d07">
-<h4 id="orgdfc3d07">Sample &ldquo;n&rdquo; characters from the Language Model</h4>
+<section id="slide-org05cfecf">
+<h4 id="org05cfecf">Sample &ldquo;n&rdquo; characters from the Language Model</h4>
 <ul>
 <li class="fragment roll-in">\(w_1 \sim P(w|\text{<}bos\text{>})\)</li>
 <li class="fragment roll-in">\(w_2 \sim P(w|\text{<}bos\text{>}, w_1)\)</li>
@@ -171,8 +171,8 @@ As a recap
 </ul>
 
 </section>
-<section id="slide-orgd6aeab4">
-<h4 id="orgd6aeab4">Multinomial sampling with temperature</h4>
+<section id="slide-orgbf2ddf3">
+<h4 id="orgbf2ddf3">Multinomial sampling with temperature</h4>
 <ul>
 <li class="fragment roll-in">\(P(w|\text{<}bos\text{>}) = \{p_1, p_2, ..., p_v\}\)</li>
 <li class="fragment roll-in">\(p_i^{\tau} = \frac{p_i / \tau}{\sum_j^V p_j / \tau}\)</li>
@@ -180,12 +180,12 @@ As a recap
 </ul>
 
 </section>
-<section id="slide-org92a124f">
-<h3 id="org92a124f">Models</h3>
-<div class="outline-text-3" id="text-org92a124f">
+<section id="slide-org78875e5">
+<h3 id="org78875e5">Models</h3>
+<div class="outline-text-3" id="text-org78875e5">
 </div></section>
-<section id="slide-org4f8c725">
-<h4 id="org4f8c725">NGLM</h4>
+<section id="slide-org2497b9a">
+<h4 id="org2497b9a">NGLM</h4>
 <aside class="notes">
 <p>
 Introduce Markov Assumption
@@ -198,8 +198,8 @@ Introduce Markov Assumption
 </p>
 
 </section>
-<section id="slide-org8d9543e">
-<h4 id="org8d9543e">RNNLM</h4>
+<section id="slide-orgc190f48">
+<h4 id="orgc190f48">RNNLM</h4>
 
 <div class="figure">
 <p><object type="image/svg+xml" data="./img/rnnlm.svg" class="org-svg">
@@ -210,16 +210,16 @@ Sorry, your browser does not support SVG.</object>
 </section>
 </section>
 <section>
-<section id="slide-orgdcd4d51">
-<h2 id="orgdcd4d51"><span class="section-number-2">4</span> Experiment</h2>
+<section id="slide-org7b1a3e2">
+<h2 id="org7b1a3e2"><span class="section-number-2">4</span> Experiment</h2>
 <div class="outline-text-2" id="text-4">
 </div></section>
-<section id="slide-orgdef2157">
-<h3 id="orgdef2157">Experimental Setup</h3>
-<div class="outline-text-3" id="text-orgdef2157">
+<section id="slide-org896a7fb">
+<h3 id="org896a7fb">Experimental Setup</h3>
+<div class="outline-text-3" id="text-org896a7fb">
 </div></section>
-<section id="slide-orgafb6124">
-<h4 id="orgafb6124">Difficulties</h4>
+<section id="slide-orgb3cb89c">
+<h4 id="orgb3cb89c">Difficulties</h4>
 <p>
 Maximize comparability of authentic and generated text
 </p>
@@ -231,8 +231,8 @@ Maximize comparability of authentic and generated text
 </ul>
 
 </section>
-<section id="slide-org1d23952">
-<h4 id="org1d23952">Proposed method</h4>
+<section id="slide-org23f1b64">
+<h4 id="org23f1b64">Proposed method</h4>
 <ul>
 <li class="fragment roll-in">Random even doc-level split (referred to as \(\alpha\) and \(\omega\) for simplicity)</li>
 <li class="fragment roll-in">Create 20 fixed-size (5000w) docs per split by sampling sentences</li>
@@ -241,8 +241,8 @@ Maximize comparability of authentic and generated text
 </ul>
 
 </section>
-<section id="slide-orgcc2210d">
-<h4 id="orgcc2210d">Attribution Experiments</h4>
+<section id="slide-org99789e6">
+<h4 id="org99789e6">Attribution Experiments</h4>
 <aside class="notes">
 <ul>
 <li>Defines 5 experiments</li>
@@ -256,12 +256,16 @@ Maximize comparability of authentic and generated text
 <img src="./img/setup.svg">
 
 </section>
-<section id="slide-org96cc462">
-<h3 id="org96cc462">Dataset</h3>
+<section id="slide-org8843ff0">
+<h3 id="org8843ff0">Dataset</h3>
 <aside class="notes">
-<p>
-We only used 18 * 100,000 * 2 (= 4M words)
-</p>
+<ul>
+<li>Most of the team members currently work on Latin</li>
+<li>Interesting baseline since Ecclesiastical Latin was mostly L2</li>
+<li>More space for developing authorial style (more interesting authorial patterns)</li>
+<li>Tematically, realatively homogeneous</li>
+
+</ul>
 
 </aside>
 <ul>
@@ -273,15 +277,22 @@ We only used 18 * 100,000 * 2 (= 4M words)
 
 </section>
 <section >
+<aside class="notes">
+<ul>
+<li>We only use those authors (18) for which we had enough data for our experiment</li>
+
+</ul>
+
+</aside>
 <img src="./img/author_words_docs.svg">
 
 </section>
-<section id="slide-org04f778c">
-<h3 id="org04f778c">Language Model Fitting</h3>
-<div class="outline-text-3" id="text-org04f778c">
+<section id="slide-org77a47b3">
+<h3 id="org77a47b3">Language Model Fitting</h3>
+<div class="outline-text-3" id="text-org77a47b3">
 </div></section>
-<section id="slide-orga199967">
-<h4 id="orga199967">NGLM</h4>
+<section id="slide-org9d46ba4">
+<h4 id="org9d46ba4">NGLM</h4>
 <ul>
 <li class="fragment roll-in">N-gram order is set to 6</li>
 <li class="fragment roll-in">Parameters estimated through MLE (no smoothing since only interested in generation)</li>
@@ -289,8 +300,8 @@ We only used 18 * 100,000 * 2 (= 4M words)
 </ul>
 
 </section>
-<section id="slide-org379b23f">
-<h4 id="org379b23f">RNNLM</h4>
+<section id="slide-org1bdd44a">
+<h4 id="org1bdd44a">RNNLM</h4>
 <p>
 Model definition
 </p>
@@ -390,8 +401,8 @@ Validation perplexity: <span class="fragment highlight-green"><strong>4.015 (± 
 </p>
 
 </section>
-<section id="slide-org1de6717">
-<h3 id="org1de6717">Attributor</h3>
+<section id="slide-orgca04887">
+<h3 id="orgca04887">Attributor</h3>
 <aside class="notes">
 <ul>
 <li>max-features: ordered by term-freq</li>
@@ -437,15 +448,15 @@ Validation perplexity: <span class="fragment highlight-green"><strong>4.015 (± 
 </section>
 </section>
 <section>
-<section id="slide-org9f0160c">
-<h2 id="org9f0160c"><span class="section-number-2">5</span> Results</h2>
+<section id="slide-orgef61844">
+<h2 id="orgef61844"><span class="section-number-2">5</span> Results</h2>
 <p>
 5-fold cross-validated scores per experiment
 </p>
 
 </section>
-<section id="slide-orgd81c522">
-<h3 id="orgd81c522">Numbers</h3>
+<section id="slide-orgd3ed751">
+<h3 id="orgd3ed751">Numbers</h3>
 <aside class="notes">
 <ul>
 <li>Very small directionality effect (confirm no artifacts from split)</li>
@@ -541,21 +552,20 @@ class="td11">       </td></tr></table></div>
    </div>
 
 </section>
-<section id="slide-org3a4d202">
-<h3 id="org3a4d202">Discussion</h3>
-<div class="outline-text-3" id="text-org3a4d202">
+<section id="slide-orgd201e51">
+<h3 id="orgd201e51">Discussion</h3>
+<div class="outline-text-3" id="text-orgd201e51">
 </div></section>
-<section id="slide-org75db56c">
-<h4 id="org75db56c">Why does NGLM outperforms RNNLM in both setups (\(<\bar{\alpha},\omega>, <\omega,\bar{\alpha}>\))?</h4>
+<section id="slide-orgba75238">
+<h4 id="orgba75238">Why does NGLM outperforms RNNLM in both setups (\(<\bar{\alpha},\omega>, <\omega,\bar{\alpha}>\))?</h4>
 <p class="fragment (roll-in)">
 SVM uses very local features, NGLM reproduces very well the local distribution
 </p>
 
 <aside class="notes">
-<ul>
-<li>Use local information (ngrams) to visualize the difference between real and generated distributions.</li>
-
-</ul>
+<p>
+Use local information (ngrams) to visualize the effect of local features on both models
+</p>
 
 </aside>
 
@@ -563,9 +573,8 @@ SVM uses very local features, NGLM reproduces very well the local distribution
 <section >
 <aside class="notes">
 <ul>
-<li>jaccard: intersection / union</li>
-<li>We compute the lexical overlap across each author&rsquo;s generated and real documents using Jaccard similarity</li>
-<li>For comparison we also compute the lexical overlap across authors</li>
+<li>Compute a similarity matrix of generated and real authors on the basis of ngrams (2-4)</li>
+<li>We use non-weighted Jaccard (intersection / union)</li>
 <li>We expect a certain overlap for any author, and less overlap across authors</li>
 
 </ul>
@@ -583,25 +592,8 @@ LEXICAL OVERLAP: Mean-normalized ngram Jaccard-similarity across authors.
 <section >
 <aside class="notes">
 <ul>
-<li>Interestingly, we obtain a very similar picture at a higher-level (word-level)</li>
-
-</ul>
-
-</aside>
-<p>
-LEXICAL OVERLAP: Mean-normalized Jaccard-similarity on author ngrams
-</p>
-
-<p>
-<span class=""><p><strong>Word-level</strong></p><img src="./img/jaccard_mean.svg"></span>
-</p>
-
-</section>
-<section >
-<aside class="notes">
-<ul>
 <li>For 3 authors, we take real and generated documents</li>
-<li>Represent the documents using 150 most frequente char ngrams</li>
+<li>We represent the documents using 150 most frequente char ngrams</li>
 <li>Apply PCA to visualize the documents in space (for clustering)</li>
 <li>We observe that this representation based on local features puts real and NGLM-generated text together</li>
 
@@ -630,8 +622,8 @@ DOC-LEVEL PCA: <b>RNNLM</b> (150 most-freq ngrams doc-representation)
 
 
 </section>
-<section id="slide-orgaece4ca">
-<h4 id="orgaece4ca">Why does NGLM outperforms Real setup in (\(\omega\), \(\alpha\))?</h4>
+<section id="slide-orgd5b2c83">
+<h4 id="orgd5b2c83">Why does NGLM outperforms Real setup in (\(\omega\), \(\alpha\))?</h4>
 <aside class="notes">
 <p>
 We haven&rsquo;t done any further analysis but judging on the basis of the previous viz
@@ -648,8 +640,8 @@ We haven&rsquo;t done any further analysis but judging on the basis of the previ
 </section>
 </section>
 <section>
-<section id="slide-orgc72909d">
-<h2 id="orgc72909d"><span class="section-number-2">6</span> Self-learning (Data-augmentation) Experiments</h2>
+<section id="slide-orga88fb97">
+<h2 id="orga88fb97"><span class="section-number-2">6</span> Self-learning (Data-augmentation) Experiments</h2>
 <aside class="notes">
 <p>
 We were not satisfied, since RNNLM should have an advantage on modelling style, even though we only use very local feature to assess it.
@@ -666,8 +658,8 @@ We were not satisfied, since RNNLM should have an advantage on modelling style, 
 
 
 </section>
-<section id="slide-org5a20b99">
-<h3 id="org5a20b99">Experiment</h3>
+<section id="slide-org21e0ead">
+<h3 id="org21e0ead">Experiment</h3>
 <aside class="notes">
 <p>
 For each author, concatenate authentic document collection with the generated one.
@@ -680,8 +672,8 @@ For each author, concatenate authentic document collection with the generated on
 </p>
 
 </section>
-<section id="slide-org63cf30c">
-<h3 id="org63cf30c">Numbers</h3>
+<section id="slide-org91a5713">
+<h3 id="org91a5713">Numbers</h3>
 <aside class="notes">
 <ul>
 <li>RNNLM increases (even over the &lt;$&alpha;, &omega;$&gt; baseline)</li>
@@ -811,8 +803,8 @@ class="td11">       </td></tr></table></div>
 <img src="./img/f1_sampled.svg">
 
 </section>
-<section id="slide-org0774f96">
-<h3 id="org0774f96">Discussion</h3>
+<section id="slide-org8c7fe84">
+<h3 id="org8c7fe84">Discussion</h3>
 <aside class="notes">
 <p>
 To summarize the argument
@@ -829,8 +821,8 @@ To summarize the argument
 </section>
 </section>
 <section>
-<section id="slide-orge41768b">
-<h2 id="orge41768b"><span class="section-number-2">7</span> Conclusion</h2>
+<section id="slide-org8defb55">
+<h2 id="org8defb55"><span class="section-number-2">7</span> Conclusion</h2>
 <aside class="notes">
 <p>
 Shortcomings:
@@ -854,8 +846,8 @@ Shortcomings:
 </section>
 </section>
 <section>
-<section id="slide-org2604749">
-<h2 id="org2604749"><span class="section-number-2">8</span> Thank you for your attention</h2>
+<section id="slide-org67db035">
+<h2 id="org67db035"><span class="section-number-2">8</span> Thank you for your attention</h2>
 </section>
 </section>
 </div>

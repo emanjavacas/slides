@@ -1,0 +1,845 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8"/>
+<title>Synthetic Literature</title>
+<meta name="author" content="(Enrique Manjavacas & Folgert Karsdorp & Ben Burtenshaw & Mike Kestemont)"/>
+<style type="text/css">
+.underline { text-decoration: underline; }
+</style>
+<link rel="stylesheet" href="../externals/reveal.js/css/reveal.css"/>
+
+<link rel="stylesheet" href="../externals/reveal.js/css/theme/sky.css" id="theme"/>
+
+<link rel="stylesheet" href="./extra.css"/>
+
+<!-- If the query includes 'print-pdf', include the PDF print sheet -->
+<script>
+    if( window.location.search.match( /print-pdf/gi ) ) {
+        var link = document.createElement( 'link' );
+        link.rel = 'stylesheet';
+        link.type = 'text/css';
+        link.href = '../externals/reveal.js/css/print/pdf.css';
+        document.getElementsByTagName( 'head' )[0].appendChild( link );
+    }
+</script>
+<script type="text/javascript" src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+</head>
+<body>
+<div class="reveal">
+<div class="slides">
+<section id="sec-title-slide"><h1>Synthetic Literature</h1><h3>Writing Science-Fiction in a Co-Creative Process</h3><h4>Enrique Manjavacas &amp; Folgert Karsdorp &amp; Ben Burtenshaw &amp; Mike Kestemont</h4><h4>NLP MeetUp - Antwerp - 04/09/2017</h4><p><a href="https://emanjavacas.github.com/slides-content/antwerp-nlpmeetup-18">https://emanjavacas.github.com/slides-content/antwerp-nlpmeetup-18</a></p>
+</section>
+
+<section>
+<section id="slide-org3f8af81">
+<h2 id="org3f8af81"><span class="section-number-2">1</span> Background</h2>
+<ul>
+<li class="fragment roll-in">Stichting Collective for the Promotion of the Dutch Book (CPNB)</li>
+<li class="fragment roll-in">Dutch Book Week</li>
+<li class="fragment roll-in">The theme of robots, based on the novel &ldquo;<b>I, Robot</b>&rdquo; by Isaac Asimov</li>
+<li class="fragment roll-in">In collaboration with an established Dutch author: Ronald Giphart</li>
+
+</ul>
+
+<img src="img/robot.png" alt="Poster for the bookweek, including a cut-out cardboard robot">
+
+<aside class="notes">
+<p>
+The project we&rsquo;re presenting is part of a large-scale initiative by the CPNB (‘Collective for the Promotion of the Dutch Book’). 
+</p>
+
+<p>
+In Autumn 2017, CPNB will launch their annual media campaign, that this year focuses on robotics.
+</p>
+
+<p>
+To this end, CPNB will distribute a re-edition of the Dutch translation of Isaac Asimov’s <b>I, Robot</b> that is planned to include an additional piece written as part of a human-machine collaboration.
+</p>
+
+<p>
+The CPNB is a trust and PR agency based in The Netherlands that aims to promote the visibility of books and the publishing sector in Dutch society at large.
+</p>
+
+</aside>
+
+</section>
+<section id="slide-org0a15d3b">
+<h3 id="org0a15d3b">The Request</h3>
+<p>
+Write a story about robots, using a robot, in relation to &ldquo;I, Robot&rdquo;
+</p>
+
+<aside class="notes">
+<p>
+We were asked to get a robot to write a story, which obviously, &ldquo;is very easy &#x2026; (the robot does all the work)&rdquo;, and therefore it might as well be relatively long, &#x2026; and published. 
+</p>
+
+<p>
+So originally we were asked for a full novel.
+</p>
+
+</aside>
+
+
+</section>
+<section id="slide-org8108a33">
+<h3 id="org8108a33">The Proposal</h3>
+<p>
+Co-creatively write a science-fiction story using a system trained on similar literature
+</p>
+
+<aside class="notes">
+<p>
+Presented with this opportunity &#x2026; 
+</p>
+
+<p>
+of generating some kind of story,  we saw the involvement of the CPNB as a lucrative opportunity to work with an established author.
+</p>
+
+<p>
+To Co-creatively write a story, with an author that is interested in science fiction, and use a system trained on similar literature. 
+</p>
+
+<p>
+We wanted to create genre and author based tools for text generation, and find out which of those were useful/ relevant to a human author within the same field. 
+</p>
+
+<p>
+We proposed a system that allowed an author to orchestrate generated text into a narrative. Here, picking up the accepted shortcomings in neural network based approaches to NLG.
+</p>
+
+</aside>
+
+
+</section>
+<section id="slide-orgfe107cd">
+<h3 id="orgfe107cd">The Author: Ronald Giphart</h3>
+<img src="img/rg.jpg" alt="Image of Ronalf Giphart">
+
+<aside class="notes">
+<p>
+The author within the project was Ronald Giphart, who is to all extents and purposes an object of study, or evaluation. 
+</p>
+
+<p>
+In line with [@roemmele<sub>creative</sub><sub>2015</sub>], we acknowledge that such a co-creative interface opens the up possibility for automatic evaluation of generative systems based on user edits of generated strings. 
+</p>
+
+<p>
+Our interface is therefore designed to store all user edits along with the source of the string (human or machine generated). 
+</p>
+
+<p>
+This will enable us to study individual user behavior in relation to the particular properties of the generative system, as well as the aptness of different model variants and their parameter settings.
+</p>
+
+<p>
+Here, taking user edit behavior as a proxy for output quality.
+</p>
+
+</aside>
+
+
+</section>
+</section>
+<section>
+<section id="slide-org2406a1b">
+<h2 id="org2406a1b"><span class="section-number-2">2</span> Co-creativity</h2>
+<blockquote nil>
+<p>
+&#x2026; a collaborative process between multiple agents, where in this context, one agent is a computational system. 
+[&#x2026;] where crucially, the result of the output is greater than &ldquo;the sum of its parts&rdquo; (Davis 2013)
+</p>
+</blockquote>
+
+<aside class="notes">
+<p>
+Co-creativity is an important term within computational creativity, with a handful of different interpretations.
+</p>
+
+<p>
+In its broadest sense, Co-creativity is a collaborative process between multiple agents, where in this context, one agent is a computational system. 
+</p>
+
+<p>
+Davis sees co-creativity as the ’blending’ of improvisational forces [@davis<sub>human</sub>-computer<sub>2013</sub>]. This goes against a pragmatic distribution of labor that we might see in creative support systems, or how computers are treated in everyday life, and invites them into an indistinct and overlapping process of creativity. Where crucially, the result of the output is greater than ’the sum of its parts’ [@davis<sub>human</sub>-computer<sub>2013</sub>].
+</p>
+
+</aside>
+
+</section>
+<section id="slide-org9d85653">
+<h3 id="org9d85653">Different Takes on Co-creativity</h3>
+<ul>
+<li>Lubart (2005) clarifies co-creativity into four distinct roles for a computational system</li>
+<li class="fragment roll-in">Computer as <b>nanny</b>, <b>penpal</b>, <b>coach</b> or <b>colleague</b></li>
+
+</ul>
+
+<aside class="notes">
+<p>
+Interestingly, as pointed out by Jordanous 2017, the public are suspicious of systems that purport to be autonomous whilst in fact involve human participation.
+</p>
+
+<p>
+Lubart clarifies co-creativity through four distinct roles; ’Computer as nanny’, ‘Computer as penpal’, ‘Computer as coach’, ‘Computer as colleague’ [@lubart<sub>how</sub><sub>2005</sub> p. 366].
+</p>
+
+<p>
+In this project we are most interested in achieving the last, though in practice, much of what our system does could be considered under the second. 
+</p>
+
+</aside>
+
+</section>
+<section id="slide-org4b642dc">
+<h4 id="org4b642dc">Computer as colleague</h4>
+<ul>
+<li class="fragment roll-in">A competent agent within the writing process</li>
+<li class="fragment roll-in">A verifiable contribution to the end product</li>
+<li class="fragment roll-in">An agent that challenges the user in a meaningful way</li>
+
+</ul>
+
+<aside class="notes">
+<p>
+For the computer to be considered a &rsquo;colleague&rsquo; they should be treated as a competent agent within the process, to whom meaningful contributions can be assigned. 
+Their role may overlap heavily with the user, but their participation is certainly vital to the production as it is.
+</p>
+
+</aside>
+
+
+</section>
+<section id="slide-org764c714">
+<h4 id="org764c714">Computer as penpal</h4>
+<ul>
+<li class="fragment roll-in">A subordinate agent, that eases the objective of the user</li>
+<li class="fragment roll-in">Does not challenge the user</li>
+
+</ul>
+
+<aside class="notes">
+<p>
+On the other spectrum from colleague, there is the co-creativity of assistance, or you could argue lack of creativity by &rsquo;mere&rsquo; assistance.
+</p>
+
+<p>
+A valid collaboration should provoke, even disrupt, the writer. It should test them, push them, and ask them to reconsider their approach. Ideally from a relevant point of view. 
+</p>
+
+<p>
+In assistance, the generated text acts as a kind of lucky dip of sentences for the writer, and in fact, the writer would probably prefer to just write something themself but cant be bothered.
+</p>
+
+<p>
+To balance these appraoches, we chose to treat the writer as a competent handler of the system, completely capable of dealing with generated language, and unlikely to be overwhelmed. 
+</p>
+
+<p>
+We gave them a detailed explanation of the output of generated text, with multiple suggestions, and control over the model. We&rsquo;ll return to this in the second half of the presentation.
+</p>
+
+</aside>
+
+
+</section>
+</section>
+<section>
+<section id="slide-org0376f44">
+<h2 id="org0376f44"><span class="section-number-2">3</span> Method</h2>
+<div class="outline-text-2" id="text-3">
+</div>
+</section>
+<section id="slide-org8a145a7">
+<h3 id="org8a145a7">Data Collection and Preprocessing</h3>
+<aside class="notes">
+<p>
+Automatically collected corpus of dutch novels.
+For comparison, dutch wikipedia is about 300m words.
+</p>
+
+</aside>
+<ul>
+<li class="fragment roll-in">Large collection of Dutch novels: 4,392 novels by 1,600 authors</li>
+<li class="fragment roll-in">Tokenization (sentence boundary, paragraph and quotation detection) with the software <a href="https://languagemachines.github.io/ucto/">UCTO</a></li>
+
+</ul>
+
+</section>
+<section id="slide-org04cdd1f">
+<h4 id="org04cdd1f">Statistics</h4>
+<table border="2" cellspacing="0" cellpadding="6" rules="groups" frame="hsides">
+
+
+<colgroup>
+<col  class="org-left" />
+
+<col  class="org-left" />
+
+<col  class="org-left" />
+
+<col  class="org-left" />
+</colgroup>
+<thead>
+<tr>
+<th scope="col" class="org-left">&#xa0;</th>
+<th scope="col" class="org-left">Sentences</th>
+<th scope="col" class="org-left">Words</th>
+<th scope="col" class="org-left">Characters</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="org-left">Number</td>
+<td class="org-left">24.6m</td>
+<td class="org-left"><b>425.5m</b> (NLWiki: &gt;300m)</td>
+<td class="org-left">2001m</td>
+</tr>
+
+<tr>
+<td class="org-left">Novel Average</td>
+<td class="org-left">3k</td>
+<td class="org-left">59k</td>
+<td class="org-left">309,531k</td>
+</tr>
+</tbody>
+</table>
+
+
+</section>
+<section id="slide-org3bf1182">
+<h3 id="org3bf1182">Recurrent Neural Network Language Model (RNNLM) for Text Generation</h3>
+<div class="outline-text-3" id="text-org3bf1182">
+</div>
+</section>
+<section id="slide-orgb8ad15a">
+<h4 id="orgb8ad15a">Language Model</h4>
+<p>
+\(P(The, cat, sat, on, the, mat, .)\) =
+<br/><span class="fragment fade-in"> \(P(The | \text{<}bos\text{>})\)
+</span><span class="fragment fade-in">  * \(P(cat | \text{<}bos\text{>} , The)\) 
+</span><span class="fragment fade-in">  * \(\ldots\)
+</span><span class="fragment fade-in">  * \(P(. | \text{<}bos\text{>} , \ldots , mat)\)
+</span>
+</p>
+
+</section>
+<section >
+<p>
+More formally&#x2026;
+</p>
+
+<p>
+<span class="fragment highlight-green">        \(P(w_1, w_2, ..., w_n)\) =
+</span><span class="fragment highlight-green"> \(P(w_1|\text{<}bos\text{>})\)
+</span><span class="fragment highlight-green"> \(* \prod_{i=2}^n P(w_{i}|w_1, ..., w_{i-1})\)
+</span>
+</p>
+
+</section>
+<section >
+<aside class="notes">
+<ul>
+<li>first feed the words one time step at a time</li>
+<li>project them onto an &ldquo;embedding&rdquo; space to create dense representations</li>
+<li>run them through a hidden recurrent layer that keeps around previous information</li>
+<li>project onto the output space (with dimensionality equal to vocabulary size)</li>
+<li>transform into a valid probability distribution (softmax)</li>
+
+</ul>
+
+</aside>
+<p>
+RNNLM Implementation (Embedding + RNN Layer + Output Softmax)
+</p>
+<img src="img/rnnlm.svg" alt="RNNLM graph">
+
+
+</section>
+<section id="slide-org2c0d9f8">
+<h4 id="org2c0d9f8">Text Generation</h4>
+<p>
+Sample &ldquo;n&rdquo; characters from the Language Model
+</p>
+<ul>
+<li class="fragment roll-in">\(w_1 \sim P(w|\text{<}bos\text{>})\)</li>
+<li class="fragment roll-in">\(w_2 \sim P(w|\text{<}bos\text{>}, w_1)\)</li>
+<li class="fragment roll-in">\(\ldots\)</li>
+<li class="fragment roll-in">\(w_n \sim P(w|\text{<}bos\text{>}, w_1, ..., w_{n-1})\)</li>
+
+</ul>
+
+</section>
+<section >
+<aside class="notes">
+<ul>
+<li>Manipulate the learned distribution to enforce either output diversity or model certainty</li>
+<li>Trade-off between too &ldquo;spontaneous&rdquo; text or &ldquo;grammatically wrong&rdquo; and more diverse</li>
+<li>Rescale each word probability (up or down) and renormalize to a prob distribution</li>
+
+</ul>
+
+</aside>
+<p>
+Multinomial sampling with temperature
+</p>
+<ul>
+<li class="fragment roll-in">\(w_1 \sim P(w|\text{<}bos\text{>})\)</li>
+<li class="fragment roll-in">\(\Rightarrow w_1 = \{p_1, p_2, ..., p_v\}\)</li>
+<li class="fragment roll-in">\(p_i^{\tau} = \frac{p_i / \tau}{\sum_j^V p_j / \tau}\)</li>
+
+</ul>
+
+
+</section>
+<section id="slide-org570f2a0">
+<h4 id="org570f2a0">Character-level</h4>
+<p>
+We run the model over <b>characters</b>
+</p>
+<ul>
+<li class="fragment roll-in">Help us solving the OOV problem</li>
+<li class="fragment roll-in">Much faster generation (smaller output distribution)</li>
+<li class="fragment roll-in">Virtually expands the amount of training data</li>
+
+</ul>
+
+
+</section>
+<section id="slide-org57fb814">
+<h3 id="org57fb814">Model fitting</h3>
+<ul>
+<li>Different parameter configurations resulting in different model sizes</li>
+<li>Sizes range from medium (10M) to big (90m)</li>
+
+</ul>
+
+</section>
+<section id="slide-orga100885">
+<h4 id="orga100885">Model parameters</h4>
+<aside class="notes">
+<p>
+We explore parameter value in the following ranges.
+</p>
+
+</aside>
+<table border="2" cellspacing="0" cellpadding="6" rules="groups" frame="hsides">
+
+
+<colgroup>
+<col  class="org-left" />
+
+<col  class="org-left" />
+</colgroup>
+<thead>
+<tr>
+<th scope="col" class="org-left">Parameter</th>
+<th scope="col" class="org-left">Range</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="org-left">Embedding sizes</td>
+<td class="org-left">24, 46</td>
+</tr>
+
+<tr>
+<td class="org-left">RNN Cell</td>
+<td class="org-left">GRU, LSTM</td>
+</tr>
+
+<tr>
+<td class="org-left">Hidden size</td>
+<td class="org-left">1024, 2048</td>
+</tr>
+
+<tr>
+<td class="org-left">Hidden Layers</td>
+<td class="org-left">1</td>
+</tr>
+</tbody>
+</table>
+
+
+</section>
+<section id="slide-org3796b17">
+<h4 id="org3796b17">Training</h4>
+<aside class="notes">
+<p>
+For the record, Here are the details in case someone is interested in the particular setup
+</p>
+
+</aside>
+<p>
+Stochastic Gradient Descent (SGD) + bells and whistles
+</p>
+<table border="2" cellspacing="0" cellpadding="6" rules="groups" frame="hsides">
+
+
+<colgroup>
+<col  class="org-left" />
+
+<col  class="org-right" />
+</colgroup>
+<thead>
+<tr>
+<th scope="col" class="org-left">Parameter</th>
+<th scope="col" class="org-right">Value</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="org-left">Optimizer</td>
+<td class="org-right">Adam (default params)</td>
+</tr>
+
+<tr>
+<td class="org-left">Learning rate</td>
+<td class="org-right">0.001</td>
+</tr>
+
+<tr>
+<td class="org-left">Gradient norm clipping</td>
+<td class="org-right">5.0</td>
+</tr>
+
+<tr>
+<td class="org-left">Dropout</td>
+<td class="org-right">0.3 (RNN output)</td>
+</tr>
+
+<tr>
+<td class="org-left">BPTT</td>
+<td class="org-right">200</td>
+</tr>
+</tbody>
+</table>
+
+
+</section>
+<section id="slide-org761038c">
+<h3 id="org761038c">Voices</h3>
+<aside class="notes">
+<p>
+In order to engage the user, we developed a feature that we call &rsquo;voices&rsquo;
+A voice corresponds to a LM that has been specifically trained to emulate a given author style
+Overfitting: situation where a model stays very close to its training data 
+</p>
+<ul>
+<li>harmful for generalization</li>
+<li>benificial in our case</li>
+
+</ul>
+
+</aside>
+<ul>
+<li class="fragment roll-in">Text Generation System that emulates the style of a particular author</li>
+<li class="fragment roll-in">Reuse a pre-trained model and fine-tune it on the desired author</li>
+<li class="fragment roll-in">Force overfitting on the author&rsquo;s training data</li>
+
+</ul>
+
+
+</section>
+</section>
+<section>
+<section id="slide-org4b6fb69">
+<h2 id="org4b6fb69"><span class="section-number-2">4</span> User Interface</h2>
+<div class="outline-text-2" id="text-4">
+</div>
+</section>
+<section id="slide-orgd29b27e">
+<h3 id="orgd29b27e">User Interface</h3>
+<img alt="Image of the writing application" src="img/app1.png">
+
+<aside class="notes">
+<p>
+
+Uncharacteristically for an NLP project, the visual interface of the system is paramount to its success. 
+</p>
+
+<p>
+Though ultimately the system will be assessed on the language it produces, such language can only be generated if the writer is able to use the system, and believe that it is worth using. 
+</p>
+
+<p>
+Therefore, we have focused on functionalities that give the user a clear representation of how text is generated, and allow them to understand how their own writing works within the process. 
+</p>
+
+<p>
+This allows them to understand the system&rsquo;s role within the process of writing, whilst also encouraging them to use generated text. 
+</p>
+
+</aside>
+
+
+</section>
+<section id="slide-org07bdcfe" data-background="./img/app.gif" data-background-transition="slide">
+<h3 id="org07bdcfe">Annotation</h3>
+<aside class="notes">
+<p>
+The text is visually annotated, which reveals to the writer how generated text is affecting their own writing. 
+</p>
+
+<p>
+From the outset, we envisaged that the user would be confused if they lost track of what was generated and written. Especially as the two converge. 
+</p>
+
+<p>
+As the writer works into text, they could easily lose track of its source; therefore, the interface is enhanced with visual feedback which highlights based on edit distance between original generated text and its current status.
+</p>
+
+</aside>
+
+
+</section>
+</section>
+<section>
+<section id="slide-orgc2dda63">
+<h2 id="orgc2dda63"><span class="section-number-2">5</span> Output</h2>
+<ul>
+<li class="fragment roll-in">A new dutch edition of &rsquo;I, Robot&rsquo; with a 10th co-created story was published in November 2017</li>
+<li class="fragment roll-in">The interface was deployed for the general public during November 2017 (averaging 200 users/day)</li>
+<li class="fragment roll-in">User-generated data can be used for evaluating the co-creative process</li>
+
+</ul>
+
+
+<aside class="notes">
+<p>
+So to wrap up, In this paper we have outlined an applied text generation system and graphical user interface. 
+Together they facilitate a co-creative environment in which to write science fiction literature.
+We have highlighted an existing challenge within state of the art systems, to balance a challenging intervention into the writing process, with mere asistance. 
+Going forward, our project intends to explore this process on a quantitative and objective basis, working with writers from the general public, and other researchers to evaluate the role of synthetic text.
+</p>
+
+</aside>
+
+
+</section>
+</section>
+<section>
+<section id="slide-orgb4c35f1">
+<h2 id="orgb4c35f1"><span class="section-number-2">6</span> Ongoing work</h2>
+<div class="outline-text-2" id="text-6">
+</div>
+</section>
+<section id="slide-org8108bf0">
+<h3 id="org8108bf0">From character-level to word-level</h3>
+<aside class="notes">
+<p>
+In fact, most recent breakthroughs in Language Modeling came through innovative dropout variants (Variational Dropout; Weight Dropout; Zoneout)
+</p>
+
+</aside>
+
+<table border="2" cellspacing="0" cellpadding="6" rules="groups" frame="hsides">
+
+
+<colgroup>
+<col  class="org-left" />
+
+<col  class="org-left" />
+
+<col  class="org-left" />
+</colgroup>
+<thead>
+<tr>
+<th scope="col" class="org-left">&#xa0;</th>
+<th scope="col" class="org-left">Character-level</th>
+<th scope="col" class="org-left">Word-level</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="org-left">Vocabulary</td>
+<td class="org-left">Smaller (&lt;1000)</td>
+<td class="org-left">Larger (≃ 3m)</td>
+</tr>
+
+<tr>
+<td class="org-left">Dataset size</td>
+<td class="org-left">Larger  (&lt;2000m)</td>
+<td class="org-left">Smaller (&gt;425m)</td>
+</tr>
+
+<tr>
+<td class="org-left">Preprocessing</td>
+<td class="org-left">None</td>
+<td class="org-left">Tokenization</td>
+</tr>
+
+<tr>
+<td class="org-left">Overfitting</td>
+<td class="org-left">Not a problem</td>
+<td class="org-left">Quite a problem</td>
+</tr>
+</tbody>
+<tbody>
+<tr>
+<td class="org-left">Dependency span</td>
+<td class="org-left">Smaller (BPTT 250 ≃ 50 words)</td>
+<td class="org-left">Larger</td>
+</tr>
+
+<tr>
+<td class="org-left">Output distribution</td>
+<td class="org-left">Not too interesting</td>
+<td class="org-left">Quite interesting</td>
+</tr>
+</tbody>
+</table>
+
+
+</section>
+<section id="slide-org16f06b7">
+<h3 id="org16f06b7">Opening new horizons (Mixture Models)&#x2026;</h3>
+<ul>
+<li>Pointer-based Language Models</li>
+<li>Latent Topic Language Models (credits to <a href="https://www.timvandecruys.be">Tim van de Cruys</a>)</li>
+
+</ul>
+
+</section>
+<section id="slide-org9ac1882">
+<h4 id="org9ac1882">Mixing output distributions 1: Pointer-based Language Models</h4>
+<img src="img/rnnlm.svg" alt="RNNLM">
+
+</section>
+<section >
+<img src="img/CacheLM.svg" alt="Cache-LM">
+
+</section>
+<section >
+<ul>
+<li><a href="https://arxiv.org/abs/1410.3916">Memory Networks (2014)</a></li>
+<li class="fragment roll-in"><a href="https://arxiv.org/abs/1506.03134">Pointer Networks (2015)</a></li>
+<li class="fragment roll-in"><a href="https://arxiv.org/abs/1612.04426">Neural Language Models with Cache (2016)</a></li>
+
+</ul>
+
+</section>
+<section >
+<ul>
+<li>Results in better model perplexity (=&gt; better output distributions)</li>
+<li class="fragment roll-in">Can generate OOV words if they occur in the sentence history</li>
+<li class="fragment roll-in">Tighter coherence of the generated text with user input</li>
+
+</ul>
+
+</section>
+<section id="slide-orgc6ac5ef">
+<h4 id="orgc6ac5ef">Mixing output distributions 2: Latent Topic Language Models</h4>
+<p>
+<b>Non-Negative Matrix Factorization</b>
+</p>
+
+</section>
+<section >
+<p>
+Word co-occurrence matrix
+</p>
+<img src="img/wordCooc.svg" alt="word-coocurrence matrix">
+
+</section>
+<section >
+<p>
+Latent topics (unnormalized distributions over words)
+</p>
+<img src="img/NNMFMixtureLM.svg" alt="NNFM">
+
+</section>
+<section >
+<p>
+Latent Topic Language Model
+</p>
+<img src="img/NNMFLanguageModel.svg" alt="NNMF-LM">
+
+</section>
+<section >
+<ul>
+<li>Enforces topic coherence across the entire sequence</li>
+<li class="fragment roll-in">Enables topics during generation (tweaking the distribution over topics)</li>
+
+</ul>
+
+</section>
+<section id="slide-org257d093">
+<h3 id="org257d093">&#x2026; and challenges (due to the large vocabulary)</h3>
+<ul>
+<li class="fragment roll-in">Slow training due to parameter explosion (embedding size x vocabulary)</li>
+<li class="fragment roll-in">Output distribution rely too much on <code>&lt;Unk&gt;</code></li>
+
+</ul>
+
+</section>
+<section id="slide-org603827b">
+<h4 id="org603827b">Solutions for the input embeddings</h4>
+<p>
+Process input at the character level producing word-level embeddings (CNN, RNN)
+</p>
+
+<img src="img/charCNNadapted.jpg" alt="Char-CNN">
+
+</section>
+<section id="slide-org25d0422">
+<h4 id="org25d0422">Solutions for the output embeddings (during training)</h4>
+<p>
+Since reducing the vocabulary size is not advised, speed up the Softmax computation during training
+</p>
+
+<ul>
+<li class="fragment roll-in"><a href="https://www.iro.umontreal.ca/~lisa/pointeurs/hierarchical-nnlm-aistats05.pdf">Hierarchical Softmax (2005)</a></li>
+<li class="fragment roll-in"><a href="https://www.cs.toronto.edu/~amnih/papers/ncelm.pdf">Negative Constrastive Estimation (2012)</a></li>
+<li class="fragment roll-in"><a href="https://arxiv.org/abs/1609.04309">Adaptive Softmax (2016)</a></li>
+
+</ul>
+</section>
+</section>
+</div>
+</div>
+<script src="../externals/reveal.js/lib/js/head.min.js"></script>
+<script src="../externals/reveal.js/js/reveal.js"></script>
+
+<script>
+// Full list of configuration options available here:
+// https://github.com/hakimel/reveal.js#configuration
+Reveal.initialize({
+
+controls: true,
+progress: true,
+history: true,
+center: true,
+slideNumber: 'c',
+rollingLinks: true,
+keyboard: true,
+overview: true,
+width: 1200,
+height: 800,
+margin: 0.05,
+minScale: 0.50,
+maxScale: 2.50,
+
+theme: Reveal.getQueryHash().theme, // available themes are in /css/theme
+transition: Reveal.getQueryHash().transition || 'slide', // default/cube/page/concave/zoom/linear/fade/none
+transitionSpeed: 'fast',
+multiplex: {
+    secret: '', // null if client
+    id: '', // id, obtained from socket.io server
+    url: '' // Location of socket.io server
+},
+
+// Optional libraries used to extend on reveal.js
+dependencies: [
+ { src: '../externals/reveal.js/lib/js/classList.js', condition: function() { return !document.body.classList; } },
+ { src: '../externals/reveal.js/plugin/markdown/marked.js', condition: function() { return !!document.querySelector( '[data-markdown]' ); } },
+ { src: '../externals/reveal.js/plugin/markdown/markdown.js', condition: function() { return !!document.querySelector( '[data-markdown]' ); } },
+ { src: '../externals/reveal.js/plugin/zoom-js/zoom.js', async: true, condition: function() { return !!document.body.classList; } },
+ { src: '../externals/reveal.js/plugin/notes/notes.js', async: true, condition: function() { return !!document.body.classList; } }]
+});
+</script>
+</body>
+</html>

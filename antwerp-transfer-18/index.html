@@ -1,0 +1,470 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8"/>
+<title>Transfer Learning for NLP</title>
+<meta name="author" content="(Enrique Manjavacas)"/>
+<style type="text/css">
+.underline { text-decoration: underline; }
+</style>
+<link rel="stylesheet" href="../externals/reveal.js/css/reveal.css"/>
+
+<link rel="stylesheet" href="../externals/reveal.js/css/theme/sky.css" id="theme"/>
+
+<link rel="stylesheet" href="./extra.css"/>
+
+<!-- If the query includes 'print-pdf', include the PDF print sheet -->
+<script>
+    if( window.location.search.match( /print-pdf/gi ) ) {
+        var link = document.createElement( 'link' );
+        link.rel = 'stylesheet';
+        link.type = 'text/css';
+        link.href = '../externals/reveal.js/css/print/pdf.css';
+        document.getElementsByTagName( 'head' )[0].appendChild( link );
+    }
+</script>
+<script type="text/javascript" src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+</head>
+<body>
+<div class="reveal">
+<div class="slides">
+<section id="sec-title-slide"><h1 class="title">Transfer Learning for NLP</h1><h2 class="author">Enrique Manjavacas</h2>
+</section>
+
+<section>
+<section id="slide-org4381160">
+<h2 id="org4381160"><span class="section-number-2">1</span> Motivation</h2>
+<div class="outline-text-2" id="text-1">
+</div>
+</section>
+</section>
+<section>
+<section id="slide-org3ae9840">
+<h3 id="org3ae9840">Exploit information acquired during learning one task to help learning another related task</h3>
+<ul>
+<li class="fragment roll-in">Humans <b>never</b> approach new tasks in isolation</li>
+<li class="fragment roll-in">Traditional Machine Learning, however, treats new tasks in isolation</li>
+
+</ul>
+
+</section>
+<section >
+
+<div class="figure">
+<p><img src="./img/traditional_ml_setup.png" alt="traditional_ml_setup.png" />
+</p>
+</div>
+<ul>
+<li>[source: <a href="http://ruder.io/">http://ruder.io/</a>]</li>
+
+</ul>
+
+</section>
+<section >
+
+<div class="figure">
+<p><img src="./img/transfer_learning_setup.png" alt="transfer_learning_setup.png" />
+</p>
+</div>
+<ul>
+<li>[source: <a href="http://ruder.io/">http://ruder.io/</a>]</li>
+
+</ul>
+
+</section>
+</section>
+<section>
+<section id="slide-orgd68660a">
+<h3 id="orgd68660a">Related Concepts</h3>
+<div class="outline-text-3" id="text-orgd68660a">
+</div>
+</section>
+<section id="slide-org02feb84">
+<h4 id="org02feb84">Transfer Learning (TL) vs Unsupervised Pretraining (UP)</h4>
+<ul>
+<li class="fragment roll-in">Unsupervised Pretraining is a very specific concept or technique from the Deep Learning literature</li>
+<li class="fragment roll-in">Neural Networks training can be unstable and parameter pretraining can be crucial to achieve good performance</li>
+<li class="fragment roll-in">Transfer Learning is a broad field inside Machine Learning (and is not restricted to Deep Learning)</li>
+
+</ul>
+
+</section>
+<section id="slide-org7b9bdb1">
+<h4 id="org7b9bdb1">Transfer Learning vs Multi-task Learning (MTL)</h4>
+<ul>
+<li class="fragment roll-in">MTL focuses on using (multiple) auxiliary related tasks to improve learning on <b>all</b> tasks</li>
+<li class="fragment roll-in">TL seeks to improve learning in <b>one</b> task using other (possibly ad-hoc) tasks</li>
+
+</ul>
+
+</section>
+<section id="slide-orgdffd2c1">
+<h4 id="orgdffd2c1">Transfer Learning (TL) vs Domain Adaptation (DA)</h4>
+<ul>
+<li class="fragment roll-in">In DA there is only one task&#x2014;same as in TL</li>
+<li class="fragment roll-in">However, in DA target data comes from a different domain than during training</li>
+
+</ul>
+
+</section>
+</section>
+<section>
+<section id="slide-org48989ee">
+<h3 id="org48989ee">Current Deep Learning (DL) algorithms are &ldquo;data hungry&rdquo;</h3>
+<ul>
+<li class="fragment roll-in">DL algorithms have shown dramatic improvements across fields in Machine Learning</li>
+<li class="fragment roll-in">DL requires large amounts of training material to tackle (increasingly) complex tasks</li>
+
+</ul>
+
+</section>
+<section >
+
+<div class="figure">
+<p><img src="./img/pos.png" alt="pos.png" />
+</p>
+</div>
+
+</section>
+<section >
+<ul>
+<li class="fragment roll-in">\(P(NNS|VBZ, f(seashells); \theta)\)</li>
+<li class="fragment roll-in">What is \(f\)?
+<ul>
+<li class="fragment roll-in">ML: \(\{lemma(x_i), ending(x_i), upper(x_i), ...\}\)</li>
+<li class="fragment roll-in">DL: \(g(seashells; \theta)\)
+<ul>
+<li class="fragment roll-in">Embedding matrix</li>
+<li class="fragment roll-in">RNN</li>
+<li class="fragment roll-in">CNN</li>
+
+</ul></li>
+
+</ul></li>
+
+</ul>
+
+</section>
+<section >
+<ul>
+<li class="fragment roll-in">\(g\) must be trained on large datasets for the features to be useful</li>
+<li class="fragment roll-in">But labeled datasets for training are usually of small scale</li>
+
+</ul>
+
+</section>
+</section>
+<section>
+<section id="slide-org3f60188">
+<h3 id="org3f60188">ImageNet: Classical example of Deep Transfer Learning</h3>
+<ul>
+<li class="fragment roll-in">More than 1M images labeled for 1000 image classes</li>
+<li class="fragment roll-in">Benchmark for image classification</li>
+<li class="fragment roll-in">Very deep models trained for long times (weeks)</li>
+<li class="fragment roll-in">Lower layers shown to extract features useful for many other Computer Vision tasks</li>
+
+</ul>
+
+</section>
+<section >
+
+<div class="figure">
+<p><img src="./img/feature_visualization.png" alt="feature_visualization.png" />
+</p>
+</div>
+
+</section>
+</section>
+<section>
+<section id="slide-orgd8a3abf">
+<h2 id="orgd8a3abf"><span class="section-number-2">2</span> Transfer Learning in NLP</h2>
+<ul>
+<li>Word Embeddings</li>
+<li>Sentence Embeddings</li>
+<li>Transfer Learning via Language Modeling</li>
+
+</ul>
+
+</section>
+</section>
+<section>
+<section id="slide-org0b22f6e">
+<h3 id="org0b22f6e">Word Embeddings</h3>
+<ul>
+<li class="fragment roll-in">Word vector spaces trained (implicitely or explicitely) to encode semantic relationships between words</li>
+<li class="fragment roll-in">For example, Glove vectors are trained such that vector products encode word co-occurrence statistics</li>
+
+</ul>
+
+</section>
+<section id="slide-org112a42d">
+<h4 id="org112a42d">Word Embeddings as Transfer Learning</h4>
+<ul>
+<li class="fragment roll-in">Lexical semantics is arguably one of the first steps in language understanding</li>
+<li class="fragment roll-in">Leverage large amounts of unlabelled data (corpora in the size of several billion words)</li>
+<li class="fragment roll-in">Specifically useful for parameter initialization of Neural Networks</li>
+
+</ul>
+
+</section>
+<section id="slide-org1a956f8">
+<h4 id="org1a956f8">Impact</h4>
+<ul>
+<li class="fragment roll-in">Too many applications and papers to summarize but&#x2026;</li>
+<li class="fragment roll-in">It&rsquo;s reported that word-embedding initialization gets you a boost of 2 to 3 percentage points across the board</li>
+
+</ul>
+
+</section>
+</section>
+<section>
+<section id="slide-orge1e340c">
+<h3 id="orge1e340c">Sentence Encoders</h3>
+<ul>
+<li class="fragment roll-in">Extension of word embeddings to the sentential level</li>
+<li class="fragment roll-in">Sentences are encoded into a vector space in which semantically related sentences are close</li>
+
+</ul>
+
+</section>
+<section >
+<p>
+Skipthoughts Model
+<img src="./img/skipthought.png" alt="skipthought.png" />
+</p>
+
+</section>
+<section >
+<p>
+Skipthoughts Model
+<img src="./img/sentemb.jpg" alt="sentemb.jpg" />
+</p>
+
+
+</section>
+<section id="slide-org1f1f10a">
+<h4 id="org1f1f10a">Sentence Embeddings as Transfer Learning</h4>
+<ul>
+<li class="fragment roll-in">Leverage large corpora (typically Book Corpus: ~1B words)</li>
+<li class="fragment roll-in">Extract features for downstream sentence classifiers</li>
+
+</ul>
+
+</section>
+<section id="slide-org8a975f5">
+<h4 id="org8a975f5">Impact</h4>
+<ul>
+<li class="fragment roll-in">State of the art for many sentence-level tasks
+<ul>
+<li class="fragment roll-in">Semantic Textual Similarity (correlation with human judgements)</li>
+<li class="fragment roll-in">Paraphrase Detection (binary classification)</li>
+<li class="fragment roll-in">Natural Language Inference (Entailment, Contradiction, etc.)</li>
+<li class="fragment roll-in">Sentiment Analysis</li>
+
+</ul></li>
+
+</ul>
+
+</section>
+</section>
+<section>
+<section id="slide-org189e287">
+<h3 id="org189e287">Limitations</h3>
+<div class="outline-text-3" id="text-org189e287">
+</div>
+</section>
+<section id="slide-org0266c76">
+<h4 id="org0266c76">Limitations of Word Embeddings</h4>
+<p>
+Language understanding requires more than just lexical semantics
+</p>
+
+<ul>
+<li class="fragment roll-in">compositionality</li>
+<li class="fragment roll-in">polysemy (word-sense disambiguation)</li>
+<li class="fragment roll-in">anaphora (corefence resolution)</li>
+<li class="fragment roll-in">agreement</li>
+<li class="fragment roll-in">negation</li>
+<li class="fragment roll-in">&#x2026; and basically any type of long-term dependency</li>
+
+</ul>
+
+</section>
+<section id="slide-org320ebd3">
+<h4 id="org320ebd3">Limitations of Sentence Embeddings</h4>
+<ul>
+<li class="fragment roll-in">Black-box sentence embeddings
+<ul>
+<li>Unclear how word-level information is composed into final sentence embedding</li>
+
+</ul></li>
+<li class="fragment roll-in">Limited used for word and sub-sentential level tasks (PoS, NER, Parsing, etc&#x2026;)</li>
+
+</ul>
+
+</section>
+</section>
+<section>
+<section id="slide-org48c1dce">
+<h2 id="org48c1dce"><span class="section-number-2">3</span> Transfer Learning with Language Models (LM)</h2>
+<div class="outline-text-2" id="text-3">
+</div>
+</section>
+</section>
+<section>
+<section id="slide-orgab46b29">
+<h3 id="orgab46b29">Definition</h3>
+<p>
+Language Model
+</p>
+
+<p>
+\(P(The, cat, sat, on, the, mat, .)\) =
+<br/><span class="fragment fade-in"> \(P(The | \text{<}bos\text{>})\)
+</span><span class="fragment fade-in">  * \(P(cat | \text{<}bos\text{>} , The)\) 
+</span><span class="fragment fade-in">  * \(\ldots\)
+</span><span class="fragment fade-in">  * \(P(. | \text{<}bos\text{>} , \ldots , mat)\)
+</span>
+</p>
+
+</section>
+<section >
+
+<div class="figure">
+<p><img src="./img/lm.png" alt="lm.png" />
+</p>
+</div>
+<ul>
+<li class="fragment roll-in">Recurrent Network</li>
+<li class="fragment roll-in">\(P(w_t|w_1, ..., w_{t-1}) \propto W \cdot h_t = W \cdot RNN(w_t, h_{t-1})\)</li>
+
+</ul>
+
+</section>
+</section>
+<section>
+<section id="slide-orga93181a">
+<h3 id="orga93181a">Current interest on linguistic information modelled by LMs</h3>
+<p>
+Inspection of LMs through auxiliary tasks shows that LMs internally model linguistic structure
+</p>
+</section>
+<section >
+
+<ul>
+<li class="fragment roll-in">Long-distance dependencies
+<ul>
+<li class="fragment roll-in">Subject-verb agreement</li>
+<li class="fragment roll-in">Negation and contrastive compositionality: &ldquo;The service was poor, but the food was &#x2026;&rdquo;</li>
+<li class="fragment roll-in">Higher probabilities are assigned to valid long-distance dependencies</li>
+
+</ul></li>
+<li class="fragment roll-in">Higher layers seem to encode more abstract syntactic information
+<ul>
+<li class="fragment roll-in">POS-relevant information encoded at lower layers than dependency-relevant information</li>
+<li class="fragment roll-in">Seems to do so better than Machine Translation Models</li>
+
+</ul></li>
+
+</ul>
+
+</section>
+</section>
+<section>
+<section id="slide-org94a994a">
+<h3 id="org94a994a">Potential of LMs for Transfer Learning</h3>
+<ul>
+<li><a href="https://arxiv.org/abs/1802.05365">Embeddings from Language Models (ELMo)</a></li>
+<li><a href="https://arxiv.org/abs/1801.06146">Universal Language Model Fine-tuning (ULMFiT)</a></li>
+<li><a href="https://s3-us-west-2.amazonaws.com/openai-assets/research-covers/language-unsupervised/language_understanding_paper.pdf">OpenAI Transformer</a></li>
+
+</ul>
+
+</section>
+<section id="slide-org11a501b">
+<h4 id="org11a501b">Bidirectional Language Model</h4>
+
+<div class="figure">
+<p><img src="./img/bilm.png" alt="bilm.png" />
+</p>
+</div>
+
+</section>
+<section id="slide-org1c7e11a">
+<h4 id="org1c7e11a">In-domain fine-tuning of word-embeddings</h4>
+<ul>
+<li class="fragment roll-in">Train a multiple-layer Bidirectional LM</li>
+<li class="fragment roll-in">Learn a task-specific projection of features learnt at different layers</li>
+
+</ul>
+
+</section>
+<section >
+<ul>
+<li class="fragment roll-in">Forward layer: \(h_t^{fwd} = RNN(w_t, h_{t-1})\)</li>
+<li class="fragment roll-in">Backward layer: \(h_t^{bwd} = RNN(w_t, h_{t+1})\)</li>
+<li class="fragment roll-in">Bidirectional: \(h_t = [h_t^{fwd}; h_t^{bwd}]\)</li>
+<li class="fragment roll-in">ELMO Embedding: \(v_t^{task} = \sum_{j=0}^{N} s_j^{task} h_t^j\)</li>
+
+</ul>
+
+</section>
+<section id="slide-orgae5fb62">
+<h4 id="orgae5fb62">Impact</h4>
+
+<div class="figure">
+<p><img src="./img/elmo_peters_2018.png" alt="elmo_peters_2018.png" />
+</p>
+</div>
+
+</section>
+</section>
+<section>
+<section id="slide-org45dc67e">
+<h2 id="org45dc67e"><span class="section-number-2">4</span> Questions?</h2>
+</section>
+</section>
+</div>
+</div>
+<script src="../externals/reveal.js/lib/js/head.min.js"></script>
+<script src="../externals/reveal.js/js/reveal.js"></script>
+
+<script>
+// Full list of configuration options available here:
+// https://github.com/hakimel/reveal.js#configuration
+Reveal.initialize({
+
+controls: true,
+progress: true,
+history: true,
+center: true,
+slideNumber: 'c',
+rollingLinks: true,
+keyboard: true,
+overview: true,
+width: 1200,
+height: 800,
+margin: 0.05,
+minScale: 0.50,
+maxScale: 2.50,
+
+theme: Reveal.getQueryHash().theme, // available themes are in /css/theme
+transition: Reveal.getQueryHash().transition || 'slide', // default/cube/page/concave/zoom/linear/fade/none
+transitionSpeed: 'fast',
+multiplex: {
+    secret: '', // null if client
+    id: '', // id, obtained from socket.io server
+    url: '' // Location of socket.io server
+},
+
+// Optional libraries used to extend on reveal.js
+dependencies: [
+ { src: '../externals/reveal.js/lib/js/classList.js', condition: function() { return !document.body.classList; } },
+ { src: '../externals/reveal.js/plugin/markdown/marked.js', condition: function() { return !!document.querySelector( '[data-markdown]' ); } },
+ { src: '../externals/reveal.js/plugin/markdown/markdown.js', condition: function() { return !!document.querySelector( '[data-markdown]' ); } },
+ { src: '../externals/reveal.js/plugin/zoom-js/zoom.js', async: true, condition: function() { return !!document.body.classList; } },
+ { src: '../externals/reveal.js/plugin/notes/notes.js', async: true, condition: function() { return !!document.body.classList; } }]
+});
+</script>
+</body>
+</html>

@@ -1,0 +1,215 @@
+
+#+TITLE: Improving Lemmatization of Non-Standard Languages with Joint Learning
+#+AUTHOR: Enrique Manjavacas & Ákos Kádár & Mike Kestemont
+#+REVEAL_ROOT: ../externals/reveal.js/
+#+OPTIONS: reveal_center:t reveal_progress:t reveal_history:t reveal_control:t
+#+OPTIONS: reveal_keyboard:t reveal_overview:t num:1 reveal_rolling_links:t
+#+OPTIONS: reveal_width:1200 reveal_height:800 toc:nil timestamp:nil reveal_mathjax:t
+#+REVEAL_MARGIN: 0.05
+#+REVEAL_MIN_SCALE: 0.5
+#+REVEAL_MAX_SCALE: 2.5
+#+REVEAL_TRANS: slide
+#+REVEAL_SPEED: fast
+#+REVEAL_THEME: sky
+#+REVEAL_HLEVEL: 2
+#+REVEAL_EXTRA_CSS: ./extra.css
+
+* Lemmatization 
+
+** Motivation
+
+#+attr_reveal: :frag (roll-in)
+- Less than solved for morphologically rich or/and low-resource languages
+- Important for downstream tasks:
+  - Other NLP core tasks
+  - Text classification, Stylometry
+  - Topic Modelling
+
+** What makes lemmatization difficult?
+   
+*** Morphological variation
+
+Different *inflectional* morphological processes
+
+#+attr_reveal: :frag (roll-in)
+- *Agglutination*:
+  #+attr_reveal: :frag (roll-in)
+   - el[ler][imiz][in] (of our hands) -> el (hand)
+- *Fusion* (infixation): 
+  #+attr_reveal: :frag (roll-in)
+   - salt[a][ba][s] (he/she was jumping) -> [salt][ar] (jumped)
+- *Introflexion (ablaut)*: 
+  #+attr_reveal: :frag (roll-in)
+   - kutub (books) -> kitab (book)
+   - swam -> swim
+
+*** Token-lemma ambiguity
+
+#+attr_reveal: :frag (roll-in)
+- Spanish: estado -> (estar, estado)
+- English: living -> (living, live)
+- English: 's -> (be, 's, have)
+- Medieval French: que -> (qui, que1, que2, que3, que4)
+
+#+reveal: split
+#+attr_reveal: :frag (none roll-in roll-in)
+- Affected by annotation conventions
+- Results from orthographical variation (e.g. abbreviations)
+- Inversely correlated with morphological complexity
+
+*** Spelling variation
+
+#+attr_reveal: :frag (roll-in)
+- Middle Low German: beth -> (bet, bēde, bethleme, bat, gôt)
+- Middle Dutch: hoer -> (haar, zij, hun, zich, oor, horen)
+
+#+reveal: split
+# inflected forms of gml "bat" (en. bad) and "bidden" (en. bet) can be both realized by bath due to spelling variation
+#+attr_reveal: :frag (roll-in)
+- Increases token-lemma ambiguity spelling variation (conflates unrelated forms) 
+- Reduces the amount of evidence for a lemma (lowers token/lemma ratio)
+
+* Data-driven Paradigms
+
+** Edit trees
+
+[[./img/edit-tree.png]]
+
+*** Representative work
+
+- [[http://www.aclweb.org/anthology/W/W10/W10-14.pdf#page=95][Morfette (Chrupala 2008)]]
+- [[http://www.emnlp2015.org/proceedings/EMNLP/pdf/EMNLP272.pdf][Lemming (Mueller et al 2015)]] 
+- [[https://pdfs.semanticscholar.org/6aed/32124e761167332f1175909c6b0864e54bb3.pdf][Context Sensitive Lemmatization Using Two Successive Bidirectional Gated Recurrent Networks (Chakrabarty et al. 2017)]]
+
+** String-Transduction
+
+[[./img/seq2seq.png]]
+
+*** Representative work
+
+- [[http://aclweb.org/anthology/N18-1126][Context Sensitive Neural Lemmatization with Lematus (Bergmanis et al. 2017)]]
+- [[https://arxiv.org/pdf/1808.03703.pdf][LemmaTag (Kondratyuk et al 2018)]]
+
+* Our work
+
+Improve *Lemmatization* as *String-transduction* of *Non-standard* varieties with *Encoder-Decoder*
+
+** Datasets
+
+*** Historical Languages
+
+[[./img/hist_langs.png]]
+
+*** Standard Languages (from Universal Dependencies)
+
+[[./img/UD_langs.png]]
+
+** Quantifying Spelling Variation
+
+#+attr_reveal: :frag (roll-in)
+- Morphological word
+  #+attr_reveal: :frag (roll-in)
+  - ~pron(pers,1,sing,nominative,"ik")~
+- "Alloforms"
+  #+attr_reveal: :frag (roll-in)
+  - "ic", "jc", "hic", "ig", "ik", "ict", ...
+- ~spelling-variation~ $\propto$ ~#tokens/#morph-words~
+# - (BTW. Alloforms not related to spelling variation also exist)
+
+#+reveal: split
+Morphological Complexity by Spelling Variation
+#+BEGIN_EXPORT html
+<img src="./img/complexity-by-spelling.svg"/>
+#+END_EXPORT
+
+** Model
+
+*** Recap: Standard Encoder-Decoder
+
+[[./img/seq2seq.png]]
+
+*** Conditioning the decoder on jointly-learned sentence-level context vector
+
+[[./img/sentence-encoder.png]]
+
+#+reveal: split
+
+Is the training signal coming from the lemma decoder enough?
+
+*** Joint Learning with a Bidirectional Language Model Loss
+
+Inspection of LMs through auxiliary tasks shows that LMs internally model quite a deal of linguistic structure
+
+#+reveal: split
+
+- [[https://arxiv.org/abs/1802.05365][Embeddings from Language Models (ELMo)]]
+- [[https://arxiv.org/abs/1801.06146][Universal Language Model Fine-tuning (ULMFiT)]]
+- [[https://s3-us-west-2.amazonaws.com/openai-assets/research-covers/language-unsupervised/language_understanding_paper.pdf][Improving Language Understanding by Generative Pre-Training]]
+- [[https://arxiv.org/abs/1810.04805][BERT]]
+
+#+reveal: split
+
+[[./img/sentence-lm.png]]
+
+* Results
+
+** Numbers
+
+*** Historical Languages
+
+[[./img/hist.png]]
+
+#+reveal: split
+
+[[./img/gysseling.png]]
+
+#+reveal: split
+
+#+attr_reveal: :frag (roll-in)
+- Efficient for historical languages (especially ambiguous tokens)
+- Less efficient on unknown tokens
+
+*** Standard Languages
+
+[[./img/UD.png]]
+
+#+reveal: split
+#+attr_reveal: :frag (roll-in)
+- Efficient for highly fusional (B-S) and morphologically complex languages (F-U/T)
+- Less efficient on unknown tokens
+- On analytic and less morphologically complex languages (I/G) edit-tree approaches are very effective
+
+** Interpretations
+
+#+reveal: split
+Correlation between error reduction and ambiguity
+#+BEGIN_EXPORT html
+<img src="./img/error-reduction-by-trees.svg">
+#+END_EXPORT
+
+# #+reveal: split
+
+# #+BEGIN_EXPORT html
+# <img src="./img/complexity-by-ambiguity.svg">
+# #+END_EXPORT
+
+*** How does the LM-loss help?
+
+#+BEGIN_EXPORT html
+<img src="./img/probe.svg">
+#+END_EXPORT
+
+# Semitic: Ablaut & Weakly Suffixing
+# Basque: Monoexponential & Prefixing + Suffixing
+# Indo-Iranian: & Weakly suffixing
+# Balto-Slavic: (Strongly) Polyexponential & Strongly Suffixing
+# Fino-Ugric/Turkic: Agglutinative & Strongly Suffixing
+# Italic/Germanic: (Weakly) Polyexponential -> Analytic & Strongly Suffixing
+
+** Future work
+
+#+attr_reveal: :frag (roll-in)
+- Why not use training signal from POS-tags and morphological annotation?
+- What about pre-training?
+
+* Questions?

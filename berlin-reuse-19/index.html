@@ -1,0 +1,603 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8"/>
+<title>Chasing the Intertext</title>
+<meta name="author" content="(Enrique Manjavacas  (export-snippet (:back-end html :value <br> :begin 20 :end 34 :post-blank 1 :parent #0)) Brian Long  (export-snippet (:back-end html :value <br> :begin 45 :end 59 :post-blank 1 :parent #0)) Mike Kestemont)"/>
+<style type="text/css">
+.underline { text-decoration: underline; }
+</style>
+<link rel="stylesheet" href="../externals/reveal.js/css/reveal.css"/>
+
+<link rel="stylesheet" href="../externals/reveal.js/css/theme/beige.css" id="theme"/>
+
+<link rel="stylesheet" href="./extra.css"/>
+
+<!-- If the query includes 'print-pdf', include the PDF print sheet -->
+<script>
+    if( window.location.search.match( /print-pdf/gi ) ) {
+        var link = document.createElement( 'link' );
+        link.rel = 'stylesheet';
+        link.type = 'text/css';
+        link.href = '../externals/reveal.js/css/print/pdf.css';
+        document.getElementsByTagName( 'head' )[0].appendChild( link );
+    }
+</script>
+<script type="text/javascript" src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+</head>
+<body>
+<div class="reveal">
+<div class="slides">
+<section id="sec-title-slide"><h1 class="title">Chasing the Intertext</h1><h2 class="author">Enrique Manjavacas <br> Brian Long <br> Mike Kestemont</h2>
+</section>
+
+<section>
+<section id="slide-orgd6e0da4">
+<h2 id="orgd6e0da4"><span class="section-number-2">1</span> Summary</h2>
+<ul>
+<li>Motivation</li>
+<li>Dataset</li>
+<li>How difficult is it for humans? <b>Inter-annotator Agreement</b></li>
+<li>How difficult is it computationally? <b>Retrieval Experiments</b></li>
+<li>Conclusions</li>
+
+</ul>
+
+</section>
+</section>
+<section>
+<section id="slide-orga4cbd90">
+<h2 id="orga4cbd90"><span class="section-number-2">2</span> Introduction &amp; Motivation</h2>
+<div class="outline-text-2" id="text-2">
+</div>
+</section>
+</section>
+<section>
+<section id="slide-org2536061">
+<h3 id="org2536061">Intertextuality (Orr, Allen)</h3>
+<ul>
+<li class="fragment roll-in">Networked view: a web in which each text is embedded</li>
+<li class="fragment roll-in">Influential across schools and periods since Kristeva (60s)</li>
+<li class="fragment roll-in">Generic relationships between texts
+<ul>
+<li class="fragment roll-in">Explicit or implicit</li>
+<li class="fragment roll-in">Intentional or unintentional (author)</li>
+<li class="fragment roll-in">Detected and undetected (reader)</li>
+
+</ul></li>
+<li class="fragment roll-in">Different levels: Style, quotations, genre, narrative, &#x2026;</li>
+
+</ul>
+
+</section>
+</section>
+<section>
+<section id="slide-orgb44c5e0">
+<h3 id="orgb44c5e0">Digital Literary Studies</h3>
+<ul>
+<li class="fragment roll-in">Intertextuality is practically intractable
+<ul>
+<li class="fragment roll-in">Alleviated by limiting to specific phenomenon and corpus</li>
+
+</ul></li>
+<li class="fragment roll-in">Challenging evaluation</li>
+<li class="fragment roll-in">Promising in early DH: large-scale detection of intertextual links</li>
+
+</ul>
+
+</section>
+</section>
+<section>
+<section id="slide-org87b6b3c">
+<h3 id="org87b6b3c">Text Reuse Detection</h3>
+<ul>
+<li class="fragment roll-in">Previous work:
+<ul>
+<li class="fragment roll-in">Limited to (semi-)literal forms of text reuse</li>
+<li class="fragment roll-in">Lack of inter-annotator agreement studies (cf. reader response)</li>
+<li class="fragment roll-in">Few benchmark corpora (except for the Bible)</li>
+
+</ul></li>
+<li class="fragment roll-in">Contribution:
+<ul>
+<li class="fragment roll-in">Focus on allusive text reuse</li>
+<li class="fragment roll-in">Model reader (dis)agreement</li>
+<li class="fragment roll-in">Assess the computational feasibility</li>
+
+</ul></li>
+
+</ul>
+
+</section>
+</section>
+<section>
+<section id="slide-org228f7b7">
+<h2 id="org228f7b7"><span class="section-number-2">3</span> Dataset</h2>
+<ul>
+<li class="fragment roll-in">BiblIndex (thanks to Laurence Mellerin): ongoing work on digital edition of Bernard</li>
+<li class="fragment roll-in">86 Sermones (<code>xml</code> following <code>TEI</code> guidelines; ± 165k tokens)</li>
+<li class="fragment roll-in">Annotation of Biblical text reuse (Vulgata)
+<ul>
+<li><code>exact-quotation</code>, <code>inexact-quotation</code>, <code>allusion</code></li>
+
+</ul></li>
+
+</ul>
+
+</section>
+</section>
+<section>
+<section id="slide-org3546784">
+<h3 id="org3546784">Dataset Statistics</h3>
+<table border="2" cellspacing="0" cellpadding="6" rules="groups" frame="hsides">
+
+
+<colgroup>
+<col  class="org-left" />
+
+<col  class="org-right" />
+</colgroup>
+<thead>
+<tr>
+<th scope="col" class="org-left">Type</th>
+<th scope="col" class="org-right">Count</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="org-left">exact-quotation</td>
+<td class="org-right">1768</td>
+</tr>
+
+<tr>
+<td class="org-left">inexact-quotation</td>
+<td class="org-right">3150</td>
+</tr>
+
+<tr>
+<td class="org-left"><b>allusion</b></td>
+<td class="org-right"><b>876</b></td>
+</tr>
+</tbody>
+</table>
+
+</section>
+</section>
+<section>
+<section id="slide-org3ce0534">
+<h3 id="org3ce0534">Examples</h3>
+<div class="outline-text-3" id="text-org3ce0534">
+</div>
+</section>
+<section id="slide-org80bd502">
+<h4 id="org80bd502">Allusive Text Reuse Example 1</h4>
+<ul>
+<li>Bernard (Sermo19.7.a) &ldquo;<b>parvulae</b> quippe in <b>Christo</b> sunt, lacte et oleo nutriendae&rdquo;</li>
+<li>Bible (Co.3.1) &ldquo;et ego fratres non potui vobis loqui quasi spiritalibus sed quasi carnalibus tamquam <b>parvulis</b> in <b>Christo</b>&rdquo;</li>
+
+</ul>
+
+</section>
+<section id="slide-orga242445">
+<h4 id="orga242445">Allusive Text Reuse Example 2</h4>
+<ul>
+<li>Bernard (Sermo73.6.g) &ldquo;ne forte contingat iustum pro impio conculcari&rdquo;</li>
+<li>Bible (Jn.5.14) &ldquo;[&#x2026;] ecce sanus factus es iam noli peccare ne deterius tibi aliquid contingat&rdquo;</li>
+
+</ul>
+
+</section>
+</section>
+<section data-transition="none">
+<section id="slide-org90646ec" data-transition="none" data-background="#FFFFFF">
+<h3 id="org90646ec">Overlap</h3>
+<img src="./images/bernard-overlap.png" class="stretch"/>
+
+</section>
+</section>
+<section>
+<section id="slide-org1681165">
+<h2 id="org1681165"><span class="section-number-2">4</span> Task Description</h2>
+<ul>
+<li class="fragment roll-in">Two-step process
+<ul>
+<li class="fragment roll-in">1. Formulate query</li>
+<li class="fragment roll-in">2. Retrieve referenced text (if any) from document collection (Bible verses)</li>
+
+</ul></li>
+<li class="fragment roll-in">Query formulation irrelevant in cases of lexical text reuse (quotation, paraphrasing)</li>
+
+</ul>
+
+</section>
+</section>
+<section>
+<section id="slide-orgfbab402">
+<h2 id="orgfbab402"><span class="section-number-2">5</span> How difficult is it for humans?</h2>
+<span>Highly interpretative, debatable annotation process...</span>
+<span class="fragment roll-in">but how can we model the degree of interpretability?</span>
+
+</section>
+</section>
+<section>
+<section id="slide-org29fc4fa">
+<h3 id="org29fc4fa">Inter-annotator Agreement Experiment</h3>
+<ul>
+<li>Focus on agreement on query formulation</li>
+
+</ul>
+
+</section>
+<section id="slide-org7394ace" data-transition="none" data-background="#282A36">
+<h4 id="org7394ace"></h4>
+<img src="./images/sample.png" class="stretch"/>
+
+</section>
+<section id="slide-orgc4a54e3" data-transition="none" data-background="images/tool.gif">
+<h4 id="orgc4a54e3"></h4>
+
+</section>
+<section id="slide-org444f7b9">
+<h4 id="org444f7b9">Experimental Conditions</h4>
+<ul>
+<li class="fragment roll-in">Guideline: &ldquo;<b>Minimum span</b> that is <b>maximally allusive</b>&rdquo;</li>
+<li class="fragment roll-in">Restrictions
+<ul>
+<li>Continuous spans</li>
+<li>Selected query must include anchor</li>
+
+</ul></li>
+<li class="fragment roll-in">4 Annotators</li>
+<li class="fragment roll-in">60 randomly sampled instances</li>
+
+</ul>
+
+</section>
+</section>
+<section>
+<section id="slide-org0333795">
+<h3 id="org0333795">Adapted Kappa</h3>
+<p>
+Adapt inter-annotator agreement coefficient from multi-class classification to span selection
+</p>
+
+</section>
+<section id="slide-org796fffd">
+<h4 id="org796fffd">Agreement as overlap</h4>
+<ul>
+<li class="fragment roll-in">Agreement: tokens shared with the other annotator
+<ul>
+<li class="fragment roll-in">\(A(s_1,s_2) = LCS(s_1,s_2)\)</li>
+
+</ul></li>
+<li class="fragment roll-in">Disagreement: tokens not shared with the other annotator
+<ul>
+<li class="fragment roll-in">\(D(s_1,s_2) = |s_1| + |s_2| - 2 \cdot LCS(s_1,s_2)\)</li>
+
+</ul></li>
+<li class="fragment roll-in">Overlap
+<ul>
+<li class="fragment roll-in">\(O = \frac{A}{A+D}\)</li>
+
+</ul></li>
+
+</ul>
+
+</section>
+<section id="slide-org3098927">
+<h4 id="org3098927">Fleiss&rsquo;s Kappa</h4>
+<div>
+\begin{equation}
+    \kappa = \frac{O_o-O_e}{1-O_e}
+\end{equation}
+
+</div>
+
+<p class="fragment">where</p>
+
+<p>
+<span class="fragment"> \(O_e = \frac{A_e}{A_e + D_e}\) </span>
+<span class="fragment"> ; \(A_e = \frac{\sum_{s_1,s_2} A(s_1,s_2)}{|s_1,s_2|}\) </span>
+<span class="fragment"> ; \(D_e=\frac{\sum_{s_1,s_2} D(s_1,s_2)}{|s_1,s_2|}\) </span>
+</p>
+
+</section>
+<section id="slide-orgec56962">
+<h4 id="orgec56962">Results</h4>
+<aside class="notes">
+<ul>
+<li>low wrt assumed standards</li>
+<li>lack of comparable studies</li>
+<li>bernardian reuse -&gt; pointed use of single, significant allusive words hard to isolate</li>
+
+</ul>
+
+</aside>
+
+<p>
+\(\kappa = 0.22\)
+</p>
+
+</section>
+<section id="slide-orgc7382ea" data-transition="none" data-background="#FFFFFF">
+<h4 id="orgc7382ea"></h4>
+<aside class="notes">
+<ul>
+<li>2 modes</li>
+<li>about 22% overlap is perfect</li>
+<li>as we will see, despite hard, manual queries still carry information</li>
+
+</ul>
+
+</aside>
+
+<img src="./images/overlap.png" class="stretch"/>
+
+</section>
+</section>
+<section>
+<section id="slide-org130ea43">
+<h2 id="org130ea43"><span class="section-number-2">6</span> How difficult is it computationally?</h2>
+<p>
+Text Reuse Detection from an Information Retrieval Perspective
+</p>
+
+<ul>
+<li class="fragment roll-in">Could lack of lexical overlap be alleviated with distributional semantics?</li>
+<li class="fragment roll-in">How do different document representation/retrieval approaches evaluate?</li>
+<li class="fragment roll-in">How important is manual query construction?</li>
+
+</ul>
+
+</section>
+</section>
+<section>
+<section id="slide-org695a9fc" data-background="#FFFFFF">
+<h3 id="org695a9fc">Information Retrieval Perspective</h3>
+
+<div class="figure">
+<p><img src="./images/IR.png" alt="IR.png" />
+</p>
+</div>
+
+</section>
+<section id="slide-orga60120c">
+<h4 id="orga60120c">Evaluation</h4>
+<ul>
+<li>Mean Reciprocal Rank: \(MRR(Q) = \frac{1}{|Q|} \sum_{j=1}^{|Q|}\frac{1}{|R_j|}\)</li>
+<li>Accuracy@20</li>
+
+</ul>
+
+</section>
+<section id="slide-org0f62ad0">
+<h4 id="org0f62ad0">Warning!</h4>
+<ul>
+<li>Interpretation of results must be aware of the artificiality of the task</li>
+<li>Modeling the conditional probability of retrieving a link <b>given a link</b></li>
+<li>Goal is to evaluate the feasibility of the task</li>
+
+</ul>
+
+</section>
+</section>
+<section>
+<section id="slide-org753dc1c">
+<h3 id="org753dc1c">Methods</h3>
+<div class="outline-text-3" id="text-org753dc1c">
+</div>
+</section>
+<section id="slide-org5b9ea1b">
+<h4 id="org5b9ea1b">Purely Lexical</h4>
+<p>
+Cosine Distance on count-based <code>BoW</code> (± <code>tf-idf</code>):
+</p>
+<ul>
+<li>\(BOW\)</li>
+<li>\(TfIdf\)</li>
+
+</ul>
+
+</section>
+<section id="slide-org7e10712">
+<h4 id="org7e10712">Purely distributional</h4>
+<p>
+Cosine Distance on embedding based <code>BoW</code> embeddings (± <code>tf-idf</code>)
+</p>
+<ul>
+<li>\(BOW_{emb}\)</li>
+<li>\(TfIdf_{emb}\)</li>
+
+</ul>
+
+<p>
+ <p class="fragment">Word Movers Distance over BoW Embeddings ( \(WMD\)  ) </p>
+</p>
+
+</section>
+<section id="slide-org5422ad3">
+<h4 id="org5422ad3">Hybrid (Soft-cosine)</h4>
+<p>
+A generalization of cosine that allows for the incorporation of semantic similarity in the computation
+</p>
+
+</section>
+<section id="slide-org2ac10e0" data-background="#FFFFFF">
+<h4 id="org2ac10e0">Soft-cosine 1: Cosine</h4>
+
+<div class="figure">
+<p><img src="./images/soft_cosine_tutorial.png" alt="soft_cosine_tutorial.png" />
+</p>
+</div>
+
+<ul>
+<li class="fragment roll-in">\(cos(d_1, d_2) = \frac{d_1 \cdot d_2}{||d_1||^2 ||d_2||^2}\)</li>
+<li class="fragment roll-in">\(d_1 \cdot d_2 = \sum_i d_{1,i} d_{2,i}\)</li>
+
+</ul>
+
+</section>
+<section id="slide-orgae53e7c">
+<h4 id="orgae53e7c">Soft-cosine 2: Formulation</h4>
+<p>
+Removes the assumption that every feature is completely dissimilar to any other feature
+</p>
+<p class="fragment (roll-in)">
+\(d_1 \cdot d_2 = \sum_{i}\sum_{j} d_{1,i} \boldsymbol{S_{i,j}} d_{2,j}\)
+</p>
+
+</section>
+<section id="slide-org35a8923">
+<h4 id="org35a8923">Soft-cosine 3: How to estimate S?</h4>
+<ul>
+<li>\(SC_{emb}\); \(S_{i,j} = cos(W_i,W_j)\)</li>
+<li>\(SC_{wn}\); \(S_{i,j} = \frac{1}{|T_i \cap T_j|}\)</li>
+
+</ul>
+
+</section>
+</section>
+<section>
+<section id="slide-org789c757" data-background="#FFFFFF">
+<h3 id="org789c757">Results</h3>
+
+<div class="figure">
+<p><img src="./images/results.png" alt="results.png" />
+</p>
+</div>
+
+
+</section>
+<section id="slide-orgd8f0ec0" data-background="#FFFFFF">
+<h4 id="orgd8f0ec0">How important is manual query construction?</h4>
+
+<div class="figure">
+<p><img src="./images/results_window.png" alt="results_window.png" />
+</p>
+</div>
+
+</section>
+<section id="slide-org958aacc">
+<h4 id="org958aacc">How important is the word embedding space?</h4>
+<p>
+All spaces trained on a dataset by <a href="http://www.cs.cmu.edu/dbamman/latin.html">D. Bamman</a> (8.5 GB OCR&rsquo;d latin)
+</p>
+
+</section>
+<section id="slide-org33d698d" data-background="#FFFFFF">
+<h4 id="org33d698d"></h4>
+
+<div class="figure">
+<p><img src="./images/results_emb.png" alt="results_emb.png" />
+</p>
+</div>
+
+
+</section>
+<section id="slide-org76d4dbc">
+<h4 id="org76d4dbc">How does semantic information help (visualization)</h4>
+<p>
+Compute the relative contribution of each word to the total similarity score    
+</p>
+
+</section>
+<section id="slide-org4877b1c" data-background="#FFFFFF">
+<h4 id="org4877b1c"></h4>
+
+<div class="figure">
+<p><img src="./images/visibilis2.png" alt="visibilis2.png" />
+</p>
+</div>
+
+
+</section>
+<section id="slide-orgac8d3f7" data-background="#FFFFFF">
+<h4 id="orgac8d3f7"></h4>
+
+<div class="figure">
+<p><img src="./images/botrum2.png" alt="botrum2.png" />
+</p>
+</div>
+
+
+</section>
+<section id="slide-org21e894a" data-background="#FFFFFF">
+<h4 id="org21e894a"></h4>
+
+<div class="figure">
+<p><img src="./images/descendem2.png" alt="descendem2.png" />
+</p>
+</div>
+
+
+</section>
+<section id="slide-org301ac68" data-background="#FFFFFF">
+<h4 id="org301ac68"></h4>
+
+<div class="figure">
+<p><img src="./images/intellexerint2.png" alt="intellexerint2.png" />
+</p>
+</div>
+
+</section>
+</section>
+<section>
+<section id="slide-orgd88532d">
+<h2 id="orgd88532d"><span class="section-number-2">7</span> Conclusions</h2>
+<ul>
+<li class="fragment roll-in">Difficulty
+<ul>
+<li class="fragment roll-in">Low A@20 (conditional probability of identifying the link, given there is a link)</li>
+<li class="fragment roll-in">Assuming manual query formulation</li>
+
+</ul></li>
+<li class="fragment roll-in">Generalizable to other authors?</li>
+<li class="fragment roll-in">Supervised modeling practically unfeasible due to data scarcity</li>
+
+</ul>
+</section>
+</section>
+</div>
+</div>
+<script src="../externals/reveal.js/lib/js/head.min.js"></script>
+<script src="../externals/reveal.js/js/reveal.js"></script>
+
+<script>
+// Full list of configuration options available here:
+// https://github.com/hakimel/reveal.js#configuration
+Reveal.initialize({
+
+controls: true,
+progress: true,
+history: true,
+center: true,
+slideNumber: 'c',
+rollingLinks: false,
+keyboard: true,
+overview: true,
+width: 1200,
+height: 800,
+margin: 0.05,
+minScale: 0.50,
+maxScale: 2.50,
+
+theme: Reveal.getQueryHash().theme, // available themes are in /css/theme
+transition: Reveal.getQueryHash().transition || 'slide', // default/cube/page/concave/zoom/linear/fade/none
+transitionSpeed: 'fast',
+multiplex: {
+    secret: '', // null if client
+    id: '', // id, obtained from socket.io server
+    url: '' // Location of socket.io server
+},
+
+// Optional libraries used to extend on reveal.js
+dependencies: [
+ { src: '../externals/reveal.js/lib/js/classList.js', condition: function() { return !document.body.classList; } },
+ { src: '../externals/reveal.js/plugin/markdown/marked.js', condition: function() { return !!document.querySelector( '[data-markdown]' ); } },
+ { src: '../externals/reveal.js/plugin/markdown/markdown.js', condition: function() { return !!document.querySelector( '[data-markdown]' ); } },
+ { src: '../externals/reveal.js/plugin/zoom-js/zoom.js', async: true, condition: function() { return !!document.body.classList; } },
+ { src: '../externals/reveal.js/plugin/notes/notes.js', async: true, condition: function() { return !!document.body.classList; } }]
+});
+</script>
+</body>
+</html>

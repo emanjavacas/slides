@@ -33,22 +33,22 @@
 
 
 <section>
-<section id="slide-org55f8b99">
-<h2 id="org55f8b99"><span class="section-number-2">1</span> Lemmatization</h2>
+<section id="slide-org67db42e">
+<h2 id="org67db42e"><span class="section-number-2">1</span> Lemmatization</h2>
 <div class="outline-text-2" id="text-1">
 </div>
 </section>
 </section>
 <section>
-<section id="slide-orgd2c556f" data-background="#282A36">
-<h3 id="orgd2c556f">Task Definition</h3>
-<img src="./images/example.png" class="stretch"/>
+<section id="slide-orgb901e61" data-background="#282A36">
+<h3 id="orgb901e61">Task Definition</h3>
+<img src="./images/example_gradient.png" class="stretch"/>
 
 </section>
 </section>
 <section>
-<section id="slide-org8d2dcd5">
-<h3 id="org8d2dcd5">Applications</h3>
+<section id="slide-orgec7415a">
+<h3 id="orgec7415a">Applications</h3>
 <ul>
 <li>Linking to dictionary</li>
 <li>Stylometry</li>
@@ -60,8 +60,8 @@
 </section>
 </section>
 <section>
-<section id="slide-org905d575">
-<h3 id="org905d575">Challenges</h3>
+<section id="slide-org45dad49">
+<h3 id="org45dad49">Challenges</h3>
 <ol>
 <li>Token-lemma disambiguation</li>
 <li>Morphological Complexity</li>
@@ -71,8 +71,8 @@
 </section>
 </section>
 <section>
-<section id="slide-org43525de">
-<h3 id="org43525de">Historical Languages</h3>
+<section id="slide-org91846b8">
+<h3 id="org91846b8">Historical Languages</h3>
 <ul>
 <li>Span a long historical period</li>
 <li>Lack a strong standard spelling system</li>
@@ -81,8 +81,8 @@
 </ul>
 
 </section>
-<section id="slide-orgf660161">
-<h4 id="orgf660161">Additional Challenging Aspect</h4>
+<section id="slide-org6f6f6bd">
+<h4 id="org6f6f6bd">Additional Challenging Aspect</h4>
 <ol>
 <li>Token-lemma disambiguation</li>
 <li>Morphological Complexity</li>
@@ -91,13 +91,13 @@
 </ol>
 
 </section>
-<section id="slide-org4343dda" data-background="#F0F0F0">
-<h4 id="org4343dda">Orthographic Variation Examples</h4>
+<section id="slide-orgb45cf6d" data-background="#F0F0F0">
+<h4 id="orgb45cf6d">Orthographic Variation Examples</h4>
 <img src="./images/token-lemma.png" class="stretch"/>
 
 </section>
-<section id="slide-orgb33ea02">
-<h4 id="orgb33ea02">Implications of Orthographic Variation for Lemmatization</h4>
+<section id="slide-orgad139fa">
+<h4 id="orgad139fa">Implications of Orthographic Variation for Lemmatization</h4>
 <ul>
 <li>Increases token-lemma ambiguities</li>
 <li>Sparsifies evidence for token-lemma mappings (due to higher token/type ratio)</li>
@@ -107,15 +107,15 @@
 </section>
 </section>
 <section>
-<section id="slide-org654144a">
-<h2 id="org654144a"><span class="section-number-2">2</span> Corpus</h2>
+<section id="slide-org0c5ac62">
+<h2 id="org0c5ac62"><span class="section-number-2">2</span> Corpus</h2>
 <div class="outline-text-2" id="text-2">
 </div>
 </section>
 </section>
 <section>
-<section id="slide-orge6224d6">
-<h3 id="orge6224d6">Historical Languages</h3>
+<section id="slide-org9ff633b">
+<h3 id="org9ff633b">Historical Languages</h3>
 <ul>
 <li>Selection of open-source 9 corpora</li>
 <li>Languages:
@@ -133,8 +133,8 @@
 </section>
 </section>
 <section>
-<section id="slide-orgab217a9">
-<h3 id="orgab217a9">Standard Languages</h3>
+<section id="slide-orgfc51ded">
+<h3 id="orgfc51ded">Standard Languages</h3>
 <p>
 20 Languages from the Universal Dependencies
 </p>
@@ -142,8 +142,8 @@
 </section>
 </section>
 <section>
-<section id="slide-orgf2ee892">
-<h3 id="orgf2ee892">Statistics</h3>
+<section id="slide-org30b262a">
+<h3 id="org30b262a">Statistics</h3>
 <style>
 .container{ display: flex; }
 .col{ flex: 1; }
@@ -161,34 +161,34 @@
 </section>
 </section>
 <section>
-<section id="slide-org6afd015">
-<h2 id="org6afd015"><span class="section-number-2">3</span> Architecture</h2>
+<section id="slide-org9eb41be">
+<h2 id="org9eb41be"><span class="section-number-2">3</span> Architecture</h2>
 <div class="outline-text-2" id="text-3">
 </div>
 </section>
 </section>
 <section>
-<section id="slide-orgfd3599c" data-background="#FFFFFF">
-<h3 id="orgfd3599c">Encoder-Decoder</h3>
+<section id="slide-org0ecafe2" data-background="#FFFFFF">
+<h3 id="org0ecafe2">Encoder-Decoder</h3>
 <img src="images/encoder-decoder.png" class="stretch"/>
 
 </section>
 </section>
 <section>
-<section id="slide-org727dbf3" data-background="#FFFFFF">
-<h3 id="org727dbf3">Modeling Sentential Context</h3>
+<section id="slide-org1b033b3" data-background="#FFFFFF">
+<h3 id="org1b033b3">Modeling Sentential Context</h3>
 <img src="images/sentence-encoder.png" class="stretch"/>
 
 </section>
 </section>
 <section>
-<section id="slide-org43f175b" data-background="#FFFFFF">
-<h3 id="org43f175b">Improved Sentence Encodings</h3>
+<section id="slide-org0e143d5" data-background="#FFFFFF">
+<h3 id="org0e143d5">Improved Sentence Encodings</h3>
 <img src="images/sentence-encoder_joint.png" class="stretch"/>
 
 </section>
-<section id="slide-orga08c8dc">
-<h4 id="orga08c8dc">Joint Learning</h4>
+<section id="slide-org7a0643f">
+<h4 id="org7a0643f">Joint Learning</h4>
 <p class="fragment (roll-in)">
 \(P_{lemma}(l^t_{1\ldots n}|w^t) = P(l_n|s^t) \cdot P(l^t_{1\ldots n-1}|s^t)\)
 </p>
@@ -202,8 +202,8 @@
 </section>
 </section>
 <section>
-<section id="slide-org23556a1">
-<h2 id="org23556a1"><span class="section-number-2">4</span> Baselines</h2>
+<section id="slide-orga47f082">
+<h2 id="orga47f082"><span class="section-number-2">4</span> Baselines</h2>
 <ul>
 <li>Strongest pre-neural data-driven lemmatizers</li>
 <li>Based on edit-tree induction</li>
@@ -213,8 +213,8 @@
 </section>
 </section>
 <section>
-<section id="slide-orga538e4d">
-<h3 id="orga538e4d">Morfette (Chrupała et al. 2008)</h3>
+<section id="slide-orgf04073f">
+<h3 id="orgf04073f">Morfette (Chrupała et al. 2008)</h3>
 <p>
 Beam-search decoding of edit trees <a href="https://github.com/gchrupala/morfette">https://github.com/gchrupala/morfette</a>
 </p>
@@ -222,8 +222,8 @@ Beam-search decoding of edit trees <a href="https://github.com/gchrupala/morfett
 </section>
 </section>
 <section>
-<section id="slide-org34e80e6">
-<h3 id="org34e80e6">Lemming (Cotterel et al. 2015)</h3>
+<section id="slide-org4d0f813">
+<h3 id="org4d0f813">Lemming (Cotterel et al. 2015)</h3>
 <p>
 Second-order decoding CRF of POS and edit-trees <a href="http://cistern.cis.lmu.de/lemming/">http://cistern.cis.lmu.de/lemming/</a>
 </p>
@@ -231,8 +231,8 @@ Second-order decoding CRF of POS and edit-trees <a href="http://cistern.cis.lmu.
 </section>
 </section>
 <section>
-<section id="slide-org8cfb037">
-<h2 id="org8cfb037"><span class="section-number-2">5</span> Evaluation</h2>
+<section id="slide-orgc0d8109">
+<h2 id="orgc0d8109"><span class="section-number-2">5</span> Evaluation</h2>
 <ul>
 <li>Accuracy of <b>known</b>, <b>unknown</b> and <b>ambiguous</b> tokens</li>
 <li>(Un)known &amp; ambiguous is empirically determined based on train/dev split</li>
@@ -242,32 +242,32 @@ Second-order decoding CRF of POS and edit-trees <a href="http://cistern.cis.lmu.
 </section>
 </section>
 <section>
-<section id="slide-org231674d">
-<h2 id="org231674d"><span class="section-number-2">6</span> Results</h2>
+<section id="slide-org0ff7811">
+<h2 id="org0ff7811"><span class="section-number-2">6</span> Results</h2>
 <div class="outline-text-2" id="text-6">
 </div>
 </section>
 </section>
 <section>
-<section id="slide-org70b432c" data-background="#FFFFFF">
-<h3 id="org70b432c">Historical Languages</h3>
+<section id="slide-org8e7c40a" data-background="#FFFFFF">
+<h3 id="org8e7c40a">Historical Languages</h3>
 <img src="images/historical.png" class=""/>
 
 </section>
-<section id="slide-org15f5f54" data-background="#FFFFFF">
-<h4 id="org15f5f54">Gysseling Corpora (Medieval Dutch; 4 genres)</h4>
+<section id="slide-orgcb64369" data-background="#FFFFFF">
+<h4 id="orgcb64369">Gysseling Corpora (Medieval Dutch; 4 genres)</h4>
 <img src="images/gysseling.png" class=""/>
 
 </section>
 </section>
 <section>
-<section id="slide-orgc3a038d" data-background="#FFFFFF">
-<h3 id="orgc3a038d">Standard Languages</h3>
+<section id="slide-orga674338" data-background="#FFFFFF">
+<h3 id="orga674338">Standard Languages</h3>
 <img src="images/UD.png" class=""/>
 
 </section>
-<section id="slide-org778f82e" data-background="#FFFFFF">
-<h4 id="org778f82e">Results by Morphological Typology</h4>
+<section id="slide-org3616d70" data-background="#FFFFFF">
+<h4 id="org3616d70">Results by Morphological Typology</h4>
 <img src="images/typology.png" class="stretch"/>
 
 <p>
@@ -285,15 +285,15 @@ Second-order decoding CRF of POS and edit-trees <a href="http://cistern.cis.lmu.
 </section>
 </section>
 <section>
-<section id="slide-org82f078a">
-<h2 id="org82f078a"><span class="section-number-2">7</span> Discussion</h2>
+<section id="slide-org371dd08">
+<h2 id="org371dd08"><span class="section-number-2">7</span> Discussion</h2>
 <div class="outline-text-2" id="text-7">
 </div>
 </section>
 </section>
 <section>
-<section id="slide-org05203d9">
-<h3 id="org05203d9">Limits of edit-tree induction</h3>
+<section id="slide-org5f3188b">
+<h3 id="org5f3188b">Limits of edit-tree induction</h3>
 <img src="images/error-reduction-by-trees1.png" class="stretch"/>
 
 <p>
@@ -303,8 +303,8 @@ Error reduction of best Neural vs best Tree-induction by #Trees
 </section>
 </section>
 <section>
-<section id="slide-org052d01d">
-<h3 id="org052d01d">How does sentence encoding fine-tuning helps</h3>
+<section id="slide-orgbc493f6">
+<h3 id="orgbc493f6">How does sentence encoding fine-tuning helps</h3>
 <img src="images/error-reduction-by-ambiguity1.png" class="stretch"/>
 
 <p>
@@ -314,8 +314,8 @@ Error reduction of SentLM vs Sent by Ambiguity
 </section>
 </section>
 <section>
-<section id="slide-orgeafc4c7" data-background="#FFFFFF">
-<h3 id="orgeafc4c7">Why does it help?</h3>
+<section id="slide-org176cb98" data-background="#FFFFFF">
+<h3 id="org176cb98">Why does it help?</h3>
 <img src="images/probing.png" class=""/>
 
 <p>
@@ -325,8 +325,8 @@ Diagnostic classifiers trained on frozen encodings to predict morphology
 </section>
 </section>
 <section>
-<section id="slide-org9f1caa8">
-<h2 id="org9f1caa8"><span class="section-number-2">8</span> Thank you</h2>
+<section id="slide-org7964562">
+<h2 id="org7964562"><span class="section-number-2">8</span> Thank you</h2>
 <ul>
 <li>Download &amp; Preprocessing Scripts: <a href="https://www.github.com/emanjavacas/pie-data">https://www.github.com/emanjavacas/pie-data</a></li>
 <li>Sequence Labeling Framework: <a href="https://www.github.com/emanjavacas/pie">https://www.github.com/emanjavacas/pie</a></li>

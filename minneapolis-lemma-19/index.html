@@ -33,56 +33,77 @@
 
 
 <section>
-<section id="slide-org67db42e">
-<h2 id="org67db42e"><span class="section-number-2">1</span> Lemmatization</h2>
+<section id="slide-org6d23edb">
+<h2 id="org6d23edb"><span class="section-number-2">1</span> Lemmatization</h2>
 <div class="outline-text-2" id="text-1">
 </div>
 </section>
 </section>
 <section>
-<section id="slide-orgb901e61" data-background="#282A36">
-<h3 id="orgb901e61">Task Definition</h3>
+<section id="slide-orgc99e21a" data-background="#282A36">
+<h3 id="orgc99e21a">Task Definition</h3>
+<aside class="notes">
+<ul>
+<li>A snippet from a sentence in PROIEL latin corpus (part of UD)</li>
+<li>We care about the second column</li>
+<li>Lemma: dictionary headword underlying the whole morphological paradigm</li>
+
+</ul>
+
+</aside>
+
 <img src="./images/example_gradient.png" class="stretch"/>
 
 </section>
 </section>
 <section>
-<section id="slide-orgec7415a">
-<h3 id="orgec7415a">Applications</h3>
+<section id="slide-orgdf9a8d7">
+<h3 id="orgdf9a8d7">Applications</h3>
 <ul>
 <li>Linking to dictionary</li>
-<li>Stylometry</li>
-<li>Topic Modeling</li>
 <li>Text Classification (esp. for morphologically complex languages)</li>
+<li>Stylometry</li>
+<li>Topic Modeling (reduce vocabulary size)</li>
 
 </ul>
 
 </section>
 </section>
 <section>
-<section id="slide-org45dad49">
-<h3 id="org45dad49">Challenges</h3>
+<section id="slide-org79575ff">
+<h3 id="org79575ff">Challenges</h3>
 <ol>
-<li>Token-lemma disambiguation</li>
-<li>Morphological Complexity</li>
+<li class="fragment roll-in">Token-lemma disambiguation
+<ul>
+<li>e.g. &ldquo;living&rdquo; -&gt; &ldquo;living&rdquo;, &ldquo;live&rdquo; <code>(en)</code></li>
+<li>e.g. &ldquo;estado&rdquo; -&gt; &ldquo;estar&rdquo;, &ldquo;estado&rdquo; <code>(es)</code></li>
+
+</ul></li>
+<li class="fragment roll-in">Morphological Complexity (variety of processes)
+<ul>
+<li>Agglutination: <i>el[ler][imiz][in]</i> (of our hands) -&gt; <i>el</i> (hand)</li>
+<li>Fusion: <i>salt[a][ba][s]</i> (he/she was jumping) -&gt; <i>salt[ar]</i> (jumped)</li>
+<li>Ablaut: <i>kutub</i> (books) -&gt; <i>kitab</i> (book)</li>
+
+</ul></li>
 
 </ol>
 
 </section>
 </section>
 <section>
-<section id="slide-org91846b8">
-<h3 id="org91846b8">Historical Languages</h3>
+<section id="slide-orgf56895d">
+<h3 id="orgf56895d">Historical Languages</h3>
 <ul>
-<li>Span a long historical period</li>
+<li>Span a long historical period (e.g. middle ages)</li>
+<li>Present high genre specificity (charters, medicine, history)</li>
 <li>Lack a strong standard spelling system</li>
-<li>Present high genre specificity</li>
 
 </ul>
 
 </section>
-<section id="slide-org6f6f6bd">
-<h4 id="org6f6f6bd">Additional Challenging Aspect</h4>
+<section id="slide-org70336b2">
+<h4 id="org70336b2">Additional Challenging Aspect</h4>
 <ol>
 <li>Token-lemma disambiguation</li>
 <li>Morphological Complexity</li>
@@ -91,13 +112,23 @@
 </ol>
 
 </section>
-<section id="slide-orgb45cf6d" data-background="#F0F0F0">
-<h4 id="orgb45cf6d">Orthographic Variation Examples</h4>
+<section id="slide-org4b2b340" data-background="#F0F0F0">
+<h4 id="org4b2b340">Orthographic Variation Examples</h4>
+<aside class="notes">
+<ul>
+<li>Middle dutch and low german corpora</li>
+<li>relatively high entropy distributions of lemmas</li>
+<li>contractions (du+er), (du+zij)</li>
+
+</ul>
+
+</aside>
+
 <img src="./images/token-lemma.png" class="stretch"/>
 
 </section>
-<section id="slide-orgad139fa">
-<h4 id="orgad139fa">Implications of Orthographic Variation for Lemmatization</h4>
+<section id="slide-orge323be7">
+<h4 id="orge323be7">Implications of Orthographic Variation for Lemmatization</h4>
 <ul>
 <li>Increases token-lemma ambiguities</li>
 <li>Sparsifies evidence for token-lemma mappings (due to higher token/type ratio)</li>
@@ -107,24 +138,81 @@
 </section>
 </section>
 <section>
-<section id="slide-org0c5ac62">
-<h2 id="org0c5ac62"><span class="section-number-2">2</span> Corpus</h2>
+<section id="slide-orgb6e9713">
+<h2 id="orgb6e9713"><span class="section-number-2">2</span> Architecture</h2>
 <div class="outline-text-2" id="text-2">
 </div>
 </section>
 </section>
 <section>
-<section id="slide-org9ff633b">
-<h3 id="org9ff633b">Historical Languages</h3>
+<section id="slide-org86a0652" data-background="#FFFFFF">
+<h3 id="org86a0652">Encoder-Decoder</h3>
+<img src="images/encoder-decoder.png" class="stretch"/>
+
+</section>
+</section>
+<section>
+<section id="slide-org9015aa4" data-background="#FFFFFF">
+<h3 id="org9015aa4">Modeling Sentential Context</h3>
+<img src="images/sentence-encoder.png" class="stretch"/>
+
+</section>
+</section>
+<section>
+<section id="slide-org75d4d01" data-background="#FFFFFF">
+<h3 id="org75d4d01">Improved Sentence Encodings (Contribution)</h3>
+<img src="images/sentence-encoder_joint.png" class="stretch"/>
+
+</section>
+<section id="slide-org3a69365">
+<h4 id="org3a69365">Joint Learning</h4>
+<aside class="notes">
+<ul>
+<li>lemma encoder-decoder loss</li>
+<li>LM loss, predict w based on the hidden forward encoding at the previous token</li>
+<li>LM loss, predict w based on the hidden backward encoding at the next token</li>
+
+</ul>
+
+</aside>
+
+<p class="fragment (roll-in)">
+\(P_{lemma}(l^t_{1\ldots n}|w^t) = P(l_n|w^t, s^t) \cdot P(l^t_{1\ldots n-1}|w^t, s^t)\)
+</p>
+<p class="fragment (roll-in)">
+\(P_{LM}(w^t) = \boldsymbol{\gamma_{fwd}} P(w^t|s^{t-1}_{fwd}) + \boldsymbol{\gamma_{bwd}} P(w^t|s^{t+1}_{bwd})\)
+</p>
+<p class="fragment (roll-in)">
+\(P = P_{lemma} + \boldsymbol{\beta} P_{LM}\)
+</p>
+
+<ul>
+<li class="fragment roll-in">Decrease \(\boldsymbol{\gamma_{fwd}}\) and \(\boldsymbol{\gamma_{bwd}}\) based on dev accuracy</li>
+<li class="fragment roll-in">Use \(\boldsymbol{\beta}\) to rescale LM loss</li>
+
+</ul>
+
+</section>
+</section>
+<section>
+<section id="slide-orgd5da127">
+<h2 id="orgd5da127"><span class="section-number-2">3</span> Corpus</h2>
+<div class="outline-text-2" id="text-3">
+</div>
+</section>
+</section>
+<section>
+<section id="slide-orgc0d8eb9">
+<h3 id="orgc0d8eb9">Historical Languages</h3>
 <ul>
 <li>Selection of open-source 9 corpora</li>
-<li>Languages:
+<li>Language coverage:
 <ul>
 <li>Latin</li>
 <li>Middle-low German</li>
 <li>Medieval French</li>
 <li>Historical Slovene</li>
-<li>Medieval Dutch</li>
+<li>Medieval Dutch (Corpus Gysseling)</li>
 
 </ul></li>
 
@@ -133,8 +221,8 @@
 </section>
 </section>
 <section>
-<section id="slide-orgfc51ded">
-<h3 id="orgfc51ded">Standard Languages</h3>
+<section id="slide-org08729e7">
+<h3 id="org08729e7">Standard Languages</h3>
 <p>
 20 Languages from the Universal Dependencies
 </p>
@@ -142,8 +230,16 @@
 </section>
 </section>
 <section>
-<section id="slide-org30b262a">
-<h3 id="org30b262a">Statistics</h3>
+<section id="slide-org5a81cd0">
+<h3 id="org5a81cd0">Statistics</h3>
+<aside class="notes">
+<ul>
+<li>Some statistics where we see large variance in terms of size</li>
+
+</ul>
+
+</aside>
+
 <style>
 .container{ display: flex; }
 .col{ flex: 1; }
@@ -161,51 +257,10 @@
 </section>
 </section>
 <section>
-<section id="slide-org9eb41be">
-<h2 id="org9eb41be"><span class="section-number-2">3</span> Architecture</h2>
-<div class="outline-text-2" id="text-3">
-</div>
-</section>
-</section>
-<section>
-<section id="slide-org0ecafe2" data-background="#FFFFFF">
-<h3 id="org0ecafe2">Encoder-Decoder</h3>
-<img src="images/encoder-decoder.png" class="stretch"/>
-
-</section>
-</section>
-<section>
-<section id="slide-org1b033b3" data-background="#FFFFFF">
-<h3 id="org1b033b3">Modeling Sentential Context</h3>
-<img src="images/sentence-encoder.png" class="stretch"/>
-
-</section>
-</section>
-<section>
-<section id="slide-org0e143d5" data-background="#FFFFFF">
-<h3 id="org0e143d5">Improved Sentence Encodings</h3>
-<img src="images/sentence-encoder_joint.png" class="stretch"/>
-
-</section>
-<section id="slide-org7a0643f">
-<h4 id="org7a0643f">Joint Learning</h4>
-<p class="fragment (roll-in)">
-\(P_{lemma}(l^t_{1\ldots n}|w^t) = P(l_n|s^t) \cdot P(l^t_{1\ldots n-1}|s^t)\)
-</p>
-<p class="fragment (roll-in)">
-\(P_{LM}(w^t) = \boldsymbol{\gamma_{fwd}} P(w^t|s^{t-1}_{fwd}) + \boldsymbol{\gamma_{bwd}} P(w^t|s^{t+1}_{bwd})\)
-</p>
-<p class="fragment (roll-in)">
-\(P = P_{lemma} + \boldsymbol{\beta} P_{LM}\)
-</p>
-
-</section>
-</section>
-<section>
-<section id="slide-orga47f082">
-<h2 id="orga47f082"><span class="section-number-2">4</span> Baselines</h2>
+<section id="slide-org4eadef0">
+<h2 id="org4eadef0"><span class="section-number-2">4</span> Baselines</h2>
 <ul>
-<li>Strongest pre-neural data-driven lemmatizers</li>
+<li>Strongest non-neural data-driven lemmatizers</li>
 <li>Based on edit-tree induction</li>
 
 </ul>
@@ -213,26 +268,30 @@
 </section>
 </section>
 <section>
-<section id="slide-orgf04073f">
-<h3 id="orgf04073f">Morfette (Chrupała et al. 2008)</h3>
+<section id="slide-org13add9b" data-background="#FFFFFF">
+<h3 id="org13add9b">Edit-tree Induction</h3>
+<img src="images/edit-tree.png" class="" />
+
+
+</section>
+<section id="slide-org2566655">
+<h4 id="org2566655">Morfette (Chrupała et al. 2008)</h4>
 <p>
-Beam-search decoding of edit trees <a href="https://github.com/gchrupala/morfette">https://github.com/gchrupala/morfette</a>
+Beam-search decoding of edit trees and POS <a href="https://github.com/gchrupala/morfette">https://github.com/gchrupala/morfette</a>
+</p>
+
+</section>
+<section id="slide-org5d54d39">
+<h4 id="org5d54d39">Lemming (Cotterell et al. 2015)</h4>
+<p>
+Second-order CRF decoding of edit-trees and POS <a href="http://cistern.cis.lmu.de/lemming/">http://cistern.cis.lmu.de/lemming/</a>
 </p>
 
 </section>
 </section>
 <section>
-<section id="slide-org4d0f813">
-<h3 id="org4d0f813">Lemming (Cotterel et al. 2015)</h3>
-<p>
-Second-order decoding CRF of POS and edit-trees <a href="http://cistern.cis.lmu.de/lemming/">http://cistern.cis.lmu.de/lemming/</a>
-</p>
-
-</section>
-</section>
-<section>
-<section id="slide-orgc0d8109">
-<h2 id="orgc0d8109"><span class="section-number-2">5</span> Evaluation</h2>
+<section id="slide-org54a4852">
+<h2 id="org54a4852"><span class="section-number-2">5</span> Evaluation</h2>
 <ul>
 <li>Accuracy of <b>known</b>, <b>unknown</b> and <b>ambiguous</b> tokens</li>
 <li>(Un)known &amp; ambiguous is empirically determined based on train/dev split</li>
@@ -242,33 +301,63 @@ Second-order decoding CRF of POS and edit-trees <a href="http://cistern.cis.lmu.
 </section>
 </section>
 <section>
-<section id="slide-org0ff7811">
-<h2 id="org0ff7811"><span class="section-number-2">6</span> Results</h2>
+<section id="slide-orge81c04f">
+<h2 id="orge81c04f"><span class="section-number-2">6</span> Results</h2>
 <div class="outline-text-2" id="text-6">
 </div>
 </section>
 </section>
 <section>
-<section id="slide-org8e7c40a" data-background="#FFFFFF">
-<h3 id="org8e7c40a">Historical Languages</h3>
-<img src="images/historical.png" class=""/>
+<section id="slide-orgfa09ded" data-background="#FFFFFF">
+<h3 id="orgfa09ded">Historical Languages</h3>
+<aside class="notes">
+<ul>
+<li>Plain is already better</li>
+<li>Sentence context pushes it by almost 2 points</li>
+<li>LM has an edge, helps in particular at disambiguating</li>
 
-</section>
-<section id="slide-orgcb64369" data-background="#FFFFFF">
-<h4 id="orgcb64369">Gysseling Corpora (Medieval Dutch; 4 genres)</h4>
-<img src="images/gysseling.png" class=""/>
+</ul>
+
+</aside>
+
+<img src="images/historical.png" class=""/>
 
 </section>
 </section>
 <section>
-<section id="slide-orga674338" data-background="#FFFFFF">
-<h3 id="orga674338">Standard Languages</h3>
+<section id="slide-org24d214d" data-background="#FFFFFF">
+<h3 id="org24d214d">Standard Languages</h3>
+<aside class="notes">
+<ul>
+<li>LM wins overall</li>
+<li>However, edit-tree has an edge on ambiguous and unknown</li>
+<li>Suspicion: Numbers depend on morphological typology</li>
+
+</ul>
+
+</aside>
+
 <img src="images/UD.png" class=""/>
 
 </section>
-<section id="slide-org3616d70" data-background="#FFFFFF">
-<h4 id="org3616d70">Results by Morphological Typology</h4>
-<img src="images/typology.png" class="stretch"/>
+<section id="slide-orgb01c5da">
+<h4 id="orgb01c5da">How informative is averaging over typologically different languages?</h4>
+<p>
+Different inductive biases may benefit some languages more than others
+</p>
+
+</section>
+<section id="slide-orgcdb0397">
+<h4 id="orgcdb0397">Results by Morphological Typology</h4>
+<aside class="notes">
+<ul>
+<li>Type 1: Balto-slavic: strongly suffixing, complex nominal morphology</li>
+<li>Type 2: Uralic &amp; Altaic: agglutinative, monoexponential case, low ambiguity</li>
+<li>Type 3: Western European: tendency towards synthetic morphology</li>
+
+</ul>
+
+</aside>
 
 <p>
 <b>Type 1</b> <code>bg</code>, <code>cs</code>, <code>lv</code>, <code>ru</code>, <code>sl</code>
@@ -283,28 +372,59 @@ Second-order decoding CRF of POS and edit-trees <a href="http://cistern.cis.lmu.
 </p>
 
 </section>
+<section id="slide-org298714f" data-background="#FFFFFF">
+<h4 id="org298714f"></h4>
+<aside class="notes">
+<ul>
+<li>Type 3: Non-neural is really hard to beat</li>
+<li>Type 2: Edit-tree only wins on ambiguous, of which there are really few</li>
+<li>Type 1: Neural wins</li>
+
+</ul>
+
+</aside>
+
+<img src="images/typology.png" class="stretch"/>
+
+</section>
 </section>
 <section>
-<section id="slide-org371dd08">
-<h2 id="org371dd08"><span class="section-number-2">7</span> Discussion</h2>
+<section id="slide-org26532a1">
+<h2 id="org26532a1"><span class="section-number-2">7</span> Discussion</h2>
 <div class="outline-text-2" id="text-7">
 </div>
 </section>
 </section>
 <section>
-<section id="slide-org5f3188b">
-<h3 id="org5f3188b">Limits of edit-tree induction</h3>
+<section id="slide-org22e42c1">
+<h3 id="org22e42c1">Limits of edit-tree induction</h3>
+<aside class="notes">
+<ul>
+<li>Very good inductive bias for western european languages</li>
+<li>Less efficient in other cases, especially historical languages</li>
+
+</ul>
+
+</aside>
+
 <img src="images/error-reduction-by-trees1.png" class="stretch"/>
 
 <p>
-Error reduction of best Neural vs best Tree-induction by #Trees
+Error reduction of best neural vs best tree-induction by #Trees
 </p>
 
 </section>
 </section>
 <section>
-<section id="slide-orgbc493f6">
-<h3 id="orgbc493f6">How does sentence encoding fine-tuning helps</h3>
+<section id="slide-org2bed72d">
+<h3 id="org2bed72d">How does joint LM learning help</h3>
+<aside class="notes">
+<p>
+Visualizing the intuition that joint learning helps resolving ambiguities
+</p>
+
+</aside>
+
 <img src="images/error-reduction-by-ambiguity1.png" class="stretch"/>
 
 <p>
@@ -314,8 +434,8 @@ Error reduction of SentLM vs Sent by Ambiguity
 </section>
 </section>
 <section>
-<section id="slide-org176cb98" data-background="#FFFFFF">
-<h3 id="org176cb98">Why does it help?</h3>
+<section id="slide-orgc01d03c" data-background="#FFFFFF">
+<h3 id="orgc01d03c">Why does it help?</h3>
 <img src="images/probing.png" class=""/>
 
 <p>
@@ -325,8 +445,21 @@ Diagnostic classifiers trained on frozen encodings to predict morphology
 </section>
 </section>
 <section>
-<section id="slide-org7964562">
-<h2 id="org7964562"><span class="section-number-2">8</span> Thank you</h2>
+<section id="slide-orgfc3e6a6">
+<h2 id="orgfc3e6a6"><span class="section-number-2">8</span> Conclusions</h2>
+<ul>
+<li>Historical Languages pose additional difficulties to lemmatizers</li>
+<li>Edit-trees are challenged by spelling variation</li>
+<li>Improvements can be gained by fine-tuning the sentence encodings</li>
+<li>Learnt encodings reflect morphological information (which is costly)</li>
+
+</ul>
+
+</section>
+</section>
+<section>
+<section id="slide-org657e66e">
+<h2 id="org657e66e"><span class="section-number-2">9</span> Thank you</h2>
 <ul>
 <li>Download &amp; Preprocessing Scripts: <a href="https://www.github.com/emanjavacas/pie-data">https://www.github.com/emanjavacas/pie-data</a></li>
 <li>Sequence Labeling Framework: <a href="https://www.github.com/emanjavacas/pie">https://www.github.com/emanjavacas/pie</a></li>

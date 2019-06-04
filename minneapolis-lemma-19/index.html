@@ -7,9 +7,9 @@
 <style type="text/css">
 .underline { text-decoration: underline; }
 </style>
-<link rel="stylesheet" href="file:///home/manjavacas/.emacs.d/lisp/reveal.js/css/reveal.css"/>
+<link rel="stylesheet" href="../externals/reveal.js/css/reveal.css"/>
 
-<link rel="stylesheet" href="file:///home/manjavacas/.emacs.d/lisp/reveal.js/css/theme/solarized.css" id="theme"/>
+<link rel="stylesheet" href="../externals/reveal.js/css/theme/solarized.css" id="theme"/>
 
 <link rel="stylesheet" href="./extra.css"/>
 
@@ -19,7 +19,7 @@
         var link = document.createElement( 'link' );
         link.rel = 'stylesheet';
         link.type = 'text/css';
-        link.href = 'file:///home/manjavacas/.emacs.d/lisp/reveal.js/css/print/pdf.css';
+        link.href = '../externals/reveal.js/css/print/pdf.css';
         document.getElementsByTagName( 'head' )[0].appendChild( link );
     }
 </script>
@@ -33,15 +33,15 @@
 
 
 <section>
-<section id="slide-org9ffcaf9">
-<h2 id="org9ffcaf9"><span class="section-number-2">1</span> Lemmatization</h2>
+<section id="slide-org72b1bc0">
+<h2 id="org72b1bc0"><span class="section-number-2">1</span> Lemmatization</h2>
 <div class="outline-text-2" id="text-1">
 </div>
 </section>
 </section>
 <section>
-<section id="slide-orgc56bdbd" data-background="#282A36">
-<h3 id="orgc56bdbd">Task Definition</h3>
+<section id="slide-orga8e072a" data-background="#282A36">
+<h3 id="orga8e072a">Task Definition</h3>
 <aside class="notes">
 <ul>
 <li>A snippet from a sentence in PROIEL latin corpus (part of UD)</li>
@@ -57,8 +57,8 @@
 </section>
 </section>
 <section>
-<section id="slide-orgb5b7ea3">
-<h3 id="orgb5b7ea3">Applications</h3>
+<section id="slide-org909dabe">
+<h3 id="org909dabe">Applications</h3>
 <ul>
 <li>Linking to dictionary</li>
 <li>Text Classification (esp. for morphologically complex languages)</li>
@@ -70,8 +70,8 @@
 </section>
 </section>
 <section>
-<section id="slide-org1e4bc10">
-<h3 id="org1e4bc10">Challenges</h3>
+<section id="slide-orgab0a422">
+<h3 id="orgab0a422">Challenges</h3>
 <ol>
 <li class="fragment roll-in">Token-lemma disambiguation
 <ul>
@@ -92,8 +92,8 @@
 </section>
 </section>
 <section>
-<section id="slide-orgeee8e6d">
-<h3 id="orgeee8e6d">Historical Languages</h3>
+<section id="slide-orgdaa75b9">
+<h3 id="orgdaa75b9">Historical Languages</h3>
 <ul>
 <li>Span a long historical period (e.g. middle ages)</li>
 <li>Present high genre specificity (charters, medicine, history)</li>
@@ -102,8 +102,8 @@
 </ul>
 
 </section>
-<section id="slide-org3b6224e">
-<h4 id="org3b6224e">Additional Challenging Aspect</h4>
+<section id="slide-org2872632">
+<h4 id="org2872632">Additional Challenging Aspect</h4>
 <ol>
 <li>Token-lemma disambiguation</li>
 <li>Morphological Complexity</li>
@@ -112,8 +112,8 @@
 </ol>
 
 </section>
-<section id="slide-org303eb05" data-background="#F0F0F0">
-<h4 id="org303eb05">Orthographic Variation Examples</h4>
+<section id="slide-orgabbea1c" data-background="#F0F0F0">
+<h4 id="orgabbea1c">Orthographic Variation Examples</h4>
 <aside class="notes">
 <ul>
 <li>Middle dutch and low german corpora</li>
@@ -127,8 +127,8 @@
 <img src="./images/token-lemma.png" class="stretch"/>
 
 </section>
-<section id="slide-org9e84785">
-<h4 id="org9e84785">Implications of Orthographic Variation for Lemmatization</h4>
+<section id="slide-org97a9ca3">
+<h4 id="org97a9ca3">Implications of Orthographic Variation for Lemmatization</h4>
 <ul>
 <li>Increases token-lemma ambiguities</li>
 <li>Sparsifies evidence for token-lemma mappings (due to higher token/type ratio)</li>
@@ -138,34 +138,34 @@
 </section>
 </section>
 <section>
-<section id="slide-org498f754">
-<h2 id="org498f754"><span class="section-number-2">2</span> Architecture</h2>
+<section id="slide-org61fe42e">
+<h2 id="org61fe42e"><span class="section-number-2">2</span> Architecture</h2>
 <div class="outline-text-2" id="text-2">
 </div>
 </section>
 </section>
 <section>
-<section id="slide-org3273417" data-background="#FFFFFF">
-<h3 id="org3273417">Encoder-Decoder</h3>
+<section id="slide-orgeabde0e" data-background="#FFFFFF">
+<h3 id="orgeabde0e">Encoder-Decoder</h3>
 <img src="images/encoder-decoder.png" class="stretch"/>
 
 </section>
 </section>
 <section>
-<section id="slide-orgdca21be" data-background="#FFFFFF">
-<h3 id="orgdca21be">Modeling Sentential Context</h3>
+<section id="slide-org8828141" data-background="#FFFFFF">
+<h3 id="org8828141">Modeling Sentential Context</h3>
 <img src="images/sentence-encoder.png" class="stretch"/>
 
 </section>
 </section>
 <section>
-<section id="slide-org9bf5421" data-background="#FFFFFF">
-<h3 id="org9bf5421">Improved Sentence Encodings (Contribution)</h3>
+<section id="slide-orged590a1" data-background="#FFFFFF">
+<h3 id="orged590a1">Improved Sentence Encodings (Contribution)</h3>
 <img src="images/sentence-encoder_joint.png" class="stretch"/>
 
 </section>
-<section id="slide-org0c4933b">
-<h4 id="org0c4933b">Joint Learning</h4>
+<section id="slide-org24a78ba">
+<h4 id="org24a78ba">Joint Learning</h4>
 <aside class="notes">
 <ul>
 <li>lemma encoder-decoder loss</li>
@@ -195,15 +195,15 @@
 </section>
 </section>
 <section>
-<section id="slide-org851e285">
-<h2 id="org851e285"><span class="section-number-2">3</span> Corpus</h2>
+<section id="slide-org9fcf4e7">
+<h2 id="org9fcf4e7"><span class="section-number-2">3</span> Corpus</h2>
 <div class="outline-text-2" id="text-3">
 </div>
 </section>
 </section>
 <section>
-<section id="slide-org0d48162">
-<h3 id="org0d48162">Historical Languages</h3>
+<section id="slide-org57b41f6">
+<h3 id="org57b41f6">Historical Languages</h3>
 <ul>
 <li>Selection of open-source 9 corpora</li>
 <li>Language coverage:
@@ -221,8 +221,8 @@
 </section>
 </section>
 <section>
-<section id="slide-org308f839">
-<h3 id="org308f839">Standard Languages</h3>
+<section id="slide-orge0b0593">
+<h3 id="orge0b0593">Standard Languages</h3>
 <p>
 20 Languages from the Universal Dependencies
 </p>
@@ -230,8 +230,8 @@
 </section>
 </section>
 <section>
-<section id="slide-orga0f07a4">
-<h3 id="orga0f07a4">Statistics</h3>
+<section id="slide-org66c8675">
+<h3 id="org66c8675">Statistics</h3>
 <aside class="notes">
 <ul>
 <li>Some statistics where we see large variance in terms of size</li>
@@ -257,8 +257,8 @@
 </section>
 </section>
 <section>
-<section id="slide-org5b3717d">
-<h2 id="org5b3717d"><span class="section-number-2">4</span> Baselines</h2>
+<section id="slide-org1872eff">
+<h2 id="org1872eff"><span class="section-number-2">4</span> Baselines</h2>
 <ul>
 <li>Strongest non-neural data-driven lemmatizers</li>
 <li>Based on edit-tree induction</li>
@@ -268,21 +268,21 @@
 </section>
 </section>
 <section>
-<section id="slide-org6161da7" data-background="#FFFFFF">
-<h3 id="org6161da7">Edit-tree Induction</h3>
+<section id="slide-org2db3a96" data-background="#FFFFFF">
+<h3 id="org2db3a96">Edit-tree Induction</h3>
 <img src="images/edit-tree.png" class="" />
 
 
 </section>
-<section id="slide-org4b27758">
-<h4 id="org4b27758">Morfette (Chrupała et al. 2008)</h4>
+<section id="slide-orge63cf89">
+<h4 id="orge63cf89">Morfette (Chrupała et al. 2008)</h4>
 <p>
 Beam-search decoding of edit trees and POS <a href="https://github.com/gchrupala/morfette">https://github.com/gchrupala/morfette</a>
 </p>
 
 </section>
-<section id="slide-org74b80f4">
-<h4 id="org74b80f4">Lemming (Cotterell et al. 2015)</h4>
+<section id="slide-orgda19dfb">
+<h4 id="orgda19dfb">Lemming (Cotterell et al. 2015)</h4>
 <p>
 Second-order CRF decoding of edit-trees and POS <a href="http://cistern.cis.lmu.de/lemming/">http://cistern.cis.lmu.de/lemming/</a>
 </p>
@@ -290,8 +290,8 @@ Second-order CRF decoding of edit-trees and POS <a href="http://cistern.cis.lmu.
 </section>
 </section>
 <section>
-<section id="slide-orgc94dcf1">
-<h2 id="orgc94dcf1"><span class="section-number-2">5</span> Evaluation</h2>
+<section id="slide-orgc573aef">
+<h2 id="orgc573aef"><span class="section-number-2">5</span> Evaluation</h2>
 <ul>
 <li>Accuracy of <b>known</b>, <b>unknown</b> and <b>ambiguous</b> tokens</li>
 <li>(Un)known &amp; ambiguous is empirically determined based on train/dev split</li>
@@ -301,15 +301,15 @@ Second-order CRF decoding of edit-trees and POS <a href="http://cistern.cis.lmu.
 </section>
 </section>
 <section>
-<section id="slide-org0afeafb">
-<h2 id="org0afeafb"><span class="section-number-2">6</span> Results</h2>
+<section id="slide-orgc2eb804">
+<h2 id="orgc2eb804"><span class="section-number-2">6</span> Results</h2>
 <div class="outline-text-2" id="text-6">
 </div>
 </section>
 </section>
 <section>
-<section id="slide-orgabd8638" data-background="#FFFFFF">
-<h3 id="orgabd8638">Historical Languages</h3>
+<section id="slide-orga6ccc3e" data-background="#FFFFFF">
+<h3 id="orga6ccc3e">Historical Languages</h3>
 <aside class="notes">
 <ul>
 <li>Plain is already better</li>
@@ -325,8 +325,8 @@ Second-order CRF decoding of edit-trees and POS <a href="http://cistern.cis.lmu.
 </section>
 </section>
 <section>
-<section id="slide-org4c39d7a" data-background="#FFFFFF">
-<h3 id="org4c39d7a">Standard Languages</h3>
+<section id="slide-orgb4eb191" data-background="#FFFFFF">
+<h3 id="orgb4eb191">Standard Languages</h3>
 <aside class="notes">
 <ul>
 <li>LM wins overall</li>
@@ -340,15 +340,15 @@ Second-order CRF decoding of edit-trees and POS <a href="http://cistern.cis.lmu.
 <img src="images/UD.png" class=""/>
 
 </section>
-<section id="slide-orgc34b463">
-<h4 id="orgc34b463">How informative is averaging over typologically different languages?</h4>
+<section id="slide-org80885f4">
+<h4 id="org80885f4">How informative is averaging over typologically different languages?</h4>
 <p>
 Different inductive biases may benefit some languages more than others
 </p>
 
 </section>
-<section id="slide-org43dc2ae">
-<h4 id="org43dc2ae">Results by Morphological Typology</h4>
+<section id="slide-org2ad8796">
+<h4 id="org2ad8796">Results by Morphological Typology</h4>
 <aside class="notes">
 <ul>
 <li>Type 1: Balto-slavic: strongly suffixing, complex nominal morphology</li>
@@ -372,8 +372,8 @@ Different inductive biases may benefit some languages more than others
 </p>
 
 </section>
-<section id="slide-orga479541" data-background="#FFFFFF">
-<h4 id="orga479541"></h4>
+<section id="slide-orgf22d0c6" data-background="#FFFFFF">
+<h4 id="orgf22d0c6"></h4>
 <aside class="notes">
 <ul>
 <li>Type 3: Non-neural is really hard to beat</li>
@@ -389,15 +389,15 @@ Different inductive biases may benefit some languages more than others
 </section>
 </section>
 <section>
-<section id="slide-org0fcc474">
-<h2 id="org0fcc474"><span class="section-number-2">7</span> Discussion</h2>
+<section id="slide-orgdc1d41e">
+<h2 id="orgdc1d41e"><span class="section-number-2">7</span> Discussion</h2>
 <div class="outline-text-2" id="text-7">
 </div>
 </section>
 </section>
 <section>
-<section id="slide-org631a155">
-<h3 id="org631a155">Limits of edit-tree induction</h3>
+<section id="slide-org8d07cd2">
+<h3 id="org8d07cd2">Limits of edit-tree induction</h3>
 <aside class="notes">
 <ul>
 <li>Very good inductive bias for western european languages</li>
@@ -416,8 +416,8 @@ Error reduction of best neural vs best tree-induction by #Trees (Spearman R=0.79
 </section>
 </section>
 <section>
-<section id="slide-org2df0cef">
-<h3 id="org2df0cef">How does joint LM learning help</h3>
+<section id="slide-org94d09d7">
+<h3 id="org94d09d7">How does joint LM learning help</h3>
 <aside class="notes">
 <p>
 Visualizing the intuition that joint learning helps resolving ambiguities
@@ -434,8 +434,8 @@ Error reduction of SentLM vs Sent by Ambiguity (Spearman R=0.53)
 </section>
 </section>
 <section>
-<section id="slide-org1c09de6" data-background="#FFFFFF">
-<h3 id="org1c09de6">Why does it help?</h3>
+<section id="slide-org17d7f03" data-background="#FFFFFF">
+<h3 id="org17d7f03">Why does it help?</h3>
 <img src="images/probing.png" class=""/>
 
 <p>
@@ -445,8 +445,8 @@ Diagnostic classifiers trained on frozen encodings to predict morphology
 </section>
 </section>
 <section>
-<section id="slide-orgb9c530d">
-<h2 id="orgb9c530d"><span class="section-number-2">8</span> Conclusions</h2>
+<section id="slide-org21fc373">
+<h2 id="org21fc373"><span class="section-number-2">8</span> Conclusions</h2>
 <ul>
 <li>Historical Languages pose additional difficulties to lemmatizers</li>
 <li>Edit-trees are challenged by spelling variation</li>
@@ -458,8 +458,8 @@ Diagnostic classifiers trained on frozen encodings to predict morphology
 </section>
 </section>
 <section>
-<section id="slide-orgf47b36b">
-<h2 id="orgf47b36b"><span class="section-number-2">9</span> Thank you</h2>
+<section id="slide-org852c39a">
+<h2 id="org852c39a"><span class="section-number-2">9</span> Thank you</h2>
 <ul>
 <li>Download &amp; Preprocessing Scripts: <a href="https://www.github.com/emanjavacas/pie-data">https://www.github.com/emanjavacas/pie-data</a></li>
 <li>Sequence Labeling Framework: <a href="https://www.github.com/emanjavacas/pie">https://www.github.com/emanjavacas/pie</a></li>
@@ -470,8 +470,8 @@ Diagnostic classifiers trained on frozen encodings to predict morphology
 </section>
 </div>
 </div>
-<script src="file:///home/manjavacas/.emacs.d/lisp/reveal.js/lib/js/head.min.js"></script>
-<script src="file:///home/manjavacas/.emacs.d/lisp/reveal.js/js/reveal.js"></script>
+<script src="../externals/reveal.js/lib/js/head.min.js"></script>
+<script src="../externals/reveal.js/js/reveal.js"></script>
 
 <script>
 // Full list of configuration options available here:
@@ -503,11 +503,11 @@ multiplex: {
 
 // Optional libraries used to extend on reveal.js
 dependencies: [
- { src: 'file:///home/manjavacas/.emacs.d/lisp/reveal.js/lib/js/classList.js', condition: function() { return !document.body.classList; } },
- { src: 'file:///home/manjavacas/.emacs.d/lisp/reveal.js/plugin/markdown/marked.js', condition: function() { return !!document.querySelector( '[data-markdown]' ); } },
- { src: 'file:///home/manjavacas/.emacs.d/lisp/reveal.js/plugin/markdown/markdown.js', condition: function() { return !!document.querySelector( '[data-markdown]' ); } },
- { src: 'file:///home/manjavacas/.emacs.d/lisp/reveal.js/plugin/zoom-js/zoom.js', async: true, condition: function() { return !!document.body.classList; } },
- { src: 'file:///home/manjavacas/.emacs.d/lisp/reveal.js/plugin/notes/notes.js', async: true, condition: function() { return !!document.body.classList; } }]
+ { src: '../externals/reveal.js/lib/js/classList.js', condition: function() { return !document.body.classList; } },
+ { src: '../externals/reveal.js/plugin/markdown/marked.js', condition: function() { return !!document.querySelector( '[data-markdown]' ); } },
+ { src: '../externals/reveal.js/plugin/markdown/markdown.js', condition: function() { return !!document.querySelector( '[data-markdown]' ); } },
+ { src: '../externals/reveal.js/plugin/zoom-js/zoom.js', async: true, condition: function() { return !!document.body.classList; } },
+ { src: '../externals/reveal.js/plugin/notes/notes.js', async: true, condition: function() { return !!document.body.classList; } }]
 });
 </script>
 </body>

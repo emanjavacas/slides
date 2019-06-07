@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8"/>
 <title>On the Feasibility of Automated Detection of Allusive Text Reuse</title>
-<meta name="author" content="(Enrique Manjavacas  (export-snippet (:back-end html :value <br> :begin 20 :end 34 :post-blank 1 :parent #0)) Brian Long  (export-snippet (:back-end html :value <br> :begin 45 :end 59 :post-blank 1 :parent #0)) Mike Kestemont)"/>
+<meta name="author" content="((bold (:begin 1 :end 22 :contents-begin 2 :contents-end 20 :post-blank 1 :parent #0) Enrique Manjavacas) (export-snippet (:back-end html :value <br> :begin 22 :end 36 :post-blank 1 :parent #0)) Brian Long  (export-snippet (:back-end html :value <br> :begin 47 :end 61 :post-blank 1 :parent #0)) Mike Kestemont)"/>
 <style type="text/css">
 .underline { text-decoration: underline; }
 </style>
@@ -28,19 +28,19 @@
 <body>
 <div class="reveal">
 <div class="slides">
-<section id="sec-title-slide"><h1 class="title">On the Feasibility of Automated Detection of Allusive Text Reuse</h1><h2 class="author">Enrique Manjavacas <br> Brian Long <br> Mike Kestemont</h2>
+<section id="sec-title-slide"><h1 class="title">On the Feasibility of Automated Detection of Allusive Text Reuse</h1><h2 class="author"><b>Enrique Manjavacas</b> <br> Brian Long <br> Mike Kestemont</h2>
 </section>
 
 <section>
-<section id="slide-orgaf42dc4">
-<h2 id="orgaf42dc4"><span class="section-number-2">1</span> Motivation</h2>
+<section id="slide-orgbc91a82">
+<h2 id="orgbc91a82"><span class="section-number-2">1</span> Motivation</h2>
 <div class="outline-text-2" id="text-1">
 </div>
 </section>
 </section>
 <section>
-<section id="slide-orga77893e">
-<h3 id="orga77893e">Intertextuality</h3>
+<section id="slide-orgaf6363a">
+<h3 id="orgaf6363a">Intertextuality</h3>
 <ul>
 <li class="fragment roll-in">&ldquo;Interrelationships between texts that create new understandings&rdquo;</li>
 <li class="fragment roll-in">Materializes in different forms:
@@ -58,8 +58,8 @@
 </section>
 </section>
 <section>
-<section id="slide-org25d62f2">
-<h3 id="org25d62f2">Text Reuse Detection</h3>
+<section id="slide-orgd4ab966">
+<h3 id="orgd4ab966">Text Reuse Detection</h3>
 <ul>
 <li class="fragment roll-in">Previous work:
 <ul>
@@ -81,8 +81,8 @@
 </section>
 </section>
 <section data-transition="none">
-<section id="slide-org13cfb39" data-transition="none" data-background="#FFFFFF">
-<h2 id="org13cfb39"><span class="section-number-2">2</span> Case Study: Bernard of Clairvaux (1090-1153)</h2>
+<section id="slide-org19c9c5e" data-transition="none" data-background="#FFFFFF">
+<h2 id="org19c9c5e"><span class="section-number-2">2</span> Case Study: Bernard of Clairvaux (1090-1153)</h2>
 
 <div class="figure">
 <p><img src="./images/brill.jpg" alt="brill.jpg" />
@@ -92,8 +92,8 @@
 </section>
 </section>
 <section>
-<section id="slide-org105295c">
-<h3 id="org105295c">Personalia</h3>
+<section id="slide-org5f113ee">
+<h3 id="org5f113ee">Personalia</h3>
 <ul>
 <li class="fragment roll-in">Church Father from the 12th Century Renaissance</li>
 <li class="fragment roll-in">Controversy with Peter Abelard</li>
@@ -105,8 +105,8 @@
 </section>
 </section>
 <section>
-<section id="slide-org621cb6b">
-<h3 id="org621cb6b">Written Production</h3>
+<section id="slide-orgf4c8170">
+<h3 id="orgf4c8170">Written Production</h3>
 <ul>
 <li class="fragment roll-in">Very eloquent and prolific writer (Doctor Mellifluus)</li>
 <li class="fragment roll-in">Mostly known for his numerous Sermons</li>
@@ -117,8 +117,8 @@
 </section>
 </section>
 <section>
-<section id="slide-org54edf64">
-<h2 id="org54edf64"><span class="section-number-2">3</span> Dataset</h2>
+<section id="slide-org2cb729d">
+<h2 id="org2cb729d"><span class="section-number-2">3</span> Dataset</h2>
 <ul>
 <li class="fragment roll-in">BiblIndex (thanks to Laurence Mellerin): forthcoming digital edition of Bernard</li>
 <li class="fragment roll-in">86 Sermones (<code>xml</code> following <code>TEI</code> guidelines; ± 165k tokens)</li>
@@ -135,8 +135,8 @@
 </section>
 </section>
 <section>
-<section id="slide-orgf722ae7">
-<h3 id="orgf722ae7">Dataset Statistics</h3>
+<section id="slide-org74f3c9c">
+<h3 id="org74f3c9c">Dataset Statistics</h3>
 <table border="2" cellspacing="0" cellpadding="6" rules="groups" frame="hsides">
 
 
@@ -172,13 +172,13 @@
 </section>
 </section>
 <section>
-<section id="slide-org72bb91f">
-<h3 id="org72bb91f">Examples</h3>
-<div class="outline-text-3" id="text-org72bb91f">
+<section id="slide-orgaa78b2f">
+<h3 id="orgaa78b2f">Examples</h3>
+<div class="outline-text-3" id="text-orgaa78b2f">
 </div>
 </section>
-<section id="slide-orgf4698a5">
-<h4 id="orgf4698a5">Allusive Text Reuse Example 1</h4>
+<section id="slide-org5d2591f">
+<h4 id="org5d2591f">Allusive Text Reuse Example 1</h4>
 <ul>
 <li>Bernard (Sermo19.7.a) &ldquo;<b>parvulae</b> quippe in <b>Christo</b> sunt, lacte et oleo nutriendae&rdquo;</li>
 <li>Bible (Co.3.1) &ldquo;et ego fratres non potui vobis loqui quasi spiritalibus sed quasi carnalibus tamquam <b>parvulis</b> in <b>Christo</b>&rdquo;</li>
@@ -186,8 +186,8 @@
 </ul>
 
 </section>
-<section id="slide-orgca6b783">
-<h4 id="orgca6b783">Allusive Text Reuse Example 2</h4>
+<section id="slide-org700d9dc">
+<h4 id="org700d9dc">Allusive Text Reuse Example 2</h4>
 <ul>
 <li>Bernard (Sermo73.6.g) &ldquo;ne forte <b>contingat</b> iustum pro impio conculcari&rdquo;</li>
 <li>Bible (Jn.5.14) &ldquo;[&#x2026;] ecce sanus factus es iam noli peccare ne deterius tibi aliquid <b>contingat</b>&rdquo;</li>
@@ -197,15 +197,15 @@
 </section>
 </section>
 <section data-transition="none">
-<section id="slide-orgd037c52" data-transition="none" data-background="#FFFFFF">
-<h3 id="orgd037c52">Overlap</h3>
+<section id="slide-orgc436e4a" data-transition="none" data-background="#FFFFFF">
+<h3 id="orgc436e4a">Overlap</h3>
 <img src="./images/bernard-overlap.png" class="stretch"/>
 
 </section>
 </section>
 <section>
-<section id="slide-org42c9906" data-background="#FFFFFF">
-<h2 id="org42c9906"><span class="section-number-2">4</span> Text Reuse Detection (Information Retrieval Perspective)</h2>
+<section id="slide-orgce233e9" data-background="#FFFFFF">
+<h2 id="orgce233e9"><span class="section-number-2">4</span> Text Reuse Detection (Information Retrieval Perspective)</h2>
 
 <div class="figure">
 <p><img src="./images/IR.png" alt="IR.png" />
@@ -228,16 +228,16 @@
 </section>
 </section>
 <section>
-<section id="slide-orgbfc0119">
-<h2 id="orgbfc0119"><span class="section-number-2">5</span> How difficult is it for humans?</h2>
+<section id="slide-org679d4cb">
+<h2 id="org679d4cb"><span class="section-number-2">5</span> How difficult is it for humans?</h2>
 <span>Highly interpretative, debatable annotation process...</span>
 <span class="fragment roll-in">but how can we model the degree of interpretability?</span>
 
 </section>
 </section>
 <section>
-<section id="slide-org5068185">
-<h3 id="org5068185">Inter-annotator Agreement Experiment</h3>
+<section id="slide-org085e674">
+<h3 id="org085e674">Inter-annotator Agreement Experiment</h3>
 <ul>
 <li class="fragment roll-in">Inter-annotator agreement coefficients
 <ul>
@@ -250,17 +250,17 @@
 </ul>
 
 </section>
-<section id="slide-org1e5fbf1" data-transition="none" data-background="#282A36">
-<h4 id="org1e5fbf1"></h4>
+<section id="slide-orgb0b53fa" data-transition="none" data-background="#282A36">
+<h4 id="orgb0b53fa"></h4>
 <img src="./images/sample.png" class="stretch"/>
 
 </section>
-<section id="slide-orge068e35" data-transition="none" data-background="images/tool.gif">
-<h4 id="orge068e35"></h4>
+<section id="slide-orgbb7e261" data-transition="none" data-background="images/tool.gif">
+<h4 id="orgbb7e261"></h4>
 
 </section>
-<section id="slide-orgae649b8">
-<h4 id="orgae649b8">Experimental Conditions</h4>
+<section id="slide-org5bb8212">
+<h4 id="org5bb8212">Experimental Conditions</h4>
 <ul>
 <li class="fragment roll-in">Guideline: &ldquo;<b>Minimum span</b> that is <b>maximally allusive</b>&rdquo;</li>
 <li class="fragment roll-in">Restrictions
@@ -277,8 +277,8 @@
 </section>
 </section>
 <section>
-<section id="slide-org4d34c05">
-<h3 id="org4d34c05">Agreement as overlap</h3>
+<section id="slide-org66f1808">
+<h3 id="org66f1808">Agreement as overlap</h3>
 <ul>
 <li class="fragment roll-in">Agreement: tokens shared with the other annotator
 <ul>
@@ -301,8 +301,8 @@
 </section>
 </section>
 <section data-transition="none">
-<section id="slide-org7942e64" data-transition="none" data-background="#FFFFFF">
-<h3 id="org7942e64">Results</h3>
+<section id="slide-orga104d6f" data-transition="none" data-background="#FFFFFF">
+<h3 id="orga104d6f">Results</h3>
 <aside class="notes">
 <ul>
 <li>2 modes</li>
@@ -318,8 +318,8 @@
 </section>
 </section>
 <section>
-<section id="slide-orgccfed18">
-<h2 id="orgccfed18"><span class="section-number-2">6</span> How difficult is it computationally?</h2>
+<section id="slide-org46642ae">
+<h2 id="org46642ae"><span class="section-number-2">6</span> How difficult is it computationally?</h2>
 <p>
 Text Reuse Detection from an Information Retrieval Perspective
 </p>
@@ -332,8 +332,8 @@ Text Reuse Detection from an Information Retrieval Perspective
 </ul>
 
 </section>
-<section id="slide-org8ced829">
-<h4 id="org8ced829">Evaluation</h4>
+<section id="slide-org18920ff">
+<h4 id="org18920ff">Evaluation</h4>
 <ul>
 <li>Mean Reciprocal Rank: \(MRR(Q) = \frac{1}{|Q|} \sum_{j=1}^{|Q|}\frac{1}{|R_j|}\)</li>
 <li>Accuracy@20</li>
@@ -341,8 +341,8 @@ Text Reuse Detection from an Information Retrieval Perspective
 </ul>
 
 </section>
-<section id="slide-orgf90293c">
-<h4 id="orgf90293c">Warning!</h4>
+<section id="slide-orgc0cd0cb">
+<h4 id="orgc0cd0cb">Warning!</h4>
 <ul>
 <li>Conditional probability of retrieving a link <b>given a link</b></li>
 <li>Goal is to evaluate the feasibility of the task</li>
@@ -352,8 +352,8 @@ Text Reuse Detection from an Information Retrieval Perspective
 </section>
 </section>
 <section data-transition="none">
-<section id="slide-orgecca5f9" data-transition="none" data-background="#FFFFFF">
-<h3 id="orgecca5f9">Document Representation Methods</h3>
+<section id="slide-orgb1685f6" data-transition="none" data-background="#FFFFFF">
+<h3 id="orgb1685f6">Document Representation Methods</h3>
 
 <div class="figure">
 <p><img src="./images/vector_space.png" alt="vector_space.png" />
@@ -361,8 +361,8 @@ Text Reuse Detection from an Information Retrieval Perspective
 </div>
 
 </section>
-<section id="slide-orgd972ba8">
-<h4 id="orgd972ba8">Purely Lexical</h4>
+<section id="slide-org2f0c50c">
+<h4 id="org2f0c50c">Purely Lexical</h4>
 <p>
 Cosine Distance on count-based <code>BoW</code> (± <code>tf-idf</code>):
 </p>
@@ -373,8 +373,8 @@ Cosine Distance on count-based <code>BoW</code> (± <code>tf-idf</code>):
 </ul>
 
 </section>
-<section id="slide-org6bbb775">
-<h4 id="org6bbb775">Purely Distributional</h4>
+<section id="slide-orgf3f822c">
+<h4 id="orgf3f822c">Purely Distributional</h4>
 <p>
 Cosine Distance on embedding based <code>BoW</code> embeddings (± <code>tf-idf</code>)
 </p>
@@ -389,15 +389,15 @@ Cosine Distance on embedding based <code>BoW</code> embeddings (± <code>tf-idf<
 </p>
 
 </section>
-<section id="slide-org4d75537">
-<h4 id="org4d75537">Hybrid (Soft-cosine)</h4>
+<section id="slide-org6de5df5">
+<h4 id="org6de5df5">Hybrid (Soft-cosine)</h4>
 <p>
 A generalization of cosine that allows for the incorporation of semantic similarity in the computation
 </p>
 
 </section>
-<section id="slide-orge266baa" data-background="#FFFFFF">
-<h4 id="orge266baa">Soft-cosine</h4>
+<section id="slide-org688427b" data-background="#FFFFFF">
+<h4 id="org688427b">Soft-cosine</h4>
 
 <div class="figure">
 <p><img src="./images/soft_cosine_tutorial.png" alt="soft_cosine_tutorial.png" />
@@ -405,8 +405,8 @@ A generalization of cosine that allows for the incorporation of semantic similar
 </div>
 
 </section>
-<section id="slide-org23e6b55">
-<h4 id="org23e6b55">Soft-cosine: Formulation</h4>
+<section id="slide-org45528c9">
+<h4 id="org45528c9">Soft-cosine: Formulation</h4>
 <p>
 Removes the assumption that every feature is completely dissimilar to any other feature
 </p>
@@ -418,8 +418,8 @@ Removes the assumption that every feature is completely dissimilar to any other 
 </ul>
 
 </section>
-<section id="slide-orgf96b4ab">
-<h4 id="orgf96b4ab">Soft-cosine: How to estimate S?</h4>
+<section id="slide-orge3860b9">
+<h4 id="orge3860b9">Soft-cosine: How to estimate S?</h4>
 <ul>
 <li class="fragment roll-in">\(SC_{emb}\)
 <ul>
@@ -437,8 +437,8 @@ Removes the assumption that every feature is completely dissimilar to any other 
 </section>
 </section>
 <section>
-<section id="slide-orge62ca54" data-background="#FFFFFF">
-<h3 id="orge62ca54">Results</h3>
+<section id="slide-org9e8e017" data-background="#FFFFFF">
+<h3 id="org9e8e017">Results</h3>
 
 <div class="figure">
 <p><img src="./images/results.png" alt="results.png" />
@@ -446,8 +446,8 @@ Removes the assumption that every feature is completely dissimilar to any other 
 </div>
 
 </section>
-<section id="slide-org11e30ca" data-background="#FFFFFF">
-<h4 id="org11e30ca">How important is manual query construction?</h4>
+<section id="slide-orgb7a1324" data-background="#FFFFFF">
+<h4 id="orgb7a1324">How important is manual query construction?</h4>
 
 <div class="figure">
 <p><img src="./images/results_window.png" alt="results_window.png" />
@@ -455,15 +455,15 @@ Removes the assumption that every feature is completely dissimilar to any other 
 </div>
 
 </section>
-<section id="slide-orgf344f38">
-<h4 id="orgf344f38">How important is the word embedding space?</h4>
+<section id="slide-org25e3921">
+<h4 id="org25e3921">How important is the word embedding space?</h4>
 <p>
 All spaces trained on a dataset by <a href="http://www.cs.cmu.edu/dbamman/latin.html">D. Bamman</a> (8.5 GB OCR&rsquo;d latin)
 </p>
 
 </section>
-<section id="slide-org060e050" data-background="#FFFFFF">
-<h4 id="org060e050"></h4>
+<section id="slide-org12298c3" data-background="#FFFFFF">
+<h4 id="org12298c3"></h4>
 
 <div class="figure">
 <p><img src="./images/results_emb.png" alt="results_emb.png" />
@@ -472,15 +472,15 @@ All spaces trained on a dataset by <a href="http://www.cs.cmu.edu/dbamman/latin.
 
 
 </section>
-<section id="slide-orga6fc01c">
-<h4 id="orga6fc01c">How does semantic information help (visualization)</h4>
+<section id="slide-org9b7b6e8">
+<h4 id="org9b7b6e8">How does semantic information help (visualization)</h4>
 <p>
 Compute the relative contribution of each word to the total similarity score    
 </p>
 
 </section>
-<section id="slide-orga4d732c" data-background="#FFFFFF">
-<h4 id="orga4d732c"></h4>
+<section id="slide-orga1cee06" data-background="#FFFFFF">
+<h4 id="orga1cee06"></h4>
 
 <div class="figure">
 <p><img src="./images/visibilis2.png" alt="visibilis2.png" />
@@ -489,8 +489,8 @@ Compute the relative contribution of each word to the total similarity score
 
 
 </section>
-<section id="slide-orge8751aa" data-background="#FFFFFF">
-<h4 id="orge8751aa"></h4>
+<section id="slide-orgaef5d37" data-background="#FFFFFF">
+<h4 id="orgaef5d37"></h4>
 
 <div class="figure">
 <p><img src="./images/botrum2.png" alt="botrum2.png" />
@@ -499,8 +499,8 @@ Compute the relative contribution of each word to the total similarity score
 
 
 </section>
-<section id="slide-org37440e4" data-background="#FFFFFF">
-<h4 id="org37440e4"></h4>
+<section id="slide-org145bb66" data-background="#FFFFFF">
+<h4 id="org145bb66"></h4>
 
 <div class="figure">
 <p><img src="./images/descendem2.png" alt="descendem2.png" />
@@ -509,8 +509,8 @@ Compute the relative contribution of each word to the total similarity score
 
 
 </section>
-<section id="slide-org3b97c26" data-background="#FFFFFF">
-<h4 id="org3b97c26"></h4>
+<section id="slide-org8a7e8ce" data-background="#FFFFFF">
+<h4 id="org8a7e8ce"></h4>
 
 <div class="figure">
 <p><img src="./images/intellexerint2.png" alt="intellexerint2.png" />
@@ -520,8 +520,8 @@ Compute the relative contribution of each word to the total similarity score
 </section>
 </section>
 <section>
-<section id="slide-org40debf0">
-<h2 id="org40debf0"><span class="section-number-2">7</span> Conclusions</h2>
+<section id="slide-org5c2fbad">
+<h2 id="org5c2fbad"><span class="section-number-2">7</span> Conclusions</h2>
 <ul>
 <li class="fragment roll-in">Difficulty
 <ul>

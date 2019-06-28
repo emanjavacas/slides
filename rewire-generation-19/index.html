@@ -1,0 +1,826 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8"/>
+<title>Experimental Adventures with Neural Text Generation</title>
+<meta name="author" content="(Enrique Manjavacas)"/>
+<style type="text/css">
+.underline { text-decoration: underline; }
+</style>
+<link rel="stylesheet" href="../externals/reveal.js/css/reveal.css"/>
+
+<link rel="stylesheet" href="../externals/reveal.js/css/theme/sky.css" id="theme"/>
+
+<link rel="stylesheet" href="./extra.css"/>
+
+<!-- If the query includes 'print-pdf', include the PDF print sheet -->
+<script>
+    if( window.location.search.match( /print-pdf/gi ) ) {
+        var link = document.createElement( 'link' );
+        link.rel = 'stylesheet';
+        link.type = 'text/css';
+        link.href = '../externals/reveal.js/css/print/pdf.css';
+        document.getElementsByTagName( 'head' )[0].appendChild( link );
+    }
+</script>
+<script type="text/javascript" src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+</head>
+<body>
+<div class="reveal">
+<div class="slides">
+<section id="sec-title-slide"><h1 class="title">Experimental Adventures with Neural Text Generation</h1><h2 class="author">Enrique Manjavacas</h2>
+</section>
+
+<section>
+<section id="slide-orgb275fcd">
+<h2 id="orgb275fcd"><span class="section-number-2">1</span> Introduction</h2>
+<div class="outline-text-2" id="text-1">
+</div>
+</section>
+</section>
+<section>
+<section id="slide-org60d3f0d">
+<h3 id="org60d3f0d">Who are we?</h3>
+<ul>
+<li>Folgert Karsdorp (Meertens Institute)</li>
+<li>Mike Kestemont (University of Antwerp)</li>
+<li>Enrique Manjavacas (University of Antwerp)</li>
+
+</ul>
+
+</section>
+</section>
+<section>
+<section id="slide-org720d417">
+<h3 id="org720d417">Why am I here?</h3>
+<p class="fragment (roll-in)">
+I am a PhD student on the field of Natural Language Processing (NLP)
+</p>
+<p class="fragment (roll-in)">
+Some projects in which I was involved have attracted some attention&#x2026;
+</p>
+
+</section>
+<section id="slide-orgb8610e5" data-background="#BD262B">
+<h4 id="orgb8610e5">AsiBot (Nederland Leest 2017; CPNB)</h4>
+
+<div class="figure">
+<p><img src="./images/asibot.png" alt="asibot.png" />
+</p>
+</div>
+
+</section>
+<section id="slide-org82b9d06" data-background="#481d48">
+<h4 id="org82b9d06"></h4>
+<p>
+<img src="./images/deepflow.png" alt="deepflow.png" />
+<img src="./images/lowlands.jpg" alt="lowlands.jpg" />
+</p>
+
+</section>
+</section>
+<section>
+<section id="slide-orge7b9708">
+<h3 id="orge7b9708">Text Generation</h3>
+<aside class="notes">
+<p>
+Common to those projects is the topic of text generation
+</p>
+
+</aside>
+
+</section>
+</section>
+<section>
+<section id="slide-orgb165c4a" data-background="#282A36">
+<h3 id="orgb165c4a"></h3>
+<aside class="notes">
+<ul>
+<li>Read a little bit -&gt; realistic text</li>
+<li>Goals: Highlight techniques behind the generation of such texts</li>
+<li>Goals: Limits to the creativity of such techniques</li>
+<li>Goals: Why do we find it interesting, what do we learn from it</li>
+
+</ul>
+
+</aside>
+
+<div class="figure">
+<p><img src="./images/shakespeare.png" alt="shakespeare.png" />
+</p>
+</div>
+
+</section>
+</section>
+<section>
+<section id="slide-orgd9d2518">
+<h3 id="orgd9d2518">Talk Content</h3>
+<ul>
+<li class="fragment roll-in"><b>Language Modeling</b>: Algorithm behind current renewed interest in Text Generation</li>
+<li class="fragment roll-in"><b>Human in the loop</b>: Learning from Human-Machine Interactions
+<ul>
+<li class="fragment roll-in">AsiBot: Writing SciFi in a co-creative interface</li>
+<li class="fragment roll-in">DeepFlow: How do humans perceive authenticity?</li>
+
+</ul></li>
+
+</ul>
+
+</section>
+</section>
+<section>
+<section id="slide-org1bd5a09">
+<h2 id="org1bd5a09"><span class="section-number-2">2</span> Language Modeling</h2>
+<ul>
+<li class="fragment roll-in">Classic Natural Language Processing (NLP) problem</li>
+<li class="fragment roll-in">Shows up in many applications (at least since the 80s):
+<ul>
+<li class="fragment roll-in">Machine Translation</li>
+<li class="fragment roll-in">Speech Recognition</li>
+<li class="fragment roll-in">Spelling Normalization</li>
+<li class="fragment roll-in">&#x2026;</li>
+
+</ul></li>
+
+</ul>
+
+</section>
+</section>
+<section>
+<section id="slide-org7e2bf6b">
+<h3 id="org7e2bf6b">Intuition</h3>
+<ul>
+<li class="fragment roll-in">We want a model that assigns high probability to plausible sentences like:
+<ul>
+<li class="fragment roll-in">&ldquo;The cat sat on the mat.&rdquo;</li>
+<li class="fragment roll-in">&ldquo;Pierre Vinken, 61 years old, will join the board as a non-executive director.&rdquo;</li>
+
+</ul></li>
+<li class="fragment roll-in">&#x2026; and low probability to unlikely sentences like:
+<ul>
+<li class="fragment roll-in">&ldquo;cat on mat The the sat&rdquo;</li>
+<li class="fragment roll-in">&ldquo;Colorless green ideas sleep furiously&rdquo;</li>
+
+</ul></li>
+
+</ul>
+
+</section>
+</section>
+<section>
+<section id="slide-orgba23f59">
+<h3 id="orgba23f59">Formalism</h3>
+<p>
+<b>Probability of a sentence</b> based on the chain-rule
+</p>
+
+<p>
+\(P(The, cat, sat, on, the, mat, .)\) =
+<br/><span class="fragment fade-in"> \(P(The | \text{<}start\text{>})\)
+</span><span class="fragment fade-in">  * \(P(cat | \text{<}start\text{>} , The)\) 
+</span><span class="fragment fade-in">  * \(\ldots\)
+</span><span class="fragment fade-in">  * \(P(. | \text{<}start\text{>} , \ldots , mat)\)
+</span>
+</p>
+
+</section>
+<section >
+<p>
+Estimating the <b>probability of a sentence</b>
+</p>
+
+<p>
+⟹ simplifies to ⟹
+</p>
+
+<p>
+Estimating the probability distribution of the <b>next word</b>
+</p>
+
+</section>
+</section>
+<section>
+<section id="slide-org69fabaf">
+<h3 id="org69fabaf">Text Generation</h3>
+<p>
+How do we use a Language Model to generate text?
+</p>
+
+</section>
+<section id="slide-org85d3405" data-transition="none">
+<h4 id="org85d3405">Sampling from the distribution</h4>
+
+</section>
+<section id="slide-orga91b801" data-transition="none">
+<h4 id="orga91b801"></h4>
+
+<div class="figure">
+<p><img src="./images/tobeornot1.png" alt="tobeornot1.png" />
+</p>
+</div>
+</section>
+<section  data-transition="none">
+
+<div class="figure">
+<p><img src="./images/tobeornot2.png" alt="tobeornot2.png" />
+</p>
+</div>
+</section>
+<section  data-transition="none">
+
+<div class="figure">
+<p><img src="./images/tobeornot3.png" alt="tobeornot3.png" />
+</p>
+</div>
+</section>
+<section  data-transition="none">
+
+<div class="figure">
+<p><img src="./images/tobeornot4.png" alt="tobeornot4.png" />
+</p>
+</div>
+</section>
+<section  data-transition="none">
+
+<div class="figure">
+<p><img src="./images/tobeornot5.png" alt="tobeornot5.png" />
+</p>
+</div>
+</section>
+<section  data-transition="none">
+
+<div class="figure">
+<p><img src="./images/tobeornot6.png" alt="tobeornot6.png" />
+</p>
+</div>
+</section>
+<section  data-transition="none">
+
+<div class="figure">
+<p><img src="./images/tobeornot7.png" alt="tobeornot7.png" />
+</p>
+</div>
+</section>
+<section  data-transition="none">
+
+<div class="figure">
+<p><img src="./images/tobeornot7b.png" alt="tobeornot7b.png" />
+</p>
+</div>
+</section>
+<section  data-transition="none">
+
+<div class="figure">
+<p><img src="./images/tobeornot8.png" alt="tobeornot8.png" />
+</p>
+</div>
+</section>
+<section  data-transition="none">
+
+<div class="figure">
+<p><img src="./images/tobeornot9.png" alt="tobeornot9.png" />
+</p>
+</div>
+</section>
+<section  data-transition="none">
+
+<div class="figure">
+<p><img src="./images/tobeornot10.png" alt="tobeornot10.png" />
+</p>
+</div>
+</section>
+<section  data-transition="none">
+
+<div class="figure">
+<p><img src="./images/tobeornot11.png" alt="tobeornot11.png" />
+</p>
+</div>
+</section>
+<section  data-transition="none">
+
+<div class="figure">
+<p><img src="./images/tobeornot12.png" alt="tobeornot12.png" />
+</p>
+</div>
+</section>
+<section  data-transition="none">
+
+<div class="figure">
+<p><img src="./images/tobeornot13.png" alt="tobeornot13.png" />
+</p>
+</div>
+</section>
+<section  data-transition="none">
+
+<div class="figure">
+<p><img src="./images/tobeornot14.png" alt="tobeornot14.png" />
+</p>
+</div>
+</section>
+<section  data-transition="none">
+
+<div class="figure">
+<p><img src="./images/tobeornot15.png" alt="tobeornot15.png" />
+</p>
+</div>
+
+</section>
+<section id="slide-org31fc3f1">
+<h4 id="org31fc3f1">Temperature</h4>
+<aside class="notes">
+<p>
+Margaret Boden: novelty, surprise (creative is not only novel but also unpredictable) and value (cited in <a href="https://medium.com/@mark_riedl/computational-creativity-as-meta-search-6cad95da923b">Mark Riedl</a>)
+</p>
+
+</aside>
+
+<p class="fragment (roll-in)">
+A modification of the original distribution (flattening/skewing)
+</p>
+
+</section>
+<section  data-transition="none">
+
+<div class="figure">
+<p><img src="./images/jupyter.png" alt="jupyter.png" />
+</p>
+</div>
+
+</section>
+<section id="slide-org21e0c74">
+<h4 id="org21e0c74">Temperature</h4>
+<ul>
+<li>Trade-off between model certainty and unexpected outcome</li>
+<li class="fragment roll-in">Enhancing model certainty leads to <b>boring</b> generations</li>
+
+</ul>
+
+</section>
+<section id="slide-org354de05" data-background="#282A36">
+<h4 id="org354de05"></h4>
+
+<div class="figure">
+<p><img src="./images/shakespeare_tau.png" alt="shakespeare_tau.png" />
+</p>
+</div>
+
+</section>
+<section id="slide-orgf50dc47">
+<h4 id="orgf50dc47">Temperature</h4>
+<ul>
+<li>Trade-off between model certainty and unexpected outcome</li>
+<li>Enhancing model certainty leads to <b>boring</b> generations</li>
+<li class="fragment roll-in">Unexpected outcome <b>might</b> lead to <b>interesting</b> generations&#x2026;</li>
+<li class="fragment roll-in">&#x2026; or just <b>junk</b></li>
+
+</ul>
+
+</section>
+<section id="slide-org6aa410e" data-background="#282A36">
+<h4 id="org6aa410e"></h4>
+
+<div class="figure">
+<p><img src="./images/shakespeare_tau_high.png" alt="shakespeare_tau_high.png" />
+</p>
+</div>
+
+</section>
+<section id="slide-org7e3fb6b">
+<h4 id="org7e3fb6b">Other tricks</h4>
+<ul>
+<li class="fragment roll-in">Enforcing <b>topic coherence</b> through interpolation</li>
+<li class="fragment roll-in">Enforcing <b>formal structure</b> (e.g. verse meter, rhyme)</li>
+
+</ul>
+
+</section>
+</section>
+<section>
+<section id="slide-org04f47ea">
+<h3 id="org04f47ea">Implementation</h3>
+<p>
+Train a model on a sample of sentences to predict the next word given the history
+</p>
+
+<p>
+<b>The cat sat on the &#x2026;?</b>
+</p>
+
+</section>
+<section id="slide-org6297a16">
+<h4 id="org6297a16">Markov chain (aka N-Gram Language Model)</h4>
+<ul>
+<li class="fragment roll-in">Count the number of times &ldquo;the cat sat on the&rdquo; occurs together with &ldquo;mat&rdquo;</li>
+<li class="fragment roll-in">Limit the history to the previous &ldquo;n&rdquo; words (or characters)</li>
+
+</ul>
+
+</section>
+<section id="slide-org59418a3">
+<h4 id="org59418a3">Recurrent Neural Network (RNN)</h4>
+<img src="images/rnnlm.svg" alt="RNNLM graph">
+
+</section>
+</section>
+<section>
+<section id="slide-org6db0fe9">
+<h3 id="org6db0fe9">Scale-up</h3>
+<p>
+It turns out that RNNs become better the bigger the dataset
+</p>
+
+</section>
+<section >
+<aside class="notes">
+<ul>
+<li>Sadly, the publication was accompanied by heavily criticized decision to not release the model which lead to a battery of exaggerated click-baity media claims.</li>
+<li>Improvement in state-of-the-art performance on down-stream tasks</li>
+
+</ul>
+
+</aside>
+<p>
+Scaled-up Language Model: OpenAI&rsquo;s <a href="https://openai.com/blog/better-language-models/">GPT-2</a> trained on 40GB
+</p>
+<p class="fragment (roll-in)">
+40GB is about 12,000 times Tolstoy&rsquo;s &ldquo;War and Peace&rdquo;
+</p>
+<p class="fragment (roll-in)">
+In comparison DeepFlow used 165MB
+</p>
+
+<ul>
+<li class="fragment roll-in">GPT-2 lead to increase in performance in downstream tasks</li>
+<li class="fragment roll-in">GPT-2 lead to increased sample realism of generated text</li>
+
+</ul>
+
+</section>
+<section id="slide-org8b79b3f" data-background="#404452">
+<h4 id="org8b79b3f"></h4>
+<aside class="notes">
+<ul>
+<li>unicorns met humans before the time of human civilization</li>
+<li>unicorns were created when a human and a unicorn met (circular)</li>
+
+</ul>
+
+</aside>
+
+<div class="figure">
+<p><img src="./images/gpt22.png" alt="gpt22.png" />
+</p>
+</div>
+
+</section>
+<section id="slide-orgb901a24">
+<h4 id="orgb901a24">Limitations</h4>
+<ul>
+<li class="fragment roll-in">Increased realism but lacking &ldquo;<a href="https://srconstantin.wordpress.com/2019/02/25/humans-who-are-not-concentrating-are-not-general-intelligences">unified world model</a>&rdquo;</li>
+<li class="fragment roll-in">Good at capturing surface-level correlations</li>
+<li class="fragment roll-in">Unsuccessfully reflecting the underlying logic</li>
+
+</ul>
+
+</section>
+</section>
+<section>
+<section id="slide-org6398caf">
+<h3 id="org6398caf">Are increasingly bigger Language Models increasingly creative?</h3>
+<aside class="notes">
+<ul>
+<li>If we consider creative purely imitative behavior, then increased realism leads to increased creativity
+A machine trained to produce artefacts similar to artefacts produced by creative humans is creative</li>
+<li>However, we should consider broader concepts of computational creativity</li>
+<li>For example, Margaret Boden&rsquo;s H vs P</li>
+<li>Furthermore, such systems rely on humans to cherry-pick creative examples, human-input (seed)</li>
+
+</ul>
+
+</aside>
+
+<ul>
+<li class="fragment roll-in"><font color="greeen"> ✔</font> Progress by a Turing-esque notion of creativity in terms of <b>imitation</b></li>
+<li class="fragment roll-in"><font color="red"> ✗</font> Approach rules out H-creativity; P-creativity can only be enforced at risk: temperature</li>
+<li class="fragment roll-in"><font color="red"> ✗</font> Lack of an ability to judge the value of its own output (cherry-picked examples)</li>
+<li class="fragment roll-in">Still, increased realism allows us to explore certain type of questions</li>
+
+</ul>
+
+</section>
+</section>
+<section>
+<section id="slide-org2fc80af">
+<h2 id="org2fc80af"><span class="section-number-2">3</span> Human in the loop</h2>
+<div class="outline-text-2" id="text-3">
+</div>
+</section>
+</section>
+<section>
+<section id="slide-orge9f23f2">
+<h3 id="orge9f23f2">Asibot</h3>
+<p>
+Ability of a Language Model to creatively assist a writer
+</p>
+
+</section>
+<section id="slide-org8322bbf">
+<h4 id="org8322bbf">Context</h4>
+<ul>
+<li class="fragment roll-in">CPNB request to participate in 2017 edition of &ldquo;Nederland Leest&rdquo;</li>
+<li class="fragment roll-in">Design a <b>co-creative</b> writing environment</li>
+<li class="fragment roll-in">Experiment with author Ronald Giphart who set to add a 10th story to Asimov&rsquo;s &ldquo;I, Robot&rdquo;</li>
+
+</ul>
+
+</section>
+<section id="slide-orgc6b713a" data-background="./images/asibot_app.png">
+<h4 id="orgc6b713a"></h4>
+<aside class="notes">
+<ul>
+<li>Feedback loop</li>
+<li>Generating text in a particular style</li>
+<li>Visual feedback on text edits: make the writer aware of the role of the pen-pal</li>
+
+</ul>
+
+</aside>
+
+</section>
+<section >
+<p>
+Still online (in Dutch): <a href="https://asibot.nl/">https://asibot.nl/</a>
+</p>
+
+</section>
+<section id="slide-orgb6c3a34">
+<h4 id="orgb6c3a34">Co-creativity</h4>
+<ul>
+<li class="fragment roll-in">Collaborative creative process involving multiple agents (including computers)</li>
+<li class="fragment roll-in">Four distinct roles for computational systems can be identified (Lubart, 2005):
+<ul>
+<li>Computer as <b>nanny</b>, <b>penpal</b>, <b>coach</b> or <b>colleague</b></li>
+
+</ul></li>
+<li class="fragment roll-in">Computer as <b>pen-pal</b>
+<ul>
+<li>A subordinate agent, that eases the objective of the user</li>
+
+</ul></li>
+<li class="fragment roll-in">Computer as <b>colleague</b>
+<ul>
+<li>An agent that challenges the user in a meaningful way</li>
+<li>A verifiable contribution to the end product</li>
+
+</ul></li>
+
+</ul>
+
+</section>
+<section id="slide-org0476d21">
+<h4 id="org0476d21">Creative usage of the interface</h4>
+<p class="fragment (roll-in)">
+R. Giphart&rsquo;s 10th story written in collaboration with AsiBot <a href="https://asibot.nl/giphart" class="fragment (roll-in)">https://asibot.nl/giphart</a>
+</p>
+
+</section>
+<section id="slide-org9abf020" data-background="./images/giphart.png">
+<h4 id="org9abf020"></h4>
+
+</section>
+</section>
+<section>
+<section id="slide-org4d1f68d">
+<h3 id="org4d1f68d">DeepFlow</h3>
+<ul>
+<li class="fragment roll-in">Learn about the characteristics of generated and authentic Hip-Hop</li>
+<li class="fragment roll-in">Learn about how people perceived both authentic and generated Hip-Hop</li>
+
+</ul>
+
+</section>
+<section >
+<p>
+Focus on Hip-Hop
+</p>
+<ul>
+<li class="fragment roll-in">Popular genre</li>
+<li class="fragment roll-in">Familiar topics and style</li>
+<li class="fragment roll-in">Loose but existing formal constraints (rhyme &amp; verse length)</li>
+<li class="fragment roll-in">Relatively easy to fake</li>
+
+</ul>
+
+</section>
+<section id="slide-org3231263" data-background="#000000">
+<h4 id="org3231263"></h4>
+
+<div class="figure">
+<p><img src="./images/advisory.png" alt="advisory.png" />
+</p>
+</div>
+
+</section>
+<section id="slide-org754daa0">
+<h4 id="org754daa0">Setup</h4>
+<ul>
+<li class="fragment roll-in">&ldquo;Bot or not&rdquo; game</li>
+<li class="fragment roll-in">Two types of questions</li>
+
+</ul>
+
+<p>
+<a href="https://deep-flow.nl">https://deep-flow.nl</a>
+</p>
+
+</section>
+<section id="slide-orgfa363a0" data-background="./images/type_a1.png">
+<h4 id="orgfa363a0"></h4>
+
+</section>
+<section id="slide-org065238f" data-background="./images/type_a2.png">
+<h4 id="org065238f"></h4>
+
+</section>
+<section id="slide-org1997c0c" data-background="./images/type_b1.png">
+<h4 id="org1997c0c"></h4>
+
+</section>
+<section id="slide-org0183438" data-background="./images/type_b2.png">
+<h4 id="org0183438"></h4>
+
+</section>
+<section id="slide-orgc2812b3">
+<h4 id="orgc2812b3">Statistics</h4>
+<ul>
+<li>3 days during LOWLANDS2018</li>
+<li>701 participants</li>
+<li>12,653 authenticity judgments</li>
+<li>6,381 generated vs 6,272 authentic</li>
+
+</ul>
+
+</section>
+<section id="slide-orgdeb62fc">
+<h4 id="orgdeb62fc">Illustrious Participants</h4>
+<img style="width:50%;" src="./images/player2.jpg"><img style="width:50%;" src="./images/player3.jpg">
+
+</section>
+<section id="slide-org547f66b">
+<h4 id="org547f66b">What do we learn from the data?</h4>
+
+
+</section>
+<section id="slide-orgacaa157" data-background="#000000">
+<h4 id="orgacaa157"><font color="greeen">Detection of generated Hip-Hop</font></h4>
+<aside class="notes">
+<ul>
+<li>Generally above chance level</li>
+<li>Type-A questions much easier (through comparison)</li>
+
+</ul>
+
+</aside>
+<p class="stretch"><img src="./images/identification.png"></p>
+
+</section>
+<section id="slide-org5b9ff78" data-background="#000000">
+<h4 id="org5b9ff78"><font color="greeen"> Does modeling-level matter?</font></h4>
+<aside class="notes">
+<ul>
+<li>Different levels produce different degrees of realism</li>
+<li>Hybrid modeling pushes it down towards chance-level</li>
+
+</ul>
+
+</aside>
+<p class="stretch"><img src="./images/genlevel.png"></p>
+
+</section>
+<section id="slide-org7ff335d" data-background="#FFFFFF">
+<h4 id="org7ff335d">Conditioning</h4>
+
+<div class="figure">
+<p><img src="./images/examples.png" alt="examples.png" />
+</p>
+</div>
+
+</section>
+<section id="slide-org14b4924" data-background="#000000">
+<h4 id="org14b4924"><font color="greeen"> Does conditioning matter?</font></h4>
+<aside class="notes">
+<ul>
+<li>Conditioning has different effects at different levels</li>
+
+</ul>
+
+</aside>
+<p class="stretch"><img src="./images/conditioning.png"></p>
+
+
+</section>
+<section id="slide-orgd728d04" data-background="#000000">
+<h4 id="orgd728d04"><font color="greeen">Human Perception Biases</font></h4>
+<aside class="notes">
+<ul>
+<li>Bias towards generated shifts towards authentic over time</li>
+<li>Underestimation of generated text &amp; overestimation of real text</li>
+<li>Shift can be explained because mistaking real for fake (embarrasing) is more costly than mistaking fake for real (pleasing)</li>
+
+</ul>
+
+</aside>
+<p class="stretch"><img src="./images/bias.png"></p>
+
+</section>
+<section id="slide-org2329e7f">
+<h4 id="org2329e7f">What makes text authentic?</h4>
+<p>
+Examine the correlation of linguistic properties and the text source:
+</p>
+<ul>
+<li class="fragment roll-in">Prosodic: <b>rhyme</b>, <b>alliteration</b></li>
+<li class="fragment roll-in">Lexical: <b>vocabulary diversity</b>, <b>word complexity</b></li>
+<li class="fragment roll-in">Syntactic: <b>sentence complexity</b>, <b>sentence length</b></li>
+
+</ul>
+
+</section>
+<section id="slide-orgdb48382" data-background="#000000">
+<h4 id="orgdb48382"><font color="greeen">What makes text authentic vs be perceived as authentic</font></h4>
+<aside class="notes">
+<ul>
+<li>Authentic text characterized by higher syntactic word and lexical complexity</li>
+<li>Generated text proactive with Non-PC words</li>
+<li>Surface cues not necessarily exploited (Non PC-words)</li>
+<li>Rhyme: a genre-specific feature points at real text and is perceived as such</li>
+
+</ul>
+
+</aside>
+<img style="width:50%;" src="./images/objective.png"><img style="width:50%;" src="./images/subjective.png">
+
+</section>
+</section>
+<section>
+<section id="slide-org4f318a4">
+<h2 id="org4f318a4"><span class="section-number-2">4</span> Conclusions</h2>
+<ul>
+<li class="fragment roll-in">Improved realism lets us experiment with (co-)creative processes</li>
+<li class="fragment roll-in">&#x2026; explore perception and characterization of authenticity</li>
+<li class="fragment roll-in">&#x2026; does not imply increasingly creative agents</li>
+<li class="fragment roll-in">&#x2026; but doesn&rsquo;t exclude it either (further work)</li>
+
+</ul>
+
+</section>
+</section>
+<section>
+<section id="slide-org9f775e4">
+<h2 id="org9f775e4"><span class="section-number-2">5</span> Thank you!</h2>
+</section>
+</section>
+</div>
+</div>
+<script src="../externals/reveal.js/lib/js/head.min.js"></script>
+<script src="../externals/reveal.js/js/reveal.js"></script>
+
+<script>
+// Full list of configuration options available here:
+// https://github.com/hakimel/reveal.js#configuration
+Reveal.initialize({
+
+controls: true,
+progress: true,
+history: true,
+center: true,
+slideNumber: 'c',
+rollingLinks: false,
+keyboard: true,
+overview: true,
+width: 1200,
+height: 800,
+margin: 0.05,
+minScale: 0.50,
+maxScale: 2.50,
+
+theme: Reveal.getQueryHash().theme, // available themes are in /css/theme
+transition: Reveal.getQueryHash().transition || 'slide', // default/cube/page/concave/zoom/linear/fade/none
+transitionSpeed: 'fast',
+multiplex: {
+    secret: '', // null if client
+    id: '', // id, obtained from socket.io server
+    url: '' // Location of socket.io server
+},
+
+// Optional libraries used to extend on reveal.js
+dependencies: [
+ { src: '../externals/reveal.js/lib/js/classList.js', condition: function() { return !document.body.classList; } },
+ { src: '../externals/reveal.js/plugin/markdown/marked.js', condition: function() { return !!document.querySelector( '[data-markdown]' ); } },
+ { src: '../externals/reveal.js/plugin/markdown/markdown.js', condition: function() { return !!document.querySelector( '[data-markdown]' ); } },
+ { src: '../externals/reveal.js/plugin/zoom-js/zoom.js', async: true, condition: function() { return !!document.body.classList; } },
+ { src: '../externals/reveal.js/plugin/notes/notes.js', async: true, condition: function() { return !!document.body.classList; } }]
+});
+</script>
+</body>
+</html>

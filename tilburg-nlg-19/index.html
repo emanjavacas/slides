@@ -1,0 +1,841 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8"/>
+<title>Neural Text Generation with Language Models</title>
+<meta name="author" content="(Enrique Manjavacas)"/>
+<style type="text/css">
+.underline { text-decoration: underline; }
+</style>
+<link rel="stylesheet" href="../externals/reveal.js/css/reveal.css"/>
+
+<link rel="stylesheet" href="../externals/reveal.js/css/theme/serif.css" id="theme"/>
+
+<link rel="stylesheet" href="./extra.css"/>
+
+<!-- If the query includes 'print-pdf', include the PDF print sheet -->
+<script>
+    if( window.location.search.match( /print-pdf/gi ) ) {
+        var link = document.createElement( 'link' );
+        link.rel = 'stylesheet';
+        link.type = 'text/css';
+        link.href = '../externals/reveal.js/css/print/pdf.css';
+        document.getElementsByTagName( 'head' )[0].appendChild( link );
+    }
+</script>
+<script type="text/javascript" src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+</head>
+<body>
+<div class="reveal">
+<div class="slides">
+<section id="sec-title-slide"><h1 class="title">Neural Text Generation with Language Models</h1><h2 class="author">Enrique Manjavacas</h2>
+</section>
+
+
+<section>
+<section id="slide-org6bf202a" data-background="#404452">
+<h2 id="org6bf202a"></h2>
+
+<div class="figure">
+<p><img src="./images/gpt2.png" alt="gpt2.png" />
+</p>
+</div>
+
+</section>
+<section >
+<ul>
+<li>Neural Model deemed too dangerous to be released!</li>
+<li class="fragment roll-in">Ludicrous amount of computing resources
+<ul>
+<li>Trained on 40GB: about 12,000 times Tolstoy&rsquo;s &ldquo;War and Peace&rdquo;</li>
+
+</ul></li>
+<li class="fragment roll-in">Scaling up leads to suprising levels of output coherence</li>
+
+</ul>
+
+</section>
+</section>
+<section>
+<section id="slide-org6741664" data-background="#404452" data-background-transition="none">
+<h2 id="org6741664"></h2>
+<aside class="notes">
+<ul>
+<li>unicorns met humans before the time of human civilization</li>
+<li>unicorns were created when a human and a unicorn met (circular)</li>
+
+</ul>
+
+</aside>
+
+<div class="figure">
+<p><img src="./images/gpt22.png" alt="gpt22.png" />
+</p>
+</div>
+
+</section>
+</section>
+<section>
+<section id="slide-orgbe4ee18">
+<h2 id="orgbe4ee18">Workhorse behind current NLP: Language Modeling</h2>
+<div class="outline-text-2" id="text-orgbe4ee18">
+</div>
+</section>
+</section>
+<section>
+<section id="slide-org70a7e17">
+<h3 id="org70a7e17">NLP&rsquo;s ImageNet moment</h3>
+<p>
+<a href="http://ruder.io/nlp-imagenet/">http://ruder.io/nlp-imagenet/</a> (Sebastian Ruder)
+</p>
+
+</section>
+</section>
+<section>
+<section id="slide-org6b7e5f2" data-background="./images/imagenetmoment.png">
+<h3 id="org6b7e5f2"></h3>
+</section>
+<section id="slide-orgc80b737" data-background="#ffffff">
+<h4 id="orgc80b737"></h4>
+
+<div class="figure">
+<p><img src="./images/imagenet_challenge.png" alt="imagenet_challenge.png" />
+</p>
+</div>
+
+</section>
+<section >
+<ul>
+<li>Database of image annotations for Object Classification (&gt; 1M)</li>
+<li class="fragment roll-in">In progress since 2009; collected with Mechanical Turk</li>
+<li class="fragment roll-in">ImageNet Large Scale Visual Recognition Challenge (ILSVRC)</li>
+<li class="fragment roll-in">Responsible for resurgence of Neural Networks: AlexNet (2012)</li>
+
+</ul>
+
+</section>
+<section id="slide-org8c24e0b" data-background="#f9f9f9">
+<h4 id="org8c24e0b"></h4>
+<p class="stretch"><img src="./images/imagenetresults.png"></p>
+
+</section>
+<section id="slide-org3cc53a8">
+<h4 id="org3cc53a8">ImageNet Moment: Pre-training</h4>
+<ul>
+<li class="fragment roll-in">Representational learning: let the algorithm find out what are good features</li>
+
+</ul>
+</section>
+<section  data-background="#f9f9f9">
+<p class="stretch"><img src="./images/feature_visualization.png"></>
+
+</section>
+<section id="slide-org144e80c">
+<h4 id="org144e80c">ImageNet Moment: Pre-training</h4>
+<ul>
+<li>Representational learning: let the algorithm find out what are good features</li>
+<li>Neural Network training can be improved by <b>Transfer Learning</b>:
+<ul>
+<li class="fragment roll-in"><b>Pre-train</b> on a related task with large quantities of data</li>
+<li class="fragment roll-in"><b>Fine-tune</b> on the desired task or &#x2026;</li>
+<li class="fragment roll-in">&#x2026; train a classifier on the learned features/representations</li>
+
+</ul></li>
+
+</ul>
+
+</section>
+<section id="slide-org8d65400">
+<h4 id="org8d65400">ImageNet Moment: Pre-training</h4>
+<ul>
+<li>Early ImageNet example: DeCAF (2014)</li>
+<li class="fragment roll-in">Apply features extracted from AlexNet to related tasks
+<ul>
+<li class="fragment roll-in">Scene recognition</li>
+<li class="fragment roll-in">Bird recognition</li>
+
+</ul></li>
+<li class="fragment roll-in">Achieved SoTA with linear classifiers and small training data</li>
+
+</ul>
+
+</section>
+<section id="slide-org72e3782" data-background="#ffffff">
+<h4 id="org72e3782">Language Modeling as pre-training task for NLP</h4>
+</section>
+<section >
+<p class="stretch"><img src="./images/elmo.png"></p>
+
+</section>
+<section id="slide-org145593d">
+<h4 id="org145593d">Chronology</h4>
+<ul>
+<li class="fragment roll-in">UMLFiT (Jan 2018): Universal Language Model Fine-tunning for Text Classification</li>
+<li class="fragment roll-in">ELMO (Mar 2018): Embeddings from Language Models (<b>Best paper award NAACL2018</b>)</li>
+<li class="fragment roll-in">BERT (Oct 2018): Bidirectional Encoder Representations from Transformers (<b>Best paper award NAACL2019</b>)</li>
+<li class="fragment roll-in">GPT-2 (Feb 2019): Generative Pre-Training</li>
+<li class="fragment roll-in">XLNet (Jun 2019): Generalized Autoregressive Pretraining for Language Understanding</li>
+<li class="fragment roll-in">ALBERT (Sep 2019): A Lite Bert for Self-Supervised Learning of Language Representations</li>
+
+</ul>
+
+</section>
+</section>
+<section>
+<section id="slide-orgd6287d6">
+<h3 id="orgd6287d6">Language Modeling</h3>
+<ul>
+<li class="fragment roll-in">Classic Natural Language Processing (NLP) task (back to the 80s)</li>
+<li class="fragment roll-in">Shows up as component of classic applications such as:
+<ul>
+<li class="fragment roll-in">Speech Recognition</li>
+<li class="fragment roll-in">Spelling Normalization</li>
+<li class="fragment roll-in">Word prediction (in cell-phones)</li>
+<li class="fragment roll-in">Machine Translation</li>
+<li class="fragment roll-in">&#x2026;</li>
+
+</ul></li>
+
+</ul>
+
+</section>
+<section id="slide-org5dcfc53">
+<h4 id="org5dcfc53">Intuition</h4>
+<ul>
+<li class="fragment roll-in">Model that assigns high probability to plausible sentences like:
+<ul>
+<li class="fragment roll-in">&ldquo;The cat sat on the mat.&rdquo;</li>
+<li class="fragment roll-in">&ldquo;Pierre Vinken, 61 years old, will join the board as a non-executive director.&rdquo;</li>
+
+</ul></li>
+<li class="fragment roll-in">&#x2026; and low probability to unlikely sentences like:
+<ul>
+<li class="fragment roll-in">&ldquo;cat on mat The the sat&rdquo;</li>
+<li class="fragment roll-in">&ldquo;Colorless green ideas sleep furiously&rdquo;</li>
+
+</ul></li>
+
+</ul>
+
+</section>
+<section id="slide-orgf860720">
+<h4 id="orgf860720">Formalism</h4>
+<p>
+Decompose the <b>probability of a sentence</b> based on the chain-rule
+</p>
+
+<p>
+\(P(The, cat, sat, on, the, mat, .)\) =
+<br/><span class="fragment fade-in"> \(P(The | \text{<}start\text{>})\)
+</span><span class="fragment fade-in">  * \(P(cat | \text{<}start\text{>} , The)\) 
+</span><span class="fragment fade-in">  * \(\ldots\)
+</span><span class="fragment fade-in">  * \(P(. | \text{<}start\text{>} , \ldots , mat)\)
+</span>
+</p>
+
+</section>
+<section >
+<p>
+Estimating the <b>probability of a sentence</b>
+</p>
+
+<p>
+⟹ simplifies to ⟹
+</p>
+
+<p>
+Estimating the probability distribution of the <b>next word</b>
+</p>
+
+</section>
+<section id="slide-org30638f4">
+<h4 id="org30638f4">Implementation: Count-based approaches</h4>
+<p>
+Markovian assumption
+</p>
+<blockquote nil>
+<p>
+The probability of a word at position \(n + 1\) depends on the \(n\) previous words (n-gram)
+</p>
+</blockquote>
+
+</section>
+<section >
+<ul>
+<li>Count-based estimation of probabilities</li>
+<li class="fragment roll-in">The art relies on extrapolating probabilities to unseen n-grams:
+<ul>
+<li class="fragment roll-in"><b>Smoothing</b>: distribute part of the probability mass over unseen n-grams</li>
+<li class="fragment roll-in"><b>Back-off models</b>: fall back to lower order models for unseen n-grams</li>
+
+</ul></li>
+
+</ul>
+
+</section>
+<section id="slide-orgb71e450" data-background="#ffffff">
+<h4 id="orgb71e450">Implementation: Neural-based approaches</h4>
+<img src="images/rnnlm.svg" alt="RNNLM graph">
+
+</section>
+</section>
+<section>
+<section id="slide-orgb3dd82c">
+<h3 id="orgb3dd82c">Fitness of Language Modeling as pre-training for NLP</h3>
+<aside class="notes">
+<p>
+Output variable depends on itself (at previous steps)
+</p>
+
+</aside>
+
+<ul>
+<li class="fragment roll-in">Autoregressive: LM does not require manual annotation (as opposed to ImageNet)</li>
+<li class="fragment roll-in">Requires modeling a lot of linguistic and extra-linguistic (word-knowledge) information</li>
+<li class="fragment roll-in">&ldquo;The service was poor but the food was &#x2026;&rdquo;
+<ul>
+<li>Syntax &amp; Semantics: &ldquo;but&rdquo; introduces contraposition</li>
+<li>Select conceptual field of positive food descriptors</li>
+
+</ul></li>
+<li class="fragment roll-in">Long-term dependencies (Linzen et al 2016):
+<ul>
+<li>&ldquo;Yet the <b>ratio</b> of <span class="underline">men</span> who <span class="underline">survive</span> to the <span class="underline">women</span> and <span class="underline">children</span> who survive <b>is</b> not &#x2026;&rdquo;</li>
+
+</ul></li>
+
+</ul>
+
+</section>
+</section>
+<section>
+<section id="slide-orgc01a3ef">
+<h2 id="orgc01a3ef">Language Models as Text Generators</h2>
+<div class="outline-text-2" id="text-orgc01a3ef">
+</div>
+</section>
+</section>
+<section>
+<section id="slide-org479ed73">
+<h3 id="org479ed73">Discriminative vs Generative Models</h3>
+<ul>
+<li class="fragment roll-in">Discriminative models target \(p(y | x)\)
+<ul>
+<li class="fragment roll-in">Directly model the conditional probability for classification</li>
+<li class="fragment roll-in">Discriminative models have better asymptotic error rates</li>
+
+</ul></li>
+<li class="fragment roll-in">Generative models target \(p(x | y)\).
+<ul>
+<li class="fragment roll-in">Model the data distribution and classify by applying Bayes rule</li>
+<li class="fragment roll-in">Generative models achieve their asymptotic error rate faster (less data)</li>
+
+</ul></li>
+<li class="fragment roll-in">Generative models allow for <b>sampling from the data distribution</b></li>
+
+</ul>
+
+</section>
+</section>
+<section>
+<section id="slide-orgf329f4d">
+<h3 id="orgf329f4d">Language Model as a Generator</h3>
+<blockquote nil>
+<p>
+A LM models the probability of the next word given the context
+</p>
+</blockquote>
+
+<ul>
+<li class="fragment roll-in">For a number of desired target words:
+<ul>
+<li class="fragment roll-in">Sample a word from the current model output distribution</li>
+<li class="fragment roll-in">Feed the new word back into the model</li>
+
+</ul></li>
+
+</ul>
+
+</section>
+<section >
+<p>
+Notebook 3.1
+</p>
+<p class="stretch"><img src="./images/jupyter.png"></p>
+
+</section>
+</section>
+<section>
+<section id="slide-org6970bfe">
+<h3 id="org6970bfe">Modeling Scales</h3>
+<div class="outline-text-3" id="text-org6970bfe">
+</div>
+</section>
+<section id="slide-orgd0e0317">
+<h4 id="orgd0e0317">1. Traditional Modeling Scales</h4>
+<ul>
+<li class="fragment roll-in">Word-level
+<ul>
+<li class="fragment roll-in"><font color="greeen"> ✔</font> Less steps involved in any word-to-word dependency</li>
+<li class="fragment roll-in"><font color="red"> ✗</font> Exploding vocabulary and memory footprint</li>
+
+</ul></li>
+<li class="fragment roll-in">Character-level
+<ul>
+<li class="fragment roll-in"><font color="red"> ✗</font> More steps involved in any word-to-word dependency</li>
+<li class="fragment roll-in"><font color="greeen"> ✔</font> Memory-wise unproblematic</li>
+
+</ul></li>
+
+</ul>
+
+</section>
+<section id="slide-org6f246f0">
+<h4 id="org6f246f0">2. Innovative Modeling Scales: Hierarchical Models</h4>
+<blockquote nil>
+<p>
+Best of both worlds? Model features at multiple scales and predict character-level output
+</p>
+</blockquote>
+
+</section>
+<section >
+<p class="stretch"><img src="images/hierarchicalLM.svg"></p>
+
+</section>
+<section id="slide-org59b0a09">
+<h4 id="org59b0a09">3. Innovative Modeling Scales: Subword Models</h4>
+<blockquote nil>
+<p>
+Exploit compositional morphology and word-frequency to limit the vocabulary yet maximize the number of words that the model can process
+</p>
+</blockquote>
+
+<ul>
+<li class="fragment roll-in">Different segmentation algorithms (motivation coming from NMT):
+<ul>
+<li>Byte-Pair Encoding (BPE)</li>
+<li>SentencePiece</li>
+
+</ul></li>
+<li class="fragment roll-in">Parametrized over the exact number of items in the vocabulary</li>
+<li class="fragment roll-in">Equivalent to character-level or word-level in the extremes</li>
+
+</ul>
+
+</section>
+<section >
+<p>
+(Example with vocabulary of 2000 words on a Guttenberg sonnets corpus)
+</p>
+<blockquote nil>
+<p>
+for thy neglect of truth in beauty dyed
+</p>
+</blockquote>
+
+</section>
+<section >
+<p>
+(Example with vocabulary of 2000 words on a Guttenberg sonnets corpus)
+</p>
+<blockquote nil>
+<p>
+for thy neglect of truth in beaut- -y dy- -ed
+</p>
+</blockquote>
+
+</section>
+</section>
+<section>
+<section id="slide-orgcce3bcc">
+<h3 id="orgcce3bcc">Sampling</h3>
+<ul>
+<li class="fragment roll-in">Generation is inherently a stochastic process</li>
+<li class="fragment roll-in">At each step, there is a small probability of sampling an unexpected token</li>
+<li class="fragment roll-in">Cumulatively: \(1 - p(w_1 < p^t, w_2 < p^t, ...)\)</li>
+
+</ul>
+
+</section>
+<section >
+<p>
+Probability of sampling at least 1 token with \(p^t<0.1\) over \(n\) tokens
+</p>
+
+<p class="stretch"><img src="images/strange.png"/></p>
+
+</section>
+<section id="slide-orgdf3b2f6">
+<h4 id="orgdf3b2f6">1. Temperature (\(\tau\))</h4>
+<blockquote nil>
+<p>
+Increase the certainty (skewness, spikiness) of the predictive distribution to avoid sampling low probability tokens
+</p>
+</blockquote>
+
+<ul>
+<li class="fragment roll-in">\(w_t \sim P(w_t| w_1, ..., w_{t-1})\)</li>
+<li class="fragment roll-in">\(w_t = \{p_1, p_2, ..., p_v\}\)</li>
+<li class="fragment roll-in">\(p_i^{\tau} = \frac{p_i / \tau}{\sum_j^V p_j / \tau}\)</li>
+
+</ul>
+
+</section>
+<section >
+<p>
+Trade-off between grammaticality and interest
+</p>
+<ul>
+<li class="fragment roll-in">Lower \(\tau\) leads to more grammatical but less interesting output</li>
+<li class="fragment roll-in">Higher \(\tau\) leads to increasingly wrong but more diverse output</li>
+
+</ul>
+
+</section>
+<section >
+Notebook 3.2, 3.3
+<p class="stretch"><img src="images/jupyter.png"/></p>
+
+</section>
+<section id="slide-org70b91d5">
+<h4 id="org70b91d5">2. Top-K Sampling (Fan et al., 2018)</h4>
+<ul>
+<li class="fragment roll-in">Temperature fails when the predictive distribution is already flat</li>
+<li class="fragment roll-in">Solution: truncate the distribution to the <b>top-k</b> components</li>
+
+</ul>
+
+</section>
+<section id="slide-org831665e">
+<h4 id="org831665e">3. Nucleus Sampling (Holtzman et al., 2019)</h4>
+<ul>
+<li class="fragment roll-in">Top-K Sampling is insensitive to changes in entropy of the distribution</li>
+<li class="fragment roll-in">Solution: Truncate the distribution to the <b>top-p</b> cumulative probability</li>
+
+</ul>
+
+</section>
+</section>
+<section>
+<section id="slide-org07d55d9">
+<h3 id="org07d55d9">Controlling Aspects of the Output</h3>
+<ul>
+<li>Conditional Embeddings</li>
+<li>Topic Mixture Models</li>
+<li>Sequential Conditioning</li>
+
+</ul>
+
+</section>
+<section id="slide-orged9436a">
+<h4 id="orged9436a">1. Conditional Embeddings (Ficler et al, 2017)</h4>
+<blockquote nil>
+<p>
+Conditional Language Model: probability of a sentence <b>conditioned on contextual variables</b> 
+</p>
+</blockquote>
+
+<p class="fragment (roll-in)">
+\(P(So, glad, to, see, this, movie, ! | Sentiment=Positive, ...)\)
+</p>
+
+</section>
+<section >
+<p>
+<b>Implementation</b>
+</p>
+
+<ul>
+<li class="fragment roll-in">Contextual variables correspond to a embedding matrices</li>
+<li class="fragment roll-in">At training, the correct embedding is concatenated to the input</li>
+<li class="fragment roll-in">At generation, the desired embedding is selected</li>
+
+</ul>
+
+</section>
+<section >
+<p>
+<b>Implementation with an RNN</b>
+</p>
+<p class="stretch"><img src="./images/rnnclm.svg"></p>
+
+</section>
+<section >
+<p>
+<b>Examples from Ficler et al. 2017</b>
+</p>
+<p class="stretch"><img src="./images/ficler.png"></p>
+
+</section>
+<section id="slide-orgc91159f">
+<h4 id="orgc91159f">1. Conditional Embeddings: <a href="https://www.deep-flow.nl">DeepFlow</a></h4>
+<ul>
+<li class="fragment roll-in">Project involving generated Hip-Hop and a large-scale experiment at LOWLANDS 2018</li>
+<li class="fragment roll-in">Interested in the ability of different models to fool humans</li>
+<li class="fragment roll-in">Use CLMs to control rhyme and verse length (rhythm)</li>
+
+</ul>
+
+</section>
+<section >
+<p>
+<b>Rhyme</b>: Condition on last stressed syllable nucleus (approximation!)
+</p>
+
+<small>
+<table id="table1" cellspacing="0">
+<tr>
+    <td>I</td>
+    <td>like</td>
+    <td>it</td>
+    <td>like</td>
+    <td>that!</td>
+    <td>Hey</td>
+    <td>windows</td>
+    <td>down</td>
+</tr>
+<tr>
+    <td>AY1</td>
+    <td>L-AY1-K</td>
+    <td>IH1-T</td>
+    <td>L-AY1-K</td>
+    <td>DH-AE1-T</td>
+    <td>H-EY1</td>
+    <td>W-IH1-N-D-OW0-Z</td>
+    <td>D-<strong>AW1</strong>-N</td>
+</tr>
+</table>
+</small>
+<br/>
+<br/>
+<small>
+<table id="table1" cellspacing="0">
+<tr>
+<td>I've</td>
+<td>got</td>
+<td>nothing</td>
+<td>to</td>
+<td>worry</td>
+<td>about</td>
+</tr>
+<tr>
+<td>AY1-V</td>
+<td>G-AA1-T</td>
+<td>N-AH1-TH-IH0-NG</td>
+<td>T-OW1</td>
+<td>W-ER1-IY0</td>
+<td>AH0-B-<strong>AW1</strong>-T</td>
+</tr>
+</table>
+</small>
+
+</section>
+<section >
+<p>
+<b>Rhythm</b>: Condition on verse length in number of syllables
+</p>
+
+<ul>
+<li class="fragment roll-in">Segment verse length into bins:
+<ul>
+<li>(1-10)</li>
+<li>(10-15)</li>
+<li>(15-20)</li>
+<li>&gt;20</li>
+
+</ul></li>
+
+</ul>
+
+</section>
+<section >
+<p>
+<b>Extract templates from original corpus for improved realism</b>
+</p>
+
+<p class="stretch"><img src="./images/deepflow.png"></p>
+
+</section>
+<section >
+<ul>
+<li>Can humans be fooled about artificial Hip-Hop?</li>
+<li class="fragment roll-in">Large-scale (+700) evaluation of 3(x2) models</li>
+
+</ul>
+
+</section>
+<section >
+<ul>
+<li>Can humans be fooled about artificial Hip-Hop?</li>
+<li>Large-scale (+700) evaluation of 3(x2) models</li>
+
+</ul>
+<p class="stretch"><img src="./images/genlevel-conditioning-kde.png"></p>    
+
+</section>
+<section id="slide-orgf6779a8">
+<h4 id="orgf6779a8">2. Topic Mixture Model</h4>
+<p>
+Topic Modeling with Non-Negative Matrix Factorization
+</p>
+
+</section>
+<section >
+<img src="images/topics.png">
+
+</section>
+<section >
+<p>
+Topic Modeling with Non-Negative Matrix Factorization
+</p>
+
+<img src="images/nmf.png" alt="word-coocurrence matrix">
+
+</section>
+<section >
+<p>
+Topic as a distribution over words
+</p>
+
+<img src="images/topic-distribution.png" alt="word-coocurrence matrix">
+
+</section>
+<section >
+<p>
+<b>Topic-LM Mixture Model</b> through interpolation
+</p>
+
+<ul>
+<li class="fragment roll-in">\(p_{LM}(w_t) = p_{LM}(w_t | w_1, ... w_{t-1})\)</li>
+<li class="fragment roll-in">\(p_{T_i}(w_t) = p(w_t | T_i)\)</li>
+<li class="fragment roll-in">\(p(w_t | w_1, ..., w_{t-1}, T_i) = \lambda * p_{LM}(w_t) + (1-\lambda) * p_{T_i}(w_t)\)</li>
+<li class="fragment roll-in">Sampling from the interpolation bias the model towards the selected topic(s)</li>
+
+</ul>
+
+</section>
+<section id="slide-orge756721">
+<h4 id="orge756721">3. Sequential Conditioning: Grover (2018; Zellers et al, 2019)</h4>
+<p>
+GPT-2 based model to generate/detect disinformation pieces
+</p>
+
+
+</section>
+<section id="slide-org1c2e042" data-background="#ffffff">
+<h4 id="org1c2e042">3. Sequential Conditioning: Grover (2018; Zellers et al, 2019)</h4>
+<img src="images/grover.png">
+
+</section>
+<section >
+<ul>
+<li>Intractable target: \(p(domain, date, authors, headline, w_1, ..., w_t)\)</li>
+<li class="fragment roll-in">Assume fixed dependency order and apply the LM decomposition:
+<ul>
+<li>\(p(w_t | domain, date, authors, headline, w_1, ..., w_{t-1})\)</li>
+
+</ul></li>
+<li class="fragment roll-in">Requires no changes to the LM architecture (only corpus reformatting)</li>
+<li class="fragment roll-in"><a href="https://grover.allenai.org/">https://grover.allenai.org/</a></li>
+
+</ul>
+
+</section>
+<section id="slide-org050215f">
+<h4 id="org050215f">3. Sequential Conditiong: CTRL(Keskar et al, 2019)</h4>
+<p>
+<a href="https://arxiv.org/pdf/1909.05858.pdf">CTRL paper</a>
+</p>
+
+<ul>
+<li class="fragment roll-in">Exploit semi-structured information from web-pages (control-codes):
+<ul>
+<li class="fragment roll-in">URL, html title, &#x2026;</li>
+<li class="fragment roll-in">Domain (Wikipedia, Gutenberg, Amazon Reviews, &#x2026;)</li>
+<li class="fragment roll-in">Subreddit (<code>r/computing</code>, <code>r/offmychest</code>, &#x2026;)</li>
+
+</ul></li>
+<li class="fragment roll-in">Prepend to the text snippets</li>
+
+</ul>
+
+</section>
+<section id="slide-org6fcf088" data-background="#ffffff">
+<h4 id="org6fcf088">3. Sequential Conditiong: CTRL(Keskar et al, 2019)</h4>
+<p class="stretch"><img src="./images/ctrl.png"></p>    
+
+</section>
+</section>
+<section>
+<section id="slide-orgd64bd8e">
+<h2 id="orgd64bd8e">Conclusions</h2>
+<ul>
+<li class="fragment roll-in">Free text generation is becoming increasingly realistic and pervasive
+<ul>
+<li class="fragment roll-in">Online comments, reviews [<a href="https://arxiv.org/pdf/1909.11974.pdf">https://arxiv.org/pdf/1909.11974.pdf</a>]</li>
+<li class="fragment roll-in">Newspaper content [<a href="https://arxiv.org/pdf/1905.12616.pdf">https://arxiv.org/pdf/1905.12616.pdf</a>]</li>
+<li class="fragment roll-in">Recipes: [<a href="https://arxiv.org/pdf/1909.00105.pdf">https://arxiv.org/pdf/1909.00105.pdf</a>]</li>
+
+</ul></li>
+<li class="fragment roll-in">Urgent topics include:
+<ul>
+<li class="fragment roll-in">Characterizing (the perception of) artificial texts by humans</li>
+<li class="fragment roll-in">Exploring new application domains for text generators</li>
+<li class="fragment roll-in">Protecting from malicious uses of artificial text</li>
+
+</ul></li>
+
+</ul>
+
+</section>
+</section>
+<section>
+<section id="slide-orge4ae55a">
+<h2 id="orge4ae55a">Questions!</h2>
+</section>
+</section>
+</div>
+</div>
+<script src="../externals/reveal.js/lib/js/head.min.js"></script>
+<script src="../externals/reveal.js/js/reveal.js"></script>
+
+<script>
+// Full list of configuration options available here:
+// https://github.com/hakimel/reveal.js#configuration
+Reveal.initialize({
+
+controls: true,
+progress: true,
+history: true,
+center: true,
+slideNumber: 'c',
+rollingLinks: false,
+keyboard: true,
+overview: true,
+width: 1200,
+height: 800,
+margin: 0.05,
+minScale: 0.50,
+maxScale: 2.50,
+
+theme: Reveal.getQueryHash().theme, // available themes are in /css/theme
+transition: Reveal.getQueryHash().transition || 'slide', // default/cube/page/concave/zoom/linear/fade/none
+transitionSpeed: 'fast',
+multiplex: {
+    secret: '', // null if client
+    id: '', // id, obtained from socket.io server
+    url: '' // Location of socket.io server
+},
+
+// Optional libraries used to extend on reveal.js
+dependencies: [
+ { src: '../externals/reveal.js/lib/js/classList.js', condition: function() { return !document.body.classList; } },
+ { src: '../externals/reveal.js/plugin/markdown/marked.js', condition: function() { return !!document.querySelector( '[data-markdown]' ); } },
+ { src: '../externals/reveal.js/plugin/markdown/markdown.js', condition: function() { return !!document.querySelector( '[data-markdown]' ); } },
+ { src: '../externals/reveal.js/plugin/zoom-js/zoom.js', async: true, condition: function() { return !!document.body.classList; } },
+ { src: '../externals/reveal.js/plugin/notes/notes.js', async: true, condition: function() { return !!document.body.classList; } }]
+});
+</script>
+</body>
+</html>

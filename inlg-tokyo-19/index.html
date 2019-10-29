@@ -9,7 +9,7 @@
 </style>
 <link rel="stylesheet" href="../externals/reveal.js/css/reveal.css"/>
 
-<link rel="stylesheet" href="../externals/reveal.js/css/theme/sky.css" id="theme"/>
+<link rel="stylesheet" href="../externals/reveal.js/css/theme/simple.css" id="theme"/>
 
 <link rel="stylesheet" href="./extra.css"/>
 
@@ -32,8 +32,8 @@
 </section>
 
 <section>
-<section id="slide-org11539dc">
-<h2 id="org11539dc"><span class="section-number-2">1</span> Summary</h2>
+<section id="slide-org3c3f676">
+<h2 id="org3c3f676"><span class="section-number-2">1</span> Summary</h2>
 <ul>
 <li>Open-ended Text Generation</li>
 <li>Generation of Hip-Hop with <b>Conditional Language Models</b>
@@ -49,8 +49,8 @@
 </section>
 </section>
 <section>
-<section id="slide-org8e930cd">
-<h2 id="org8e930cd"><span class="section-number-2">2</span> Open-ended Text Generation</h2>
+<section id="slide-org0a1a22e">
+<h2 id="org0a1a22e"><span class="section-number-2">2</span> Open-ended Text Generation</h2>
 <aside class="notes">
 <ul>
 <li>no specific goal (only general)</li>
@@ -70,8 +70,8 @@
 </section>
 </section>
 <section>
-<section id="slide-orgfd0ec6d">
-<h3 id="orgfd0ec6d">Motivation</h3>
+<section id="slide-orgfbe8e18">
+<h3 id="orgfbe8e18">Motivation</h3>
 <aside class="notes">
 <ul>
 <li>Modeling authenticity judgments</li>
@@ -111,15 +111,15 @@
 </section>
 </section>
 <section>
-<section id="slide-orgef6f4a1">
-<h2 id="orgef6f4a1"><span class="section-number-2">3</span> Generation of Hip-Hop Lyrics</h2>
+<section id="slide-org05e4aa2">
+<h2 id="org05e4aa2"><span class="section-number-2">3</span> Generation of Hip-Hop Lyrics</h2>
 <div class="outline-text-2" id="text-3">
 </div>
 </section>
 </section>
 <section>
-<section id="slide-orgf624f7d">
-<h3 id="orgf624f7d">Why Hip-Hop?</h3>
+<section id="slide-orgaa104ca">
+<h3 id="orgaa104ca">Why Hip-Hop?</h3>
 <ul>
 <li class="fragment roll-in">Relatively unchallenging
 <ul>
@@ -135,8 +135,8 @@
 </section>
 </section>
 <section>
-<section id="slide-org8fc95a1">
-<h3 id="org8fc95a1">Dataset</h3>
+<section id="slide-org9eac7f6">
+<h3 id="org9eac7f6">Dataset</h3>
 
 <div class="figure">
 <p><img src="./images/ohhlah.png" alt="ohhlah.png" />
@@ -144,8 +144,8 @@
 </div>
 
 </section>
-<section id="slide-org1619baf">
-<h4 id="org1619baf">Statistics</h4>
+<section id="slide-org8b38af7">
+<h4 id="org8b38af7">Statistics</h4>
 <table border="2" cellspacing="0" cellpadding="6" rules="groups" frame="hsides">
 
 
@@ -211,8 +211,8 @@
 </table>
 
 </section>
-<section id="slide-orgca79f3a">
-<h4 id="orgca79f3a">Pre-processing</h4>
+<section id="slide-org6f30405">
+<h4 id="org6f30405">Pre-processing</h4>
 <ul>
 <li class="fragment roll-in"><b>Tokenization</b> with <a href="https://languagemachines.github.io/ucto/">UCTO</a></li>
 <li class="fragment roll-in">LSTM-based <b>syllabifier</b> trained on the CMU Dictionary
@@ -230,8 +230,8 @@
 </ul>
 
 </section>
-<section id="slide-org10d62ca">
-<h4 id="org10d62ca">Statistics (Updated)</h4>
+<section id="slide-org526819c">
+<h4 id="org526819c">Statistics (Updated)</h4>
 <table border="2" cellspacing="0" cellpadding="6" rules="groups" frame="hsides">
 
 
@@ -280,8 +280,8 @@
 </section>
 </section>
 <section>
-<section id="slide-org2978ea3">
-<h3 id="org2978ea3">Text Generation Architectures</h3>
+<section id="slide-org3cd9b2b">
+<h3 id="org3cd9b2b">Text Generation Architectures</h3>
 <p>
 \(P(The, cat, sat, on, the, mat, .)\) =
 <br/><span class="fragment fade-in"> \(P(The | \text{<}start\text{>})\)
@@ -294,13 +294,13 @@
 </section>
 </section>
 <section>
-<section id="slide-org9140000">
-<h3 id="org9140000">Generating at different scales</h3>
-<div class="outline-text-3" id="text-org9140000">
+<section id="slide-orgde53cd6">
+<h3 id="orgde53cd6">Generating at different scales</h3>
+<div class="outline-text-3" id="text-orgde53cd6">
 </div>
 </section>
-<section id="slide-orgc9215e8">
-<h4 id="orgc9215e8">Character-level</h4>
+<section id="slide-org5b77406">
+<h4 id="org5b77406">Character-level</h4>
 <div class="container">
   <div class="col">
     <ul>
@@ -315,8 +315,8 @@
 </div>
 
 </section>
-<section id="slide-org000ded2">
-<h4 id="org000ded2">Syllable-level</h4>
+<section id="slide-orge9d65b6">
+<h4 id="orge9d65b6">Syllable-level</h4>
 <div class="container">
   <div class="col">
     <ul>
@@ -331,8 +331,8 @@
 </div>
 
 </section>
-<section id="slide-org73dff26">
-<h4 id="org73dff26">Hierarchical Model</h4>
+<section id="slide-org07b7fb5">
+<h4 id="org07b7fb5">Hierarchical Model</h4>
 <div class="container">
   <div class="col">
     <ul>
@@ -356,8 +356,8 @@
 </section>
 </section>
 <section>
-<section id="slide-orge432fbc">
-<h3 id="orge432fbc">Conditional Language Models</h3>
+<section id="slide-org2a57ea7">
+<h3 id="org2a57ea7">Conditional Language Models</h3>
 <ul>
 <li class="fragment roll-in">Conditioning on sentence-level information during training/decoding</li>
 <li class="fragment roll-in">Allows to control specific properties of the output (Ficler et al. 2017)</li>
@@ -365,8 +365,8 @@
 </ul>
 
 </section>
-<section id="slide-orgf84e891">
-<h4 id="orgf84e891">Conditional Embeddings</h4>
+<section id="slide-org35d76dd">
+<h4 id="org35d76dd">Conditional Embeddings</h4>
 <div class="container">
   <div class="col">
     <ul>
@@ -385,8 +385,8 @@
 </div>
 
 </section>
-<section id="slide-org8aa866c">
-<h4 id="org8aa866c">Verse Length (≈ Rhythm)</h4>
+<section id="slide-org8b88af8">
+<h4 id="org8b88af8">Verse Length (≈ Rhythm)</h4>
 <aside class="notes">
 <p>
 Contrasts to enforcing rhyme through contraint decoding (search)
@@ -410,8 +410,8 @@ Condition on verse length in number of syllables
 </ul>
 
 </section>
-<section id="slide-org3e39470">
-<h4 id="org3e39470">Phonological Ending (≈ Rhyme)</h4>
+<section id="slide-orgf7655d2">
+<h4 id="orgf7655d2">Phonological Ending (≈ Rhyme)</h4>
 <p>
 Condition on last stressed syllable nucleus
 </p>
@@ -472,8 +472,8 @@ Condition on last stressed syllable nucleus
 </section>
 </section>
 <section>
-<section id="slide-orgb24eeb1">
-<h3 id="orgb24eeb1">Conditional Templates</h3>
+<section id="slide-org11f61ea">
+<h3 id="org11f61ea">Conditional Templates</h3>
 <p>
 Formal conditions extracted from authentic text
 </p>
@@ -481,13 +481,13 @@ Formal conditions extracted from authentic text
 </section>
 </section>
 <section>
-<section id="slide-org000144c" data-background="#ffffff">
-<h3 id="org000144c">Examples</h3>
+<section id="slide-org7555002" data-background="#ffffff">
+<h3 id="org7555002">Examples</h3>
 <p class="stretch"><img src="./images/examples.png"></p>
 
 </section>
-<section id="slide-org9094cb9">
-<h4 id="org9094cb9">Full Generation Procedure</h4>
+<section id="slide-org890e788">
+<h4 id="org890e788">Full Generation Procedure</h4>
 <ul>
 <li class="fragment roll-in">Sample <code>n</code> consecutive verses from training corpus (3-4)</li>
 <li class="fragment roll-in">Extract template (phonological endings and lengths)</li>
@@ -499,8 +499,8 @@ Formal conditions extracted from authentic text
 </section>
 </section>
 <section>
-<section id="slide-org736c838">
-<h3 id="org736c838">Training</h3>
+<section id="slide-org2fc7444">
+<h3 id="org2fc7444">Training</h3>
 <table border="2" cellspacing="0" cellpadding="6" rules="groups" frame="hsides">
 
 
@@ -570,8 +570,8 @@ Formal conditions extracted from authentic text
 </section>
 </section>
 <section>
-<section id="slide-org6968e02">
-<h2 id="org6968e02"><span class="section-number-2">4</span> Research Questions</h2>
+<section id="slide-org479c776">
+<h2 id="org479c776"><span class="section-number-2">4</span> Research Questions</h2>
 <ul>
 <li class="fragment roll-in">1. a) Does modeling scale affect output quality?</li>
 <li class="fragment roll-in">1. b) Are conditional templates effective for text realism?</li>
@@ -583,8 +583,8 @@ Formal conditions extracted from authentic text
 </section>
 </section>
 <section>
-<section id="slide-org60a37df">
-<h3 id="org60a37df">Large-scale Evaluation</h3>
+<section id="slide-org75addef">
+<h3 id="org75addef">Large-scale Evaluation</h3>
 <ul>
 <li class="fragment roll-in">Gamification (serious game)
 <ul>
@@ -598,20 +598,20 @@ Formal conditions extracted from authentic text
 </ul>
 
 </section>
-<section id="slide-org1de6dd8" data-background="#ffffff">
-<h4 id="org1de6dd8"></h4>
+<section id="slide-orgcb72641" data-background="#ffffff">
+<h4 id="orgcb72641"></h4>
 <p class="stretch"><img src="./images/image2.png"></p>
 
 </section>
-<section id="slide-orgd023fca" data-background="#ffffff">
-<h4 id="orgd023fca"></h4>
+<section id="slide-org3cdf6e8" data-background="#ffffff">
+<h4 id="org3cdf6e8"></h4>
 <p class="stretch"><img src="./images/image4.png"></p>
 
 </section>
 </section>
 <section>
-<section id="slide-orga28fc9d">
-<h3 id="orga28fc9d">1. Modeling User Response</h3>
+<section id="slide-orgc29001a">
+<h3 id="orgc29001a">1. Modeling User Response</h3>
 <p>
 <b>Modeling scale</b>
 </p>
@@ -626,8 +626,8 @@ Formal conditions extracted from authentic text
 <p class="stretch"><img src="./images/genlevel-conditioning-kde.png"></p>
 
 </section>
-<section id="slide-org42167de">
-<h4 id="org42167de">Discussion</h4>
+<section id="slide-org9612c49">
+<h4 id="org9612c49">Discussion</h4>
 <ul>
 <li class="fragment roll-in">Hierarchical Modelling is effective in isolation</li>
 <li class="fragment roll-in">However, the bigger factor is conditioning templates</li>
@@ -638,8 +638,8 @@ Formal conditions extracted from authentic text
 </section>
 </section>
 <section>
-<section id="slide-orgd43f47f">
-<h3 id="orgd43f47f">2. Modeling Scale and Conditioning</h3>
+<section id="slide-orgfd77777">
+<h3 id="orgfd77777">2. Modeling Scale and Conditioning</h3>
 <p>
 Quantify the ability of the models to succesfully generate the requested template
 </p>
@@ -721,8 +721,8 @@ Quantify the ability of the models to succesfully generate the requested templat
 </section>
 </section>
 <section>
-<section id="slide-org2f82b35">
-<h3 id="org2f82b35">3. Characterizing Modeling Scales (Unconditioned)</h3>
+<section id="slide-org94433b5">
+<h3 id="org94433b5">3. Characterizing Modeling Scales (Unconditioned)</h3>
 <aside class="notes">
 <ul>
 <li>Modeling conditioned models increases the relevance of rhyme</li>
@@ -757,22 +757,21 @@ Quantify the ability of the models to succesfully generate the requested templat
 <b>Feature Importance</b>
 </p>
 <ul>
-<li>Random Forest Classifier for feature importance</li>
-<li>Class-directionality expressed in terms of odds-ratios from a linear model</li>
+<li class="fragment roll-in">Random Forest Classifier for feature importance</li>
+<li class="fragment roll-in">Class-directionality expressed in terms of odds-ratios from a linear model</li>
 
 </ul>
 
 </section>
 <section >
-
-<div class="figure">
-<p><img src="./images/RF.png" alt="RF.png" />
+<p>
+<b>Results</b>
+<img src="./images/RF.png" alt="RF.png" />
 </p>
-</div>
 
 </section>
-<section id="slide-org0bd2fbc">
-<h4 id="org0bd2fbc">Discussion</h4>
+<section id="slide-org193e8ee">
+<h4 id="org193e8ee">Discussion</h4>
 <ul>
 <li class="fragment roll-in">HLM: increased lexical diversity (related to morphologically complexity)</li>
 <li class="fragment roll-in">Character: improved surface-level features (prosody)</li>
@@ -782,8 +781,8 @@ Quantify the ability of the models to succesfully generate the requested templat
 </section>
 </section>
 <section>
-<section id="slide-org77d1979">
-<h2 id="org77d1979"><span class="section-number-2">5</span> Open Questions</h2>
+<section id="slide-org2ce7377">
+<h2 id="org2ce7377"><span class="section-number-2">5</span> Open Questions</h2>
 <ul>
 <li class="fragment roll-in">Exploration of hierarchical models
 <ul>
@@ -798,8 +797,8 @@ Quantify the ability of the models to succesfully generate the requested templat
 </section>
 </section>
 <section>
-<section id="slide-org53bf6e2">
-<h2 id="org53bf6e2"><span class="section-number-2">6</span> Thank you &amp; Questions?</h2>
+<section id="slide-orgca21923">
+<h2 id="orgca21923"><span class="section-number-2">6</span> Thank you &amp; Questions?</h2>
 </section>
 </section>
 </div>
